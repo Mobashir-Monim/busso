@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class UserAttribute extends Model
 {
     use HasFactory;
+    use \App\Models\Concerns\UsesUuid;
 }
