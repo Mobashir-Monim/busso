@@ -15,6 +15,8 @@ class CreateUserAttributesTable extends Migration
     {
         Schema::create('user_attributes', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('name', 80);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
