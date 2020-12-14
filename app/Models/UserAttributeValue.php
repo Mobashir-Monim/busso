@@ -8,5 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class UserAttributeValue extends Model
 {
     use HasFactory;
-    use \App\Models\Concerns\UsesUuid;
+    use Concerns\UsesUuid;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function userAttribute()
+    {
+        return $this->belongsTo(UserAttribute::class);
+    }
 }

@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-    use \App\Models\Concerns\UsesUuid;
+    use Concerns\UsesUuid;
 
     /**
      * The attributes that are mass assignable.
@@ -41,4 +41,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function uav()
+    {
+        return $this->hasMany(UserAttributeValue::class);
+    }
+
+    public function oauth()
+    {
+        return $this->morphOne(OauthCliet::class, 'user');
+    }
+
+    public function availableAttributes()
+    {
+        return $this->hasManyThrough(UserAttribute::class, UserAttributeValue::class);
+    }
 }

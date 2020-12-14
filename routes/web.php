@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    $saml_entity = App\Models\SAMLEntity::create([]);
-
-    dd($saml_entity);
+    dd('nothing in test');
 })->name('tester');
 
 Route::get('/', function () {

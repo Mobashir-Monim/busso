@@ -9,7 +9,12 @@ use Illuminate\Support\Str;
 class SAMLEntity extends Model
 {
     use HasFactory;
-    use \App\Models\Concerns\UsesSecureSAML;
+    use Concerns\UsesSecureSAML;
 
     protected $guarded = ['id', 'folder', 'key', 'cert'];
+
+    public function group()
+    {
+        return $this->belongsTo(ResourceGroup::class);
+    }
 }

@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resource extends Model
+class OauthClient extends Model
 {
     use HasFactory;
     use Concerns\UsesUuid;
 
-    protected $fillable = ['name', 'description', 'uri'];
-
-    public function group()
+    public function entity()
     {
-        return $this->belongsTo(ResourceGroup::class);
+        return $this->morphTo(__FUNCTION__, 'user_type', 'user_id');
     }
 }
