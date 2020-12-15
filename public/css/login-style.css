@@ -1,0 +1,29 @@
+.h-60 {
+    min-height: 80vh !important;
+}
+
+.sso-inp-label {
+    display: block;
+    text-align: right;
+    font-size: 0.8em;
+    color: #bbb;
+}
+
+.sso-inp {
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+}
+
+::-webkit-input-placeholder {
+    text-align:right;
+}
+
+input:-moz-placeholder {
+    text-align:right;
+}
+
+.card-login {
+    box-shadow: 5px 5px 5px #aaa;
+    border-radius: 15px !important;
+}
