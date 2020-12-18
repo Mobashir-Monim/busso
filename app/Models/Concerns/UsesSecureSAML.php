@@ -11,7 +11,7 @@ trait UsesSecureSAML
     {
         static::creating(function ($model) {
             if (!$model->getKey()) {
-                $model->{$model->getKeyName()} = (string) Str::random(rand(100, 250));
+                $model->{$model->getKeyName()} = self::setRandName('id');
                 $model->folder = self::setRandName('folder');
                 $model->key = self::setRandName('key');
                 $model->cert = self::setRandName('cert');

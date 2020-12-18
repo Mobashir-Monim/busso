@@ -12,6 +12,11 @@ class OauthClient extends Model
 
     public function entity()
     {
+        Relation::morphMap([
+            'resource_group' => 'App\Models\ResourceGroup',
+            'user' => 'App\Models\User',
+        ]);
+
         return $this->morphTo(__FUNCTION__, 'user_type', 'user_id');
     }
 }

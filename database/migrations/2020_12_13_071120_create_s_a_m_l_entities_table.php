@@ -15,10 +15,13 @@ class CreateSAMLEntitiesTable extends Migration
     {
         Schema::create('s_a_m_l_entities', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->uuid('resource_id');
+            $table->uuid('resource_group_id');
             $table->string('folder');
             $table->string('key');
             $table->string('cert');
+            $table->text('doc')->nullable();
+            $table->text('sig')->nullable();
+            $table->text('acs')->nullable();
             $table->timestamps();
         });
     }
