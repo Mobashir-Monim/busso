@@ -15,6 +15,11 @@ class SAMLEntity extends Model
 
     public function group()
     {
-        return $this->belongsTo(ResourceGroup::class);
+        return $this->belongsTo(ResourceGroup::class, 'resource_group_id');
+    }
+
+    public function getMetadataDocNameAttribute()
+    {
+        return hash('sha256', json_encode([$this->attributes['folder'], $this->attributes['key'], $this->attributes['cert']]));
     }
 }

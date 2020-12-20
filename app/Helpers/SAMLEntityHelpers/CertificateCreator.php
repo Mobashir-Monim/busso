@@ -46,11 +46,11 @@ class CertificateCreator extends Helper
 
     public function storeCertificates($entity, $disk)
     {
-        if (!Storage::disk($disk)->exists("cetificates")) Storage::disk($disk)->makeDirectory("cetificates", 0700, true);
-        if (!Storage::disk($disk)->exists("cetificates/$entity->folder")) Storage::disk($disk)->makeDirectory("cetificates/$entity->folder", 0700, true);
-        if (Storage::disk($disk)->exists("cetificates/$entity->folder/$entity->key.pem")) Storage::delete("cetificates/$entity->folder/$entity->key.pem");
-        if (Storage::disk($disk)->exists("cetificates/$entity->folder/$entity->cert.crt")) Storage::delete("cetificates/$entity->folder/$entity->cert.crt");
-        Storage::disk($disk)->put("cetificates/$entity->folder/$entity->key.pem", $this->key, 0600);
-        Storage::disk($disk)->put("cetificates/$entity->folder/$entity->cert.crt", $this->crt, 0600);
+        if (!Storage::disk($disk)->exists("certificates")) Storage::disk($disk)->makeDirectory("certificates", 0700, true);
+        if (!Storage::disk($disk)->exists("certificates/$entity->folder")) Storage::disk($disk)->makeDirectory("certificates/$entity->folder", 0700, true);
+        if (Storage::disk($disk)->exists("certificates/$entity->folder/$entity->key.pem")) Storage::delete("certificates/$entity->folder/$entity->key.pem");
+        if (Storage::disk($disk)->exists("certificates/$entity->folder/$entity->cert.crt")) Storage::delete("certificates/$entity->folder/$entity->cert.crt");
+        Storage::disk($disk)->put("certificates/$entity->folder/$entity->key.pem", $this->key, 0600);
+        Storage::disk($disk)->put("certificates/$entity->folder/$entity->cert.crt", $this->crt, 0600);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Helpers\SSOHelpers;
 
 use App\Helpers\Helper;
 use App\Helpers\SAMLEntityHelpers\CertificateCreator;
+use App\Helpers\SAMLEntityHelpers\MetadataCreator;
 use App\Models\SAMLEntity;
 use App\Models\ResourceGroup as RG;
 use Laravel\Passport\Passport;
@@ -27,6 +28,9 @@ class RGOnboarder extends Helper
     {
         $entity = SAMLENtity::create(['resource_group_id' => $this->group->id]);
         new CertificateCreator($pass, $entity);
+        (new MetadataCreator($entity))->createMetadata();
+        // new CertificateCreator($pass, $entity, $disk = 's3);
+        // (new MetadataCreator($entity, $disk = 's3))->createMetadata();
     }
 
     public function createOauthEntity($request)

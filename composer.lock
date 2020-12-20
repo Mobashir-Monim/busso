@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "22c4bf1fb48f280f39f8b14dd8511bc7",
+    "content-hash": "41a5d669c700278c3c37b8a3c52c00d4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1913,6 +1913,82 @@
             "time": "2020-12-10T11:35:44+00:00"
         },
         {
+            "name": "mobashirmonim/lightsaml",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Mobashir-Monim/lightsaml.git",
+                "reference": "5cc0f4e3b4f5a9a5692c3e33fbf4284574bdabb3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Mobashir-Monim/lightsaml/zipball/5cc0f4e3b4f5a9a5692c3e33fbf4284574bdabb3",
+                "reference": "5cc0f4e3b4f5a9a5692c3e33fbf4284574bdabb3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": ">=5.6",
+                "robrichards/xmlseclibs": "~2.0|~3.0",
+                "symfony/event-dispatcher": "~5.0",
+                "symfony/http-foundation": "^5.0"
+            },
+            "require-dev": {
+                "monolog/monolog": "~1.3",
+                "phpunit/phpunit": "~5.7|~7",
+                "pimple/pimple": "~3.0",
+                "symfony/css-selector": "~5.0",
+                "symfony/dom-crawler": "~5.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LightSaml\\Tests\\": "tests/",
+                    "LightSaml\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Milos Tomic",
+                    "email": "tmilos@gmail.com",
+                    "homepage": "https://github.com/tmilos/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Forlabs Team",
+                    "email": "hello@forlabs.fr",
+                    "homepage": "https://github.com/4Labs/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mobashir Monim",
+                    "email": "mobashirmonim@gmail.com",
+                    "homepage": "https://github.com/Mobashir-Monim",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Fork of Light SAML 2.0 PHP library",
+            "homepage": "https://www.lightsaml.com/",
+            "keywords": [
+                "PHP",
+                "SAML 2.0",
+                "Single Logout",
+                "Single SignOn",
+                "library",
+                "lightSAML"
+            ],
+            "support": {
+                "issues": "https://github.com/qikker-online/lightSAML/issues",
+                "source": "https://github.com/qikker-online/lightSAML",
+                "docs": "http://www.lightsaml.com/LightSAML-Core/"
+            },
+            "time": "2020-12-20T09:22:02+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "2.2.0",
             "source": {
@@ -2010,16 +2086,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.42.0",
+            "version": "2.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "d0463779663437392fe42ff339ebc0213bd55498"
+                "reference": "d32c57d8389113742f4a88725a170236470012e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d0463779663437392fe42ff339ebc0213bd55498",
-                "reference": "d0463779663437392fe42ff339ebc0213bd55498",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/d32c57d8389113742f4a88725a170236470012e2",
+                "reference": "d32c57d8389113742f4a88725a170236470012e2",
                 "shasum": ""
             },
             "require": {
@@ -2099,7 +2175,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-28T14:25:28+00:00"
+            "time": "2020-12-17T20:55:32+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -3229,6 +3305,48 @@
                 }
             ],
             "time": "2020-08-18T17:17:46+00:00"
+        },
+        {
+            "name": "robrichards/xmlseclibs",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robrichards/xmlseclibs.git",
+                "reference": "f8f19e58f26cdb42c54b214ff8a820760292f8df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robrichards/xmlseclibs/zipball/f8f19e58f26cdb42c54b214ff8a820760292f8df",
+                "reference": "f8f19e58f26cdb42c54b214ff8a820760292f8df",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "php": ">= 5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RobRichards\\XMLSecLibs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A PHP library for XML Security",
+            "homepage": "https://github.com/robrichards/xmlseclibs",
+            "keywords": [
+                "security",
+                "signature",
+                "xml",
+                "xmldsig"
+            ],
+            "support": {
+                "issues": "https://github.com/robrichards/xmlseclibs/issues",
+                "source": "https://github.com/robrichards/xmlseclibs/tree/3.1.1"
+            },
+            "time": "2020-09-05T13:00:25+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6798,16 +6916,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.12.1",
+            "version": "1.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "8ce87516be71aae9b956f81906aaf0338e0d8a2d"
+                "reference": "245710e971a030f42e08f4912863805570f23d39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/8ce87516be71aae9b956f81906aaf0338e0d8a2d",
-                "reference": "8ce87516be71aae9b956f81906aaf0338e0d8a2d",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/245710e971a030f42e08f4912863805570f23d39",
+                "reference": "245710e971a030f42e08f4912863805570f23d39",
                 "shasum": ""
             },
             "require": {
@@ -6819,7 +6937,7 @@
             },
             "require-dev": {
                 "phpspec/phpspec": "^6.0",
-                "phpunit/phpunit": "^8.0 || ^9.0 <9.3"
+                "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
             "extra": {
@@ -6859,9 +6977,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpspec/prophecy/issues",
-                "source": "https://github.com/phpspec/prophecy/tree/1.12.1"
+                "source": "https://github.com/phpspec/prophecy/tree/1.12.2"
             },
-            "time": "2020-09-29T09:10:42+00:00"
+            "time": "2020-12-19T10:15:11+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -8301,7 +8419,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "mobashirmonim/lightsaml": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
