@@ -39,6 +39,7 @@ class RGOnboarder extends Helper
             'name' => $request->name,
             'user_id' => $this->group->id,
             'user_type' => 'resource_group',
+            'secret' => Str::random(rand(50, 60)),
             'personal_access_client' => false,
             'password_client' => true,
             'redirect' => $request->url,
