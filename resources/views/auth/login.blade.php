@@ -8,10 +8,18 @@
                 <div class="col-md-7 col-lg-5">
                     <div class="card card-login">
                         <div class="card-body">
-                            <h3>SSO Login</h3>
+                            <h3>{{ isset(request()->SAMLRequest) || isset($auth) ? 'BuSSO ' : '' }}Login</h3>
                             <form action="{{ route('login') }}" method="post">
                                 @csrf
-                                {{-- <input type="hidden" name="stuff" value="{{ $val }}" id="stuff"> --}}
+                                
+                                @isset(request()->SAMLRequest)
+                                    @include('auth.sso.saml')
+                                @endisset
+
+                                @isset($oauth)
+                                    @include('auth.sso.oauth')
+                                @endisset
+
                                 <input type="email" name="email" id="email" class="form-control sso-inp  @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email Address" required autocomplete="email" autofocus>
                                 
                                 @error('email')
