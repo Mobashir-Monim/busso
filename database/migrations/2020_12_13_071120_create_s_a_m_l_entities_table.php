@@ -20,6 +20,7 @@ class CreateSAMLEntitiesTable extends Migration
             $table->string('key');
             $table->string('cert');
             $table->text('doc')->nullable();
+            $table->text('issuer')->nullable();
             $table->text('sig')->nullable();
             $table->text('acs')->nullable();
             $table->timestamps();
