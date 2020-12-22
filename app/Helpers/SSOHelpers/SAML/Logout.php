@@ -3,6 +3,7 @@
 namespace App\Helpers\SSOHelpers\SAML;
 
 use App\Helpers\Helper;
+use Auth;
 use \LightSaml\Model\Protocol\Response as LSR;
 
 class Logout extends Base
@@ -18,5 +19,11 @@ class Logout extends Base
     public function buildXML(&$response)
     {
         $this->buildResponse($response);
+    }
+
+    public function logoutUser()
+    {
+        Auth::logout();
+        request()->session()->invalidate();
     }
 }
