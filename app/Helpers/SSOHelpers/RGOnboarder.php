@@ -2,6 +2,7 @@
 
 namespace App\Helpers\SSOHelpers;
 
+use Illuminate\Support\Str;
 use App\Helpers\Helper;
 use App\Helpers\SAMLEntityHelpers\CertificateCreator;
 use App\Helpers\SAMLEntityHelpers\MetadataCreator;
