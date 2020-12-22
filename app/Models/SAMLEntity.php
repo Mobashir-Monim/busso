@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Helpers\Helper;
 
 class SAMLEntity extends Model
 {
@@ -26,5 +27,21 @@ class SAMLEntity extends Model
     public function userAttributes()
     {
         return $this->belongsToMany(UserAttribute::class, 'saml_user_attribute', 'saml_entity_id', 'user_attribute_id');
+    }
+
+    public function getEntityIDAttribute()
+    {
+        return route('sso.saml.login', ['entity' => $this->attributes['id']]);
+    }
+
+    public function getSLOIdAttribute()
+    {
+        return route('sso.saml.logout', ['entity' => $this->attributes['id']]);
+    }
+
+    public function getPemPassAttribute()
+    {
+        $helper = new Helper;
+        return hash('sha512', $helper->base64url_encode($this->group->oauth->secret));
     }
 }
