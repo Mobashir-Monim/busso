@@ -4,17 +4,21 @@ namespace App\Http\Controllers\SSOControllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Helpers\SSOHelpers\SAML\Login as SamlSSO;
+use App\Helpers\SSOHelpers\SAML\Logout as SamlSLO;
 use App\Helpers\SAMLEntityHelpers\MetadataFetcher;
 use App\Models\SAMLEntity;
 
 class SAMLController extends Controller
 {
-    public function login()
+    public function login(SAMLEntity $entity, Request $request)
     {
-
+        $helper = new SamlSSO($request->SAMLRequest, $entity);
+        $response = $helper->assertionResponse();
+        $helper->sendResponse($response);
     }
 
-    public function logout()
+    public function logout(SAMLEntity $entity)
     {
 
     }
