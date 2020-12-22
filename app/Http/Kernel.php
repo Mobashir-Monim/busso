@@ -62,5 +62,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'sso.saml.verify' => \App\Http\Middleware\SSOMiddlewares\SAML\Verifier::class,
+        'sso.credential-checher' => \App\Http\Middleware\SSOMiddlewares\CredentialChecker::class,
     ];
 }
