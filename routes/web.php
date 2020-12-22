@@ -41,7 +41,7 @@ Route::get('/test', function () {
     // $saml = base64_encode(gzdeflate($serializationContext->getDocument()->saveXML()));
 
     // $asserter = new App\Helpers\SSOHelpers\SAML\Login($saml, $entity);
-    // $response = $asserter->assertionResponse();
+    // $response = $asserter->loginResponse();
     // // $asserter->sendResponse($response);
     // $sc = new \LightSaml\Model\Context\SerializationContext();
     // $response->serialize($sc->getDocument(), $sc);

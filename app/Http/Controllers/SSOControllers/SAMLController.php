@@ -14,13 +14,15 @@ class SAMLController extends Controller
     public function login(SAMLEntity $entity, Request $request)
     {
         $helper = new SamlSSO($request->SAMLRequest, $entity);
-        $response = $helper->assertionResponse();
+        $response = $helper->loginResponse();
         $helper->sendResponse($response);
     }
 
-    public function logout(SAMLEntity $entity)
+    public function logout(SAMLEntity $entity, Request $request)
     {
-
+        $helper = new SamlSLO($request->SAMLRequest, $entity);
+        $response = $helper->logoutResponse();
+        $helper->sendResponse($response);
     }
 
     public function metaDoc(SAMLEntity $entity, $type)
