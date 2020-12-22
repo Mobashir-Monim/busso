@@ -22,4 +22,9 @@ class SAMLEntity extends Model
     {
         return hash('sha256', json_encode([$this->attributes['folder'], $this->attributes['key'], $this->attributes['cert']]));
     }
+
+    public function userAttributes()
+    {
+        return $this->belongsToMany(UserAttribute::class, 'saml_user_attribute', 'saml_entity_id', 'user_attribute_id');
+    }
 }

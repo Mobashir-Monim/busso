@@ -19,4 +19,9 @@ class UserAttribute extends Model
     {
         return $this->hasManyThrough(User::class, UserAttributeValue::class);
     }
+
+    public function usedBy()
+    {
+        return $this->belongsToMany(SAMLEntity::class, 'saml_user_attribute', 'user_attribute_id', 'saml_entity_id');
+    }
 }
