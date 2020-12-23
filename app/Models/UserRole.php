@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserRole extends Model
 {
     use HasFactory;
-    use App\Models\Concerns\UsesUuid;
+    use Concerns\UsesUuid;
 
     protected $table = 'role_user';
 }

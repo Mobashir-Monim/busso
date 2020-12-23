@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 class Permission extends Model
 {
     use HasFactory;
-    use App\Models\Concerns\UsesUuid;
+    use Concerns\UsesUuid;
     
     public function entity()
     {

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     use HasFactory;
-    use App\Models\Concerns\UsesUuid;
+    use Concerns\UsesUuid;
     
     public function permissions()
     {
