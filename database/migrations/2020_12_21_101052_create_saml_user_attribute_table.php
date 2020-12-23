@@ -14,7 +14,6 @@ class CreateSamlUserAttributeTable extends Migration
     public function up()
     {
         Schema::create('saml_user_attribute', function (Blueprint $table) {
-            $table->uuid('id')->primary();
             $table->string('saml_entity_id');
             $table->uuid('user_attribute_id');
             $table->timestamps();

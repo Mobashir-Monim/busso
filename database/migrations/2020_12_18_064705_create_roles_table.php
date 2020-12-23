@@ -17,6 +17,7 @@ class CreateRolesTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name', 80);
             $table->string('display_name', 80);
+            $table->boolean('is_system_role')->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
         });
