@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\User;
+use App\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -29,5 +30,7 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
             User::create($user);
         }
+
+        User::where('email', 'mobashirmonim@gmail.com')->first()->roles()->attach(Role::where('name', 'super-admin')->first()->id);
     }
 }
