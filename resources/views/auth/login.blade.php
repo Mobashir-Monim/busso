@@ -60,11 +60,11 @@
 @endsection
 
 @section('script')
-    <script>
+    {{-- <script>
         window.onload = () => {
             for (let index = 0; index < 10; index++) {
                 console.log('hello')
             }
         }
-    </script>
+    </script> --}}
 @endsection
