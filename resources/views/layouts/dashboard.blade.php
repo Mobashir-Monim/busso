@@ -20,10 +20,11 @@
             
             <span class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">
                 <i class="fas fa-list text-white pr-3 d-md-none" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"></i>
-                <a href="{{ route('home') }}">BuSSO</a>
+                <a class="text-white d-md-none" href="{{ route('home') }}">BuSSO</a>
+                <a class="text-white ml-5 d-none d-md-block" href="{{ route('home') }}">BuSSO</a>
             </span>
             
-            <ul class="navbar-nav pr-5 d-block py-1">
+            <ul class="navbar-nav pr-5 py-1 d-none d-md-block">
                 <li class="nav-item float-right mx-2">
                     <form action="{{ route('logout') }}" method="post">
                         @csrf

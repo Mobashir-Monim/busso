@@ -7,6 +7,8 @@
             @foreach ((new App\Helpers\ViewHelpers\NavBuilder)->getNavItems() as $item)
                 @include('layouts.nav.items.' . $item)
             @endforeach
+
+            @include('layouts.nav.items.logout')
         </ul>
     </div>
 </nav>
