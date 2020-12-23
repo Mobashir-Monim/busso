@@ -14,71 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    // return view('auth.passwords.confirm', ['token' => 'some token']);
     // \Auth::login(App\Models\User::where('email', 'mobashirmonim@gmail.com')->first());
-    // $entity = App\Models\SAMLEntity::first();
-    // $helper = new App\Helpers\Helper;
-    // $authnRequest = new \LightSaml\Model\Protocol\AuthnRequest();
-    // $authnRequest
-    //     ->setAssertionConsumerServiceURL($entity->acs)
-    //     ->setProtocolBinding(\LightSaml\SamlConstants::BINDING_SAML2_HTTP_POST)
-    //     ->setID(\LightSaml\Helper::generateID())
-    //     ->setIssueInstant(new \DateTime())
-    //     ->setDestination(route('sso.saml.login', ['entity' => $entity->id]))
-    //     ->setIssuer(new \LightSaml\Model\Assertion\Issuer('https://my.entity.id'))
-    // ;
-    // // dd(file_get_contents(storage_path("app/certificates/$entity->folder/$entity->cert.crt")));
-    // $certificate = \LightSaml\Credential\X509Certificate::fromFile(storage_path("app/certificates/$entity->folder/$entity->cert.crt"));
-    // $privateKey = \LightSaml\Credential\KeyHelper::createPrivateKey(
-    //     file_get_contents(storage_path("app/certificates/$entity->folder/$entity->key.pem")),
-    //     $entity->pemPass,
-    //     false);
-
-    // $authnRequest->setSignature(new \LightSaml\Model\XmlDSig\SignatureWriter($certificate, $privateKey));
-
-    // $serializationContext = new \LightSaml\Model\Context\SerializationContext();
-    // $authnRequest->serialize($serializationContext->getDocument(), $serializationContext);
-    
-    // $saml = base64_encode(gzdeflate($serializationContext->getDocument()->saveXML()));
-
-    // $asserter = new App\Helpers\SSOHelpers\SAML\Login($saml, $entity);
-    // $response = $asserter->loginResponse();
-    // // $asserter->sendResponse($response);
-    // $sc = new \LightSaml\Model\Context\SerializationContext();
-    // $response->serialize($sc->getDocument(), $sc);
-    // // dd(base64_encode(($sc->getDocument()->saveXML())));
-    // return response($sc->getDocument()->saveXML(), 200)->header('Content-Type', 'text/xml');
-    // dd($response, $sc->getDocument()->saveXML());
-    
-    // /** Signature verification code */
-    // $deserializationContext = new \LightSaml\Model\Context\DeserializationContext();
-    // $deserializationContext->getDocument()->loadXML($serializationContext->getDocument()->saveXML());
-    // $authnRequest = new \LightSaml\Model\Protocol\AuthnRequest();
-    // $authnRequest->deserialize($deserializationContext->getDocument()->firstChild, $deserializationContext);
-
-    // $key = \LightSaml\Credential\KeyHelper::createPublicKey(
-    //     \LightSaml\Credential\X509Certificate::fromFile(storage_path("app/certificates/$entity->folder/$entity->cert.crt"))
-    // );
-
-    // /** @var \LightSaml\Model\XmlDSig\SignatureXmlReader $signatureReader */
-    // $signatureReader = $authnRequest->getSignature();
-
-    // try {
-    //     $ok = $signatureReader->validate($key);
-
-    //     if ($ok) {
-    //         print "Signature OK\n";
-    //     } else {
-    //         print "Signature not validated";
-    //     }
-    // } catch (\Exception $ex) {
-    //     print "Signature validation failed\n";
-    // }
-
-    // $deserializationContext = new \LightSaml\Model\Context\DeserializationContext();
-    // $deserializationContext->getDocument()->loadXML($serializationContext->getDocument()->saveXML());
-    // $x = new \LightSaml\Model\Protocol\AuthnRequest();
-    // $x->deserialize($deserializationContext->getDocument()->firstChild, $deserializationContext);
-    // dd($x, $x->getIssuer()->getValue(), $x->getDestination(), $x->getAssertionConsumerServiceURL(), $x->getIssueInstantTimestamp());
+    // return view('test');
     dd('nothing in test');
 })->name('tester');
 
@@ -87,11 +25,6 @@ Route::get('/test', function () {
 // });
 
 Auth::routes(['register' => false]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/saml');
 
 Route::name('sso.')->group(function () {
     Route::name('saml.')->prefix('saml')->group(function () {
@@ -104,4 +37,17 @@ Route::name('sso.')->group(function () {
         });
         Route::get('/metadata/{entity}/{type}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'metaDoc'])->name('metadoc');
     });
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/access-log', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('access-logs');
+    Route::get('/claims', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('claims');
+    Route::get('/resource-groups', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('resource-groups');
+    Route::get('/roles', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('roles');
+    Route::get('/scopes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('scopes');
+    Route::get('/user-attribute-values', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attribute-values');
+    Route::get('/user-attributes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attributes');
+    Route::get('/users', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('users');
 });
