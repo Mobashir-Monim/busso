@@ -1,49 +1,39 @@
-@extends('layouts.app')
+@extends('auth.layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Confirm Password') }}</div>
-
-                <div class="card-body">
-                    {{ __('Please confirm your password before continuing.') }}
-
-                    <form method="POST" action="{{ route('password.confirm') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+    <div class="row h-60">
+        <div class="col-md-12 my-auto">
+            <div class="row my-auto">
+                <div class="col-md col-lg"></div>
+                <div class="col-md-7 col-lg-5">
+                    <div class="card card-login">
+                        <div class="card-body">
+                            <h3>Confirm Password</h3>
+                            <form method="POST" action="{{ route('password.confirm') }}">
+                                @csrf
+                                
+                                <input type="password" name="password" id="password" class="form-control sso-inp  @error('password') is-invalid @enderror" placeholder="Password" required autocomplete="current-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <span class="invalid-feedback text-right mb-2" role="alert">{{ $message }}</span>
+                                @else
+                                    <label for="password" class="sso-inp-label">Password</label>
                                 @enderror
-                            </div>
+                                
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <a class="btn btn-link" href="{{ route('password.request') }}">Forgot Password</a>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button class="btn btn-dark" type="submit">Confirm</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Confirm Password') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
+                <div class="col-md col-lg"></div>
             </div>
         </div>
     </div>
-</div>
 @endsection
