@@ -66,4 +66,31 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Permission::class);
     }
+
+    public function hasRole($name)
+    {
+        foreach ($this->roles as $role) {
+            if ($role->name == $name) return true;
+        }
+
+        return false;
+    }
+
+    public function hasSystemRole($name)
+    {
+        foreach ($this->roles->where('is_system_role', true) as $role) {
+            if ($role->name == $name) return true;
+        }
+
+        return false;
+    }
+
+    public function hasAppRole($name)
+    {
+        foreach ($this->roles->where('is_system_role', false) as $role) {
+            if ($role->name == $name) return true;
+        }
+
+        return false;
+    }
 }
