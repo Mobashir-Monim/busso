@@ -19,10 +19,10 @@ class MetadataCreator extends Helper
     protected $entity = null;
     protected $disk = null;
 
-    public function __construct($entity, $disk = 'local')
+    public function __construct($entity)
     {
         $this->entity = $entity;
-        $this->disk = $disk;
+        $this->disk = getStorageDisk();
     }
 
     public function createMetadata()

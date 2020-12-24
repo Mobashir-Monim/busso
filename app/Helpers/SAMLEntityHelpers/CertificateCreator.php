@@ -11,11 +11,11 @@ class CertificateCreator extends Helper
     protected $crt = null;
     protected $dn = null;
 
-    public function __construct($pass, $entity, $disk = 'local')
+    public function __construct($pass, $entity)
     {
         $this->buildDN();
         $this->createX509($entity);
-        $this->storeCertificates($entity, $disk);
+        $this->storeCertificates($entity, getStorageDisk());
     }
 
     public function buildDN()

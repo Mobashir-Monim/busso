@@ -35,10 +35,10 @@ class ResourceGroupHelper extends Helper
         return $protocol . explode("/", $url)[0];
     }
 
-    public function storeImage($request, $disk = 'public', $existing = null)
+    public function storeImage($request, $existing = null)
     {
-        if (!Storage::disk($disk)->exists("Resource Group Images")) Storage::disk($disk)->makeDirectory("Resource Group Images", 'public');
-        if (!is_null($existing)) Storage::disk($disk)->delete($existing);
-        return $request->file('image')->storeAs('Resource Group Images', Carbon::now()->timestamp . " - " . $request->name . "." . $request->file('image')->extension(), $disk);
+        if (!Storage::disk(getStorageDisk())->exists("Resource Group Images")) Storage::disk(getStorageDisk())->makeDirectory("Resource Group Images", 'public');
+        if (!is_null($existing)) Storage::disk(getStorageDisk())->delete($existing);
+        return $request->file('image')->storeAs('Resource Group Images', Carbon::now()->timestamp . " - " . $request->name . "." . $request->file('image')->extension(), getStorageDisk());
     }
 }

@@ -11,11 +11,11 @@ class MetadataFetcher extends Helper
     protected $type = null;
     protected $disk = null;
 
-    public function __construct($entity, $type, $disk = 'local')
+    public function __construct($entity, $type)
     {
         $this->entity = $entity;
         $this->type = $type;
-        $this->disk = $disk;
+        $this->disk = getStorageDisk();
     }
 
     public function getMetadata()
