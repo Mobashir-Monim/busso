@@ -266,3 +266,63 @@ input:-moz-placeholder {
     box-shadow: 5px 5px 5px #aaa;
     border-radius: 25px !important;
 }
+
+.rg-image {
+    height: 130px;
+    background-color: rgb(204, 204, 204);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+::-webkit-file-upload-button {
+    font-weight: 500 !important;
+    border: 0px;
+    height: inherit;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+input[type=file] {
+    padding: 0;
+    overflow: hidden;
+}
+  
+::-webkit-file-upload-button:hover {
+    color: #fff;
+    background-color: #23272b;
+    border-color: #1d2124;
+}
+  
+::-webkit-file-upload-button:focus,
+::-webkit-file-upload-button.focus {
+    color: #fff;
+    background-color: #23272b;
+    border-color: #1d2124;
+    box-shadow: 0 0 0 0.2rem rgba(82, 161, 225, 0.5);
+}
+  
+::-webkit-file-upload-button.disabled,
+::-webkit-file-upload-button:disabled {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #343a40;
+}
+  
+::-webkit-file-upload-button:not(:disabled):not(.disabled):active,
+::-webkit-file-upload-button:not(:disabled):not(.disabled).active,
+.show > ::-webkit-file-upload-button.dropdown-toggle {
+    color: #fff;
+    background-color: #1d2124;
+      border-color: #171a1d;
+}
+  
+::-webkit-file-upload-button:not(:disabled):not(.disabled):active:focus,
+::-webkit-file-upload-button:not(:disabled):not(.disabled).active:focus,
+.show > ::-webkit-file-upload-button.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 161, 225, 0.5);
+}
