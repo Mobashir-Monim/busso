@@ -40,7 +40,7 @@
         <div class="container-fluid">
             <div class="row">
                 @include('layouts.nav.index')
-                
+                @include('flash::message')
                 <main role="main" class="col-md-9 col-lg-10 ml-sm-auto px-md-4 pt-4" id="main">
                     <div class="container">
                         @yield('content')
@@ -50,6 +50,6 @@
         </div>
     </div>
 
-    @yield('script')
+    @yield('scripts')
 </body>
 </html>
