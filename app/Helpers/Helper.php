@@ -20,13 +20,13 @@ class Helper
         return base64_decode($b64, $strict);
     }
 
-    function startsWith ($string, $startString) 
+    public function startsWith ($string, $startString) 
     { 
         $len = strlen($startString); 
         return (substr($string, 0, $len) === $startString); 
     }
   
-    function endsWith($string, $endString) 
+    public function endsWith($string, $endString) 
     { 
         $len = strlen($endString); 
         if ($len == 0) { 
