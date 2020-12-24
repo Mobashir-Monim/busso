@@ -43,7 +43,7 @@ class RGOnboarder extends Helper
             'secret' => Str::random(rand(50, 60)),
             'personal_access_client' => false,
             'password_client' => true,
-            'redirect' => $request->url,
+            'redirect' => $request->endpoint,
             'revoked' => false,
         ]);
     }
