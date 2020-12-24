@@ -21,8 +21,13 @@ class RGOnboarder extends Helper
 
     public function onboardGroup($request)
     {
-        $oauth = $this->createOauthEntity($request);
-        $saml = $this->createSAMLEntity($oauth->secret);
+        if ($request->type == 'oauth' || $request->type == 'both') {
+            $oauth = $this->createOauthEntity($request);
+        }
+
+        if ($request->type == 'saml' || $request->type == 'both') {
+            $saml = $this->createSAMLEntity($this->group->id);
+        }
     }
 
     public function createSAMLEntity($pass)

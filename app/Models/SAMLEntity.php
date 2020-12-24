@@ -42,6 +42,6 @@ class SAMLEntity extends Model
     public function getPemPassAttribute()
     {
         $helper = new Helper;
-        return hash('sha512', $helper->base64url_encode($this->group->oauth->secret));
+        return hash('sha512', $helper->base64url_encode($this->group->id));
     }
 }

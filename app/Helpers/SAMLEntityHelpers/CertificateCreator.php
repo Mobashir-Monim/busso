@@ -14,7 +14,7 @@ class CertificateCreator extends Helper
     public function __construct($pass, $entity, $disk = 'local')
     {
         $this->buildDN();
-        $this->createX509($pass);
+        $this->createX509($entity);
         $this->storeCertificates($entity, $disk);
     }
 
@@ -31,7 +31,7 @@ class CertificateCreator extends Helper
         ];
     }
 
-    public function createX509($pass)
+    public function createX509($entity)
     {
         $privkey = openssl_pkey_new(array(
             "private_key_bits" => 2048,
@@ -41,7 +41,7 @@ class CertificateCreator extends Helper
         $x509 = openssl_csr_sign($csr, null, $privkey, $days = 365, array('digest_alg' => 'sha256'));
         openssl_csr_export($csr, $csrout);
         openssl_x509_export($x509, $this->crt);
-        openssl_pkey_export($privkey, $this->key, hash('sha512', $this->base64url_encode($pass)));
+        openssl_pkey_export($privkey, $this->key, $entity->pemPass);
     }
 
     public function storeCertificates($entity, $disk)
