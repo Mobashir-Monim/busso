@@ -14,15 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    // return view('auth.passwords.confirm', ['token' => 'some token']);
-    // \Auth::login(App\Models\User::where('email', 'mobashirmonim@gmail.com')->first());
-    // return view('test');
     dd('nothing in test');
 })->name('tester');
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Auth::routes(['register' => false]);
 
@@ -35,6 +28,7 @@ Route::name('sso.')->group(function () {
             Route::post('/logout/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'logout'])->name('logout');
             Route::post('/assertion/{entity}/login', [App\Http\Controllers\SSOControllers\SAMLController::class, 'assertLogin'])->name('assert-login')->middleware('sso.credential-checher');
         });
+
         Route::get('/metadata/{entity}/{type}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'metaDoc'])->name('metadoc');
     });
 });
@@ -44,10 +38,30 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/access-log', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('access-logs');
     Route::get('/claims', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('claims');
-    Route::get('/resource-groups', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('resource-groups');
     Route::get('/roles', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('roles');
     Route::get('/scopes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('scopes');
     Route::get('/user-attribute-values', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attribute-values');
     Route::get('/user-attributes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attributes');
     Route::get('/users', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('users');
+    
+    /** Resource Group and Resource Routes */
+    Route::middleware(['hasSystemRole:resource-admin,super-admin'])->group(function () {
+        Route::get('/resource-groups', [App\Http\Controllers\ResourceGroupController::class, 'index'])->name('resource-groups');
+        Route::post('/resource-groups', [App\Http\Controllers\ResourceGroupController::class, 'create'])->name('resource-groups');
+
+        Route::prefix('resource-groups')->group(function () {
+            /** Resource Group Routes */
+            Route::name('resource-groups.')->group(function () {
+                Route::get('/{group}', [App\Http\Controllers\ResourceGroupController::class, 'show'])->name('show');
+                Route::post('/{group}/{oauth}', [App\Http\Controllers\ResourceGroupController::class, 'oauthReset'])->name('oauth.reset');
+                Route::post('/{group}/{saml}', [App\Http\Controllers\ResourceGroupController::class, 'samlConfig'])->name('saml.config');
+            });
+
+            /** Resource Routes */
+            Route::get('/{group}/resources', [App\Http\Controllers\ResourceController::class, 'index'])->name('resources');
+            Route::name('resources.')->prefix('{group}/resources')->group(function () {
+
+            });
+        });
+    });
 });
