@@ -261,3 +261,8 @@ input:-moz-placeholder {
     box-shadow: 5px 5px 5px #aaa;
     border-radius: 15px !important;
 }
+
+.card-rounded {
+    box-shadow: 5px 5px 5px #aaa;
+    border-radius: 25px !important;
+}
