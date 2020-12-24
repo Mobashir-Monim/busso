@@ -42,7 +42,9 @@
                 @include('layouts.nav.index')
                 
                 <main role="main" class="col-md-9 col-lg-10 ml-sm-auto px-md-4 pt-4" id="main">
-                    @yield('content')
+                    <div class="container">
+                        @yield('content')
+                    </div>
                 </main>
             </div>
         </div>
