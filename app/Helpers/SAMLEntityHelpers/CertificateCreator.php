@@ -15,7 +15,7 @@ class CertificateCreator extends Helper
     {
         $this->buildDN();
         $this->createX509($entity);
-        $this->storeCertificates($entity, getStorageDisk());
+        $this->storeCertificates($entity, env('STORAGE_DISK', 'local'));
     }
 
     public function buildDN()

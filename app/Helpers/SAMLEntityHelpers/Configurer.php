@@ -29,6 +29,6 @@ class Configurer extends Helper
     {
         $this->entity->issuer = $request->issuer;
         $this->entity->acs = $request->acs;
-        $this->entity->sig = $request->file('cert')->storeAs('certificates/' . $this->entity->folder, $this->entity->id . "." . $request->file('cert')->extension(), getStorageDisk());
+        $this->entity->sig = $request->file('cert')->storeAs('certificates/' . $this->entity->folder, $this->entity->id . "." . $request->file('cert')->extension(), env('STORAGE_DISK', 'local'));
     }
 }

@@ -50,8 +50,3 @@ function includes($string, $subString)
 {
     return strpos($string, $subString) === false ? false : true;
 }
-
-function getStorageDisk()
-{
-    return env('STORAGE_DISK', 'local');
-}
