@@ -11,7 +11,7 @@
                             <h3>{{ isset(request()->SAMLRequest) || isset($auth) ? 'BuSSO ' : '' }}Login</h3>
                             <form action="{{ 
                                 !isset(request()->SAMLRequest) && !isset($auth) ? route('login') : (
-                                    isset(request()->SAMLRequest) ?
+                                    !isset(request()->SAMLRequest) ?
                                         route('sso.oauth.login') : route('sso.saml.assert-login')
                                 )
                             }}" method="post">
