@@ -24,7 +24,7 @@ class ResourceGroupHelper extends Helper
             'name' => $request->name,
             'description' => $request->description,
             'url' => $this->stripURL($request->url),
-            'image' => $this->storeImage($request),
+            'image' => $request->hasFile('image') ? $this->storeImage($request) : null,
         ];
     }
 
