@@ -52,7 +52,8 @@ class Base extends Helper
             ->setDestination($this->destination)
             ->setIssuer(new Issuer($this->issuer))
             ->setStatus(new Status(new StatusCode('urn:oasis:names:tc:SAML:2.0:status:Success')))
-            ->setSignature(new SignatureWriter($this->cert, $this->key));
+            ->setSignature(new SignatureWriter($this->cert, $this->key))
+            ->setRelayState(request()->RelayState);
     }
 
     public function sendResponse($response)
@@ -63,7 +64,7 @@ class Base extends Helper
         $message = $messageContext->getMessage();
         $message->setRelayState(request()->get('RelayState'));
         $messageContext->setMessage($message);
-        dd($messageContext, $message, $response);
+        dd($messageContext, $message, $response, request()->RelayState);
         $httpResponse = $postBinding->send($messageContext);
 
         print $httpResponse->getContent();
