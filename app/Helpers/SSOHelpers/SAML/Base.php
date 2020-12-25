@@ -60,6 +60,12 @@ class Base extends Helper
         $postBinding = (new BindingFactory())->create(SConst::BINDING_SAML2_HTTP_POST);
         $messageContext = new MessageContext();
         $messageContext->setMessage($response)->asResponse();
+
+        if (request()->get('RelayState') != null) {
+            dd(request()->get('RelayState'));
+            $messageContext->setRelayState(request()->get('RelayState'));
+        }
+
         $httpResponse = $postBinding->send($messageContext);
 
         print $httpResponse->getContent()."\n\n";
