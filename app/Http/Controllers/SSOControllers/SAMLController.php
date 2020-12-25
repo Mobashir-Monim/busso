@@ -8,10 +8,18 @@ use App\Helpers\SSOHelpers\SAML\Login as SamlSSO;
 use App\Helpers\SSOHelpers\SAML\Logout as SamlSLO;
 use App\Helpers\SAMLEntityHelpers\MetadataFetcher;
 use App\Models\SAMLEntity;
+use Auth;
 
 class SAMLController extends Controller
 {
     public function login(SAMLEntity $entity, Request $request)
+    {
+        if (Auth::check()) return view('auth.login');
+        
+        return $this->assertLogin($entity, $request);
+    }
+
+    public function assertLogin(SAMLEntity $entity, Request $request)
     {
         $helper = new SamlSSO($request->SAMLRequest, $entity);
         $response = $helper->loginResponse();
