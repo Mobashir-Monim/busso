@@ -62,6 +62,7 @@ class Verifier
 
     public function generateCheckArray()
     {
+        dd(request()->url(), $this->destination);
         return [
             [!is_null($this->entity), 404],
             [request()->url() != $this->destination, 400],
