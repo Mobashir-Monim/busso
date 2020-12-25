@@ -62,7 +62,6 @@ class Base extends Helper
         $messageContext->setMessage($response)->asResponse();
 
         if (request()->get('RelayState') != null) {
-            dd(request()->get('RelayState'));
             $messageContext->setRelayState(request()->get('RelayState'));
         }
 
