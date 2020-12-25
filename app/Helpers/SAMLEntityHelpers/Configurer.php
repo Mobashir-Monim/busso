@@ -21,17 +21,26 @@ class Configurer extends Helper
     public function updateConfig($request)
     {
         if (is_null($request->meta_url)) {
-            $this->configStatic($request->issuer, $request->acs, file_get_contents($request->cert));
+            if ($request->hasFile('cert')) {
+                $this->configStatic($request->issuer, $request->acs, file_get_contents($request->cert));
+            } else {
+                $this->configStatic($request->issuer, $request->acs);
+            }
         } else {
             $this->configDoc($request);
         }
     }
 
-    public function configStatic($issuer, $acs, $cert)
+    public function configStatic($issuer, $acs, $cert = null)
     {
         $this->entity->issuer = $issuer;
         $this->entity->acs = $acs;
-        Storage::disk(env('STORAGE_DISK', 'local'))->put("certificates/" . $this->entity->folder. "/" . $this->entity->id . ".crt", $cert, 0600);
+        
+        if (!is_null($cert)) {
+            Storage::disk(env('STORAGE_DISK', 'local'))->put("certificates/" . $this->entity->folder. "/" . $this->entity->id . ".crt", $cert, 0600);
+            $this->entity->sig = "certificates/" . $this->entity->folder. "/" . $this->entity->id . ".crt";
+        }
+
         $this->entity->save();
     }
 
