@@ -62,9 +62,8 @@ class Verifier
 
     public function generateCheckArray()
     {
-        dd(is_null($this->entity));
         return [
-            [is_null($this->entity), 404],
+            [!is_null($this->entity), 404],
             [request()->url() != $this->destination, 400],
             [$this->entity->issuer != $this->issuer, 404],
             [$this->entity->acs != $this->acs, 404],
