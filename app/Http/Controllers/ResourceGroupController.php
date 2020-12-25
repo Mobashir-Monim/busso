@@ -41,7 +41,7 @@ class ResourceGroupController extends Controller
 
     public function samlConfig(RG $group, SE $saml, Request $request)
     {
-        dd($request);
+        (new Configurer($saml))->updateConfig($request);
 
         return redirect(route('resource-groups.show', ['group' => $group->id]));
     }

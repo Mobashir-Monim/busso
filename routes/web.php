@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    dd('hi', Http::get('https://google.com'));
-    // $res = \Http::get('http://127.0.0.1:8000/saml/metadata/IXhozQMAo537PXC5ChNPAew2DDHXOHPjjhoVuNxoDo0xo4IdDpyNELJgAkqluiwbTEEHlDdfuleDwhQV8vJtaM0sxBWGRAxuo7tPmUHThNbT/url');
-    dd($res);
     dd('nothing in test');
 })->name('tester');
 

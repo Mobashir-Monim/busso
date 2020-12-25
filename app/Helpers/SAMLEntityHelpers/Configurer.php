@@ -3,6 +3,10 @@
 namespace App\Helpers\SAMLEntityHelpers;
 
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
+use \LightSaml\Model\Context\DeserializationContext;
+use \LightSaml\Model\Metadata\EntityDescriptor;
 
 class Configurer extends Helper
 {
@@ -17,18 +21,38 @@ class Configurer extends Helper
     public function updateConfig($request)
     {
         if (is_null($request->meta_url)) {
-            $this->configStatic($request);
+            $this->configStatic($request->issuer, $request->acs, file_get_contents($request->cert));
         } else {
             $this->configDoc($request);
         }
+    }
 
+    public function configStatic($issuer, $acs, $cert)
+    {
+        $this->entity->issuer = $issuer;
+        $this->entity->acs = $acs;
+        Storage::disk(env('STORAGE_DISK', 'local'))->put("certificates/" . $this->entity->folder. "/" . $this->entity->id . ".crt", $cert, 0600);
         $this->entity->save();
     }
 
-    public function configStatic($request)
+    public function configDoc($request)
     {
-        $this->entity->issuer = $request->issuer;
-        $this->entity->acs = $request->acs;
-        $this->entity->sig = $request->file('cert')->storeAs('certificates/' . $this->entity->folder, $this->entity->id . "." . $request->file('cert')->extension(), env('STORAGE_DISK', 'local'));
+        $content = $this->spreadDocContent(Http::get($request->meta_url)->body());
+        
+        $this->configStatic($content['issuer'], $content['acs'], $content['cert']);
+    }
+
+    public function spreadDocContent($content)
+    {
+        $deserializationContext = new DeserializationContext();
+        $ed = new EntityDescriptor;
+        $deserializationContext->getDocument()->loadXML($content);
+        $ed->deserialize($deserializationContext->getDocument()->firstChild, $deserializationContext);
+
+        return [
+            'issuer' => $ed->getEntityID(),
+            'acs' => $ed->getAllItems()[0]->getAllAssertionConsumerServices()[0]->getLocation(),
+            'cert' => trim($ed->getSignature()->getKey()->getX509Certificate())
+        ];
     }
 }
