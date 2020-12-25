@@ -12,7 +12,7 @@
                             <form action="{{ 
                                 !isset(request()->SAMLRequest) && !isset($auth) ? route('login') : (
                                     !isset(request()->SAMLRequest) ?
-                                        route('sso.oauth.login') : route('sso.saml.assert-login')
+                                        route('sso.oauth.login') : route('sso.saml.assert-login', ['entity' => $entity->id])
                                 )
                             }}" method="post">
                                 @csrf

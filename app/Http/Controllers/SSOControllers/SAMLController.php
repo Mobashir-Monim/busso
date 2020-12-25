@@ -14,7 +14,7 @@ class SAMLController extends Controller
 {
     public function login(SAMLEntity $entity, Request $request)
     {
-        if (!Auth::check()) return view('auth.login');
+        if (!Auth::check()) return view('auth.login', ['entity' => $entity]);
 
         return $this->assertLogin($entity, $request);
     }
