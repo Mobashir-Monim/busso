@@ -53,7 +53,7 @@ class Login extends Base
 
     public function buildAssertionSubject()
     {
-        dd($this->authN->getAssertionConsumerServiceURL(), $this->issuer);
+        dd($this->authN->getAssertionConsumerServiceURL(), $this->entity->issuer);
         return (new Subject())
             ->setNameID(new NameID(
                 Auth::user()->email,
