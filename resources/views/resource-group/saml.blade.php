@@ -48,9 +48,9 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="row">
-                                    <div class="col-md-10 col-12 mb-2">
+                                    <div class="col-md-12 col-12 mb-2">
                                         <a target="_blank" href="{{ route('sso.saml.metadoc', ['entity' => $group->saml->id, 'type' => 'certificate']) }}" class="btn btn-dark w-100"><i class="fas fa-cloud-download-alt"></i></a>
-                                        <label for="" class="sso-inp-label mr-2 text-primary"><b>Public Certificate Download</b></label>
+                                        <label for="" class="sso-inp-label mr-2 text-primary"><b>X509 Certificate Download</b></label>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="row">
-                                    <div class="col-md-10 col-12 mb-2">
+                                    <div class="col-md-12 col-12 mb-2">
                                         <a target="_blank" href="{{ route('sso.saml.metadoc', ['entity' => $group->saml->id, 'type' => 'download']) }}" class="btn btn-dark w-100"><i class="fas fa-cloud-download-alt"></i></a>
                                         <label for="" class="sso-inp-label mr-2 text-primary"><b>IdP Metadata Download</b></label>
                                     </div>

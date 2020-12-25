@@ -37,6 +37,8 @@ class Configurer extends Helper
 
     public function configDoc($request)
     {
+        $this->entity->doc = $request->meta_url;
+        $this->entity->save();
         $content = $this->spreadDocContent(Http::get($request->meta_url)->body());
         
         $this->configStatic($content['issuer'], $content['acs'], $content['cert']);
