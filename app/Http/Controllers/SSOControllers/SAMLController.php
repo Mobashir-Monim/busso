@@ -23,7 +23,6 @@ class SAMLController extends Controller
     {
         $helper = new SamlSSO($request->SAMLRequest, $entity);
         $response = $helper->loginResponse();
-        dd($response);
         $helper->sendResponse($response);
     }
 
