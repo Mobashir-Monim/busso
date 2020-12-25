@@ -53,9 +53,7 @@ class Verifier
 
     public function spreadSAML($authN)
     {
-        dd(request()->route('entity'));
-        $this->entity = gettype(request()->route('entity')) == 'string' ? 
-            SE::find(request()->route('entity')) : request()->route('entity');
+        $this->entity = request()->route('entity');
         $this->destination = $authN->getDestination();
         $this->issuer = $authN->getIssuer()->getValue();
         $this->issueInstant = $authN->getIssueInstantTimestamp();
