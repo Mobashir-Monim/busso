@@ -55,7 +55,7 @@ class MetadataCreator extends Helper
     {
         $idpDescriptor->addSingleLogoutService((new SLO())
             ->setBinding(SConst::BINDING_SAML2_HTTP_POST)
-            ->setLocation(route('sso.saml.logout', ['entity' => $this->entity->id])));
+            ->setLocation(route('sso.saml.logout-api', ['entity' => $this->entity->id])));
 
         $idpDescriptor->addSingleLogoutService((new SLO())
             ->setBinding(SConst::BINDING_SAML2_HTTP_REDIRECT)
@@ -66,7 +66,7 @@ class MetadataCreator extends Helper
     {
         $idpDescriptor->addSingleSignOnService((new SSO())
             ->setBinding(SConst::BINDING_SAML2_HTTP_POST)
-            ->setLocation(route('sso.saml.login', ['entity' => $this->entity->id])));
+            ->setLocation(route('sso.saml.login-api', ['entity' => $this->entity->id])));
 
         $idpDescriptor->addSingleSignOnService((new SSO())
             ->setBinding(SConst::BINDING_SAML2_HTTP_REDIRECT)

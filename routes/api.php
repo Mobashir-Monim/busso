@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::name('sso.')->group(function () {
+    Route::name('saml.')->prefix('saml')->group(function () {
+        Route::middleware(['sso.saml.verify'])->group(function () {
+            Route::post('/assertion/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'login'])->name('login-api');
+            Route::post('/logout/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'logout'])->name('logout-api');
+        });
+    });
+});

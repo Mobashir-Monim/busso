@@ -27,7 +27,7 @@ class SAMLController extends Controller
 
     public function metaDoc(SAMLEntity $entity, $type)
     {
-        if (!in_array($type, ['download', 'url'])) return response('Not Found', 404)->header('Content-Type', 'text/plain');
+        if (!in_array($type, ['download', 'url', 'certificate'])) return response('Not Found', 404)->header('Content-Type', 'text/plain');
         $helper = new MetadataFetcher($entity, $type);
 
         return $helper->getMetadata();

@@ -8,6 +8,7 @@ use App\Models\ResourceGroup as RG;
 use App\Models\OauthClient as OC;
 use App\Models\SAMLEntity as SE;
 use App\Helpers\ResourceGroupHelper as RGH;
+use App\Helpers\SAMLEntityHelpers\Configurer;
 
 class ResourceGroupController extends Controller
 {
@@ -30,15 +31,18 @@ class ResourceGroupController extends Controller
         return view('resource-group.show', ['group' => $group]);
     }
 
-    public function oauthReset(RG $group, SE $saml, Request $request)
+    public function oauthReset(RG $group, OC $oauth)
     {
-        dd($request);
+        $oauth->secret = Str::random(rand(50, 60));
+        $oauth->save();
 
         return redirect(route('resource-groups.show', ['group' => $group->id]));
     }
 
-    public function samlConfig()
+    public function samlConfig(RG $group, SE $saml, Request $request)
     {
+        dd($request);
 
+        return redirect(route('resource-groups.show', ['group' => $group->id]));
     }
 }

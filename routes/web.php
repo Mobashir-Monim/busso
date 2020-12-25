@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd('hi', Http::get('https://google.com'));
+    // $res = \Http::get('http://127.0.0.1:8000/saml/metadata/IXhozQMAo537PXC5ChNPAew2DDHXOHPjjhoVuNxoDo0xo4IdDpyNELJgAkqluiwbTEEHlDdfuleDwhQV8vJtaM0sxBWGRAxuo7tPmUHThNbT/url');
+    dd($res);
     dd('nothing in test');
 })->name('tester');
 
@@ -24,8 +27,6 @@ Route::name('sso.')->group(function () {
         Route::middleware(['sso.saml.verify'])->group(function () {
             Route::get('/assertion/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'login'])->name('login');
             Route::get('/logout/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'logout'])->name('logout');
-            Route::post('/assertion/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'login'])->name('login');
-            Route::post('/logout/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'logout'])->name('logout');
             Route::post('/assertion/{entity}/login', [App\Http\Controllers\SSOControllers\SAMLController::class, 'assertLogin'])->name('assert-login')->middleware('sso.credential-checher');
         });
 
@@ -53,8 +54,8 @@ Route::middleware(['auth'])->group(function () {
             /** Resource Group Routes */
             Route::name('resource-groups.')->group(function () {
                 Route::get('/{group}', [App\Http\Controllers\ResourceGroupController::class, 'show'])->name('show');
-                Route::post('/{group}/{oauth}', [App\Http\Controllers\ResourceGroupController::class, 'oauthReset'])->name('oauth.reset');
-                Route::post('/{group}/{saml}', [App\Http\Controllers\ResourceGroupController::class, 'samlConfig'])->name('saml.config');
+                Route::post('/{group}/{oauth}/oauth', [App\Http\Controllers\ResourceGroupController::class, 'oauthReset'])->name('oauth.reset');
+                Route::post('/{group}/{saml}/saml', [App\Http\Controllers\ResourceGroupController::class, 'samlConfig'])->name('saml.config');
             });
 
             /** Resource Routes */

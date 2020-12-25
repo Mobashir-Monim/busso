@@ -326,3 +326,10 @@ input[type=file] {
 .show > ::-webkit-file-upload-button.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.2rem rgba(82, 161, 225, 0.5);
 }
+
+.hidden-textarea {
+    opacity: .01;
+    height:0;
+    position:absolute;
+    z-index: -1;
+}
