@@ -67,7 +67,7 @@ class Verifier
             [$this->entity->issuer != $this->issuer, 404],
             [$this->entity->acs != $this->acs, 404],
             [Carbon::now() < Carbon::parse($this->issueInstant), 425],
-            [Carbon::now()->diffInSecond(Carbon::parse($this->issueInstant)) > 300, 406],
+            [Carbon::now()->diffInSeconds(Carbon::parse($this->issueInstant)) > 300, 406],
         ];
     }
 
