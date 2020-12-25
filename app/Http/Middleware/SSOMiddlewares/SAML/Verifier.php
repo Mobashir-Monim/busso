@@ -62,14 +62,14 @@ class Verifier
 
     public function generateCheckArray()
     {
-        // dd(request()->url(), $this->destination);
+        dd(Carbon::now(), Carbon::parse($this->issueInstant));
         return [
             [!is_null($this->entity), 404],
             [request()->url() == $this->destination, 400],
             [$this->entity->issuer == $this->issuer, 404],
             [$this->entity->acs == $this->acs, 404],
             [Carbon::now() >= Carbon::parse($this->issueInstant), 425],
-            [Carbon::now()->diffInSeconds(Carbon::parse($this->issueInstant)) > 300, 406],
+            [Carbon::now()->diffInSeconds(Carbon::parse($this->issueInstant)) <= 300, 406],
         ];
     }
 
