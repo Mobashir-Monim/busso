@@ -63,7 +63,7 @@ class Configurer extends Helper
         return [
             'issuer' => $ed->getEntityID(),
             'acs' => $ed->getAllItems()[0]->getAllAssertionConsumerServices()[0]->getLocation(),
-            'cert' => trim($ed->getSignature()->getKey()->getX509Certificate())
+            'cert' => !is_null($ed->getSignature()) ? trim($ed->getSignature()->getKey()->getX509Certificate()) : null
         ];
     }
 }
