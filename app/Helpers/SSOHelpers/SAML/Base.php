@@ -63,7 +63,7 @@ class Base extends Helper
         $message = $messageContext->getMessage();
         $message->setRelayState(request()->get('RelayState'));
         $messageContext->setMessage($message);
-        dd($messageContext);
+        dd($messageContext, $message);
         $httpResponse = $postBinding->send($messageContext);
 
         print $httpResponse->getContent();
