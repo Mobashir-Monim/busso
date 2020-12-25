@@ -18,6 +18,7 @@ class Verifier
     protected $issueInstant = null;
     protected $acs = null;
     private $status = ['next' => true];
+    public $count = 0;
     // dd($x, $x->getIssuer()->getValue(), $x->getDestination(), $x->getAssertionConsumerServiceURL(), $x->getIssueInstantTimestamp());
     /**
      * Handle an incoming request.
@@ -33,6 +34,7 @@ class Verifier
 
         for ($i = 0; $i < sizeof($verificationArray) && $this->status['next']; $i++) {
             $this->verifyPart($verificationArray[$i][0], $verificationArray[$i][1]);
+            $this->count++;
         }
 
         if (!$this->status['next']) return response($this->status['message'], $this->status['code'])->header('Content-Type', 'text/plain');
@@ -75,7 +77,7 @@ class Verifier
     {
         if (!$status) {
             $this->status['code'] = $code;
-            $this->status['message'] = $this->getMessage($code);
+            $this->status['message'] = $this->getMessage($code) . $this->count;
             $this->status['next'] = false;
         } else {
             $this->status['next'] = true;
