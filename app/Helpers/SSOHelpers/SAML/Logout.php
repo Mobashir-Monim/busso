@@ -5,6 +5,7 @@ namespace App\Helpers\SSOHelpers\SAML;
 use App\Helpers\Helper;
 use Auth;
 use \LightSaml\Model\Protocol\Response as LSR;
+use \LightSaml\Model\Protocol\LogoutRequest;
 
 class Logout extends Base
 {

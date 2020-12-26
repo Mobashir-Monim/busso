@@ -4,7 +4,6 @@ namespace App\Helpers\SSOHelpers\SAML;
 
 use App\Helpers\Helper;
 use Carbon\Carbon;
-use \LightSaml\Model\Protocol\LogoutRequest;
 use \LightSaml\Model\Context\DeserializationContext as DC;
 use \LightSaml\Model\Protocol\AuthnRequest as ANR;
 use \LightSaml\Credential\X509Certificate as X509;
@@ -57,11 +56,17 @@ class Base extends Helper
             ->setRelayState(request()->RelayState);
     }
 
-    public function sendResponse($response)
+    public function sendResponse($response, $type = null)
     {
         $postBinding = (new BindingFactory())->create(SConst::BINDING_SAML2_HTTP_POST);
         $messageContext = new MessageContext();
         $messageContext->setMessage($response)->asResponse();
+
+        if (!is_null($type)) {
+
+            dd($messageContext, $response);
+        }
+
         $httpResponse = $postBinding->send($messageContext);
 
         print $httpResponse->getContent();
