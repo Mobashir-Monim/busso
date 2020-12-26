@@ -53,7 +53,6 @@ class Login extends Base
 
     public function buildAssertionSubject()
     {
-        dd($this->entity->doc, $this->entity);
         return (new Subject())
             ->setNameID(new NameID(
                 Auth::user()->email,
@@ -65,7 +64,7 @@ class Login extends Base
                     (new SubjectConfirmationData())
                         ->setInResponseTo($this->authN->getId())
                         ->setNotOnOrAfter(new \DateTime('+1 MINUTE'))
-                        ->setRecipient(is_null($this->entity->doc) ? $this->authN->getAssertionConsumerServiceURL() : $this->entity->doc)
+                        ->setRecipient($this->authN->getAssertionConsumerServiceURL())
                     )
                 );
     }
@@ -77,7 +76,7 @@ class Login extends Base
                 ->setNotBefore(new \DateTime())
                 ->setNotOnOrAfter(new \DateTime('+1 MINUTE'))
                 ->addItem(
-                    new AudienceRestriction([$this->authN->getAssertionConsumerServiceURL()])
+                    new AudienceRestriction([is_null($this->entity->doc) ? $this->authN->getAssertionConsumerServiceURL() : $this->entity->doc])
                 )
             );
     }
