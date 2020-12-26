@@ -63,13 +63,6 @@ class Base extends Helper
         $postBinding = (new BindingFactory())->create(SConst::BINDING_SAML2_HTTP_POST);
         $messageContext = new MessageContext();
         $messageContext->setMessage($response)->asResponse();
-
-        if (is_null($type)) {
-            $sc = new SC;
-            $response->serialize($sc->getDocument(), $sc);
-            dd($messageContext, $response, base64_encode(gzdeflate($sc->getDocument()->saveXML())));
-        }
-
         $httpResponse = $postBinding->send($messageContext);
 
         print $httpResponse->getContent();
