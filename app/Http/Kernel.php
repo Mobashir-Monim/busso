@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'hasSystemRole' => \App\Http\Middleware\HasSystemRole::class,
-        'sso.saml.verify' => \App\Http\Middleware\SSOMiddlewares\SAML\Verifier::class,
+        'sso.saml.login-verify' => \App\Http\Middleware\SSOMiddlewares\SAML\AuthnVerifier::class,
         'sso.credential-checher' => \App\Http\Middleware\SSOMiddlewares\CredentialChecker::class,
     ];
 }
