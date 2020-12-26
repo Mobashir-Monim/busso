@@ -53,6 +53,7 @@ class Login extends Base
 
     public function buildAssertionSubject()
     {
+        dd($this->entity->doc, $this->entity);
         return (new Subject())
             ->setNameID(new NameID(
                 Auth::user()->email,
