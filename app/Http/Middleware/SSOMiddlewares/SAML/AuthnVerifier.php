@@ -9,7 +9,7 @@ use \LightSaml\Model\Context\DeserializationContext as DC;
 use \LightSaml\Model\Protocol\AuthnRequest as ANR;
 use App\Models\SAMLEntity as SE;
 
-class Verifier
+class AuthnVerifier
 {
     protected $saml = null;
     protected $entity = null;

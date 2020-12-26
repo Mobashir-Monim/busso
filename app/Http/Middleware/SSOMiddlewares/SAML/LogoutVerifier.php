@@ -9,7 +9,7 @@ use \LightSaml\Model\Context\DeserializationContext as DC;
 use \LightSaml\Model\Protocol\LogoutRequest;
 use App\Models\SAMLEntity as SE;
 
-class Verifier
+class LogoutVerifier
 {
     protected $saml = null;
     protected $entity = null;
