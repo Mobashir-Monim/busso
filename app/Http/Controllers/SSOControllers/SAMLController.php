@@ -30,7 +30,7 @@ class SAMLController extends Controller
     {
         $helper = new SamlSLO($request->SAMLRequest, $entity);
         $response = $helper->logoutResponse();
-        $helper->sendResponse($response, 'logout');
+        $helper->sendResponse($response);
     }
 
     public function metaDoc(SAMLEntity $entity, $type)
