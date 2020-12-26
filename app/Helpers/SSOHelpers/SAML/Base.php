@@ -4,6 +4,7 @@ namespace App\Helpers\SSOHelpers\SAML;
 
 use App\Helpers\Helper;
 use Carbon\Carbon;
+use \LightSaml\Model\Protocol\LogoutRequest;
 use \LightSaml\Model\Context\DeserializationContext as DC;
 use \LightSaml\Model\Protocol\AuthnRequest as ANR;
 use \LightSaml\Credential\X509Certificate as X509;
