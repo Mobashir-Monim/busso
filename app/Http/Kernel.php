@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'hasSystemRole' => \App\Http\Middleware\HasSystemRole::class,
         'sso.saml.login-verify' => \App\Http\Middleware\SSOMiddlewares\SAML\AuthnVerifier::class,
+        'sso.saml.logout-verify' => \App\Http\Middleware\SSOMiddlewares\SAML\AuthnVerifier::class,
         'sso.credential-checher' => \App\Http\Middleware\SSOMiddlewares\CredentialChecker::class,
     ];
 }
