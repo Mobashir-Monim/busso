@@ -8,6 +8,11 @@ use \LightSaml\Model\Protocol\Response as LSR;
 
 class Logout extends Base
 {
+    public function __construct($saml, $entity)
+    {
+        parent::__construct($saml, $entity, 'logout');
+    }
+
     public function logoutResponse()
     {
         $response = new LSR();

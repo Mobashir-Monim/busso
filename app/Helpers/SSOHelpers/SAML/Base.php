@@ -4,6 +4,7 @@ namespace App\Helpers\SSOHelpers\SAML;
 
 use App\Helpers\Helper;
 use Carbon\Carbon;
+use \LightSaml\Model\Protocol\LogoutRequest;
 use \LightSaml\Model\Context\DeserializationContext as DC;
 use \LightSaml\Model\Protocol\AuthnRequest as ANR;
 use \LightSaml\Credential\X509Certificate as X509;
@@ -26,11 +27,11 @@ class Base extends Helper
     protected $cert = null;
     protected $key = null;
 
-    public function __construct($saml, $entity)
+    public function __construct($saml, $entity, $type)
     {
         $deserializationContext = new DC();
         $deserializationContext->getDocument()->loadXML(gzinflate(base64_decode($saml)));
-        $authnRequest = new ANR();
+        $authnRequest = $type == 'login' ? new ANR() : new LogoutRequest();
         $authnRequest->deserialize($deserializationContext->getDocument()->firstChild, $deserializationContext);
         $this->spreadEssentials($authnRequest, $entity);
     }

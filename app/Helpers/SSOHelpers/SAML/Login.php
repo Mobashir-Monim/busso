@@ -24,6 +24,11 @@ use \LightSaml\Model\Assertion\AuthnContext;
 
 class Login extends Base
 {
+    public function __construct($saml, $entity)
+    {
+        parent::__construct($saml, $entity, 'login');
+    }
+
     public function loginResponse()
     {
         $response = new LSR();
