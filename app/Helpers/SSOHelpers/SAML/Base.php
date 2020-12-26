@@ -67,7 +67,7 @@ class Base extends Helper
         if (!is_null($type)) {
             $sc = new SC;
             $response->serialize($sc->getDocument(), $sc);
-            dd($messageContext, $response, $sc);
+            dd($messageContext, $response, base64_encode(gzdeflate($sc->getDocument()->saveXML())));
         }
 
         $httpResponse = $postBinding->send($messageContext);
