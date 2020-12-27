@@ -58,7 +58,7 @@ class Base extends Helper
             ->setRelayState(request()->RelayState);
     }
 
-    public function sendResponse($response, $type = null)
+    public function sendResponse($response)
     {
         $postBinding = (new BindingFactory())->create(SConst::BINDING_SAML2_HTTP_POST);
         $messageContext = new MessageContext();
