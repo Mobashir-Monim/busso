@@ -27,6 +27,9 @@ class NavBuilder extends Helper
             'scope',
             'claim',
             'user-attribute-value',
+        ],
+        'system-user' => [
+            
         ]
     ];
 

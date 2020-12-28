@@ -62,5 +62,8 @@ Route::middleware(['auth'])->group(function () {
     /** User Routes */
     Route::middleware(['hasSystemRole:user-admin,super-admin'])->group(function () {
         Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
+        Route::name('users.')->prefix('/user')->group(function () {
+            Route::post('/create', [App\Http\Controllers\UserController::class, 'create'])->name('create');
+        });
     });
 });

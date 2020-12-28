@@ -61,6 +61,10 @@
             </div>
         </div>
     </div>
+
+    <button class="btn add-btn btn-dark" data-toggle="modal" data-target="#user-create"></button>
+
+    @include('user.create')
 @endsection
 
 @section('scripts')
