@@ -36,7 +36,7 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-2 d-md-none"><b class="border-bottom d-block">Active users:</b></div>
                                         <div class="col-md-6 mb-2 d-none d-md-block"><b>Active users:</b></div>
-                                        <div class="col-md-6 mb-2">{{ $stats['activity'] }}</div>
+                                        <div class="col-md-6 mb-2">{{ $stats['active-users'] }}</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 mb-2 d-md-none"><b class="border-bottom d-block">Activity (30 days):</b></div>
