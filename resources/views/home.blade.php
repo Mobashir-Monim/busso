@@ -10,16 +10,16 @@
         <div class="col-md-8 my-2">
             <div class="card card-rounded">
                 <div class="card-body">
-                    <h4 class="border-bottom border-3 border-primary">{{ auth()->user()->name }}</h4>
+                    <h4 class="border-bottom border-3 border-primary">{{ $user->name }}</h4>
                     <div class="row">
                         <div class="col-md-4 mb-2 d-md-none"><b class="border-bottom d-block">Email Address:</b></div>
                         <div class="col-md-4 mb-2 d-none d-md-block"><b>Email Address:</b></div>
-                        <div class="col-md-8 mb-2">{{ auth()->user()->email }}</div>
+                        <div class="col-md-8 mb-2">{{ $user->email }}</div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-2 d-md-none"><b class="border-bottom d-block">System Role:</b></div>
                         <div class="col-md-4 mb-2 d-none d-md-block"><b>System Role:</b></div>
-                        <div class="col-md-8 mb-2">{{ auth()->user()->roles->where('is_system_role', true)->first()->display_name }}</div>
+                        <div class="col-md-8 mb-2">{{ $user->roles->where('is_system_role', true)->first()->display_name }}</div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-2 d-md-none"><b class="border-bottom d-block">Additional Roles/Groups:</b></div>
@@ -39,7 +39,7 @@
         <div class="col-md-2 my-2">
             <div class="card card-rounded">
                 <div class="card-body p-0">
-                    <img src="/img/user-image.jpg" class="img-fluid card-rounded" alt="{{ auth()->user()->name }} Image">
+                    <img src="/img/user-image.jpg" class="img-fluid card-rounded" alt="{{ $user->name }} Image">
                 </div>
             </div>
         </div>
