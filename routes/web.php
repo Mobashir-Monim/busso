@@ -37,7 +37,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/scopes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('scopes');
     Route::get('/user-attribute-values', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attribute-values');
     Route::get('/user-attributes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attributes');
-    Route::get('/users', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('users');
     
     /** Resource Group and Resource Routes */
     Route::middleware(['hasSystemRole:resource-admin,super-admin'])->group(function () {
@@ -58,5 +57,10 @@ Route::middleware(['auth'])->group(function () {
 
             });
         });
+    });
+
+    /** User Routes */
+    Route::middleware(['hasSystemRole:user-admin,super-admin'])->group(function () {
+        Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
     });
 });
