@@ -93,4 +93,9 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function accessLogs()
+    {
+        return $this->hasMany(AccessLog::class);
+    }
 }

@@ -26,4 +26,9 @@ class ResourceGroup extends Model
     {
         return $this->morphOne(OauthClient::class, 'oauth_clients', 'user_type', 'user_id');
     }
+
+    public function accessLogs()
+    {
+        return $this->hasMany(AccessLog::class);
+    }
 }

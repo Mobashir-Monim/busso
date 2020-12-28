@@ -5,20 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resource extends Model
+class AccessLog extends Model
 {
     use HasFactory;
     use Concerns\UsesUuid;
 
-    protected $fillable = ['name', 'description', 'uri'];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function group()
     {
         return $this->belongsTo(ResourceGroup::class);
     }
 
-    public function accessLogs()
+    public function resource()
     {
-        return $this->hasMany(AccessLog::class);
+        return $this->belongsTo(Resource::class);
     }
 }

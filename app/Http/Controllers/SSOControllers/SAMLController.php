@@ -21,6 +21,7 @@ class SAMLController extends Controller
 
     public function assertLogin(SAMLEntity $entity, Request $request)
     {
+        new SAMLLogger(auth()->user()->id,$entity->group->id);
         $helper = new SamlSSO($request->SAMLRequest, $entity);
         $response = $helper->loginResponse();
         $helper->sendResponse($response);
