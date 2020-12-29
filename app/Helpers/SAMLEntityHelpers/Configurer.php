@@ -22,19 +22,20 @@ class Configurer extends Helper
     {
         if (is_null($request->meta_url)) {
             if ($request->hasFile('cert')) {
-                $this->configStatic($request->issuer, $request->acs, file_get_contents($request->cert));
+                $this->configStatic($request->issuer, $request->acs, $request->aud, file_get_contents($request->cert));
             } else {
-                $this->configStatic($request->issuer, $request->acs);
+                $this->configStatic($request->issuer, $request->acs, $request->aud);
             }
         } else {
             $this->configDoc($request);
         }
     }
 
-    public function configStatic($issuer, $acs, $cert = null)
+    public function configStatic($issuer, $acs, $aud, $cert = null)
     {
         $this->entity->issuer = $issuer;
         $this->entity->acs = $acs;
+        $this->entity->aud = $aud;
         
         if (!is_null($cert)) {
             Storage::disk(env('STORAGE_DISK', 'local'))->put("certificates/" . $this->entity->folder. "/" . $this->entity->id . ".crt", $cert, 0600);
@@ -63,6 +64,7 @@ class Configurer extends Helper
         return [
             'issuer' => $ed->getEntityID(),
             'acs' => $ed->getAllItems()[0]->getAllAssertionConsumerServices()[0]->getLocation(),
+            'aud' => $request->aud,
             'cert' => !is_null($ed->getSignature()) ? trim($ed->getSignature()->getKey()->getX509Certificate()) : null
         ];
     }
