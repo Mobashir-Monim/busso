@@ -63,7 +63,7 @@ class Base extends Helper
     {
         $sc = new SC;
         $response->serialize($sc->getDocument(), $sc);
-        dd($sc->saveXML());
+        dd($sc);
         Http::post($this->entity->acs, [
             'SAMLResponse' => base64_encode(gzdeflate($response->saveXML())),
             'RelayState' => $response
