@@ -4,7 +4,7 @@ namespace App\Helpers\AccessLogHelpers;
 
 use App\Helpers\Helper;
 
-class SAMLLogger extends Helper
+class SAMLLogger extends Logger
 {
     public function __construct($user, $group)
     {

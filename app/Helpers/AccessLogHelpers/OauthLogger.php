@@ -4,7 +4,7 @@ namespace App\Helpers\AccessLogHelpers;
 
 use App\Helpers\Helper;
 
-class OauthLogger extends Helper
+class OauthLogger extends Logger
 {
     public function __construct($user, $group, $resource)
     {
