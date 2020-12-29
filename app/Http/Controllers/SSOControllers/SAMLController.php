@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\SSOHelpers\SAML\Login as SamlSSO;
 use App\Helpers\SSOHelpers\SAML\Logout as SamlSLO;
 use App\Helpers\SAMLEntityHelpers\MetadataFetcher;
+use App\Helpers\AccessLogHelpers\SAMLLogger;
 use App\Models\SAMLEntity;
 use Auth;
 
