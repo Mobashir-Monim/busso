@@ -4,7 +4,6 @@ namespace App\Helpers\SSOHelpers\SAML;
 
 use App\Helpers\Helper;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Http;
 use \LightSaml\Model\Protocol\LogoutRequest;
 use \LightSaml\Model\Context\SerializationContext as SC;
 use \LightSaml\Model\Context\DeserializationContext as DC;
@@ -61,18 +60,11 @@ class Base extends Helper
 
     public function sendResponse($response)
     {
-        $sc = new SC;
-        $response->serialize($sc->getDocument(), $sc);
+        $postBinding = (new BindingFactory())->create(SConst::BINDING_SAML2_HTTP_POST);
+        $messageContext = new MessageContext();
+        $messageContext->setMessage($response)->asResponse();
+        $httpResponse = $postBinding->send($messageContext);
 
-        dd(Http::post($this->entity->acs, [
-            'SAMLResponse' => base64_encode(gzdeflate($sc->getDocument()->saveXML())),
-            'RelayState' => request()->RelayState
-        ]));
-        // $postBinding = (new BindingFactory())->create(SConst::BINDING_SAML2_HTTP_POST);
-        // $messageContext = new MessageContext();
-        // $messageContext->setMessage($response)->asResponse();
-        // $httpResponse = $postBinding->send($messageContext);
-
-        // print $httpResponse->getContent();
+        print $httpResponse->getContent();
     }
 }
