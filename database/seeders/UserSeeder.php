@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             ['name' => 'Matin Saad Abdullah', 'email' => 'mabdullah@bracu.ac.bd', 'password' => bcrypt('lalaland')],
             ['name' => 'Arif Shakil', 'email' => 'arif.shakil@bracu.ac.bd', 'password' => bcrypt('lalaland')],
             ['name' => 'Ahnaf Atef Choudhury', 'email' => 'ahnaf.atef@bracu.ac.bd', 'password' => bcrypt('lalaland')],
+            ['name' => 'Tester', 'email' => 'tester@email.com', 'password' => bcrypt('l6LL6vemXhCaSrt')],
         ];
 
         foreach ($users as $user) {
