@@ -44,4 +44,12 @@ class SAMLEntity extends Model
         $helper = new Helper;
         return hash('sha512', $helper->base64url_encode($this->group->id));
     }
+
+    public function getAudienceAttribute()
+    {
+        if (!is_null($this->attributes['aud'])) return $this->attributes['aud'];
+        if (!is_null($this->attributes['doc'])) return $this->attributes['doc'];
+
+        return $this->attributes['acs'];
+    }
 }

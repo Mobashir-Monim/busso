@@ -81,7 +81,7 @@ class Login extends Base
                 ->setNotBefore(new \DateTime())
                 ->setNotOnOrAfter(new \DateTime('+1 MINUTE'))
                 ->addItem(
-                    new AudienceRestriction([is_null($this->entity->doc) ? $this->authN->getAssertionConsumerServiceURL() : $this->entity->doc])
+                    new AudienceRestriction([$this->entity->audience])
                 )
             );
     }

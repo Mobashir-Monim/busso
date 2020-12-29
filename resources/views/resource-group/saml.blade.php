@@ -101,6 +101,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-2">
+                                        <input type="text" name="aud" class="form-control" placeholder="Audience Restriction" value={{ $group->saml->aud }}>
+                                        <label for="cert" class="sso-inp-label text-primary mr-2">Audience Restriction</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mb-2">
                                         <input type="url" name="meta_url" class="form-control" placeholder="Issuer Metadata URL" value="{{ $group->saml->doc }}">
                                         <label for="" class="sso-inp-label mr-2 text-primary"><b>NOTE: It is better to configure the URL</b></label>
                                     </div>

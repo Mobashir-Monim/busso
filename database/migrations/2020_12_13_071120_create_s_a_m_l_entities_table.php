@@ -23,6 +23,7 @@ class CreateSAMLEntitiesTable extends Migration
             $table->text('issuer')->nullable();
             $table->text('sig')->nullable();
             $table->text('acs')->nullable();
+            $table->text('aud')->nullable();
             $table->timestamps();
         });
     }
