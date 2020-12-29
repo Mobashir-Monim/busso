@@ -63,10 +63,10 @@ class Base extends Helper
     {
         $sc = new SC;
         $response->serialize($sc->getDocument(), $sc);
-        dd($sc->getDocument()->saveXML());
+        dd($sc, request()->RelayState);
         Http::post($this->entity->acs, [
-            'SAMLResponse' => base64_encode(gzdeflate($response->saveXML())),
-            'RelayState' => $response
+            'SAMLResponse' => base64_encode(gzdeflate($sc->getDocument()->saveXML())),
+            'RelayState' => request()->RelayState
         ]);
         // $postBinding = (new BindingFactory())->create(SConst::BINDING_SAML2_HTTP_POST);
         // $messageContext = new MessageContext();
