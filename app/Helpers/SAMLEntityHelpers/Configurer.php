@@ -50,8 +50,8 @@ class Configurer extends Helper
         $this->entity->doc = $request->meta_url;
         $this->entity->save();
         $content = $this->spreadDocContent(Http::get($request->meta_url)->body());
-        
-        $this->configStatic($content['issuer'], $content['acs'], $content['cert']);
+
+        $this->configStatic($content['issuer'], $content['acs'], $request->aud, $content['cert']);
     }
 
     public function spreadDocContent($content)
@@ -64,7 +64,6 @@ class Configurer extends Helper
         return [
             'issuer' => $ed->getEntityID(),
             'acs' => $ed->getAllItems()[0]->getAllAssertionConsumerServices()[0]->getLocation(),
-            'aud' => $request->aud,
             'cert' => !is_null($ed->getSignature()) ? trim($ed->getSignature()->getKey()->getX509Certificate()) : null
         ];
     }
