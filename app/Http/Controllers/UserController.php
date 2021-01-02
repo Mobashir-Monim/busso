@@ -29,4 +29,9 @@ class UserController extends Controller
 
         return redirect()->route('users');
     }
+
+    public function showUser(User $user)
+    {
+        return view('home', ['user' => $user]);
+    }
 }

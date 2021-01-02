@@ -62,6 +62,40 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row my-3">
+                <div class="col-md-12">
+                    <div class="card card-rounded">
+                        <div class="card-body">
+                            <h3 class="border-bottom border-2 border-primary">Search User(s)</h3>
+                            <div class="row">
+                                <div class="col-md-8 mb-2">
+                                    <input type="text" name="search_pharse" class="form-control" placeholder="Search Phrase" required>
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <select name="type" class="form-control" required>
+                                        <option value="">Search Phrase Type</option>
+                                        <option value="email @bracu.ac.bd">@bracu.ac.bd email</option>
+                                        <option value="email @g.bracu.ac.bd">@g.bracu.ac.bd email</option>
+                                        <option value="email non-bracu">Non BracU email</option>
+                                        <option value="email all">All email</option>
+                                        <option value="role">Application Role</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-2">
+                                    <button class="btn btn-dark w-100">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <button class="btn add-btn btn-dark" data-toggle="modal" data-target="#user-create"></button>
 
     @include('user.create')
