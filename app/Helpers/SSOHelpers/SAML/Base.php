@@ -54,9 +54,10 @@ class Base extends Helper
             ->setDestination($this->destination)
             ->setIssuer(new Issuer($this->issuer))
             ->setStatus(new Status(new StatusCode('urn:oasis:names:tc:SAML:2.0:status:Success')))
+            ->setSignature(new SignatureWriter($this->cert, $this->key))
             ->setRelayState(request()->RelayState);
 
-        if ($sign) $response->setSignature(new SignatureWriter($this->cert, $this->key));
+        // if ($sign) $response->setSignature(new SignatureWriter($this->cert, $this->key));
     }
 
     public function sendResponse($response)
