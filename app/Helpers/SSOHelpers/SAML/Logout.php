@@ -23,7 +23,7 @@ class Logout extends Base
 
     public function buildXML(&$response)
     {
-        $this->buildResponse($response);
+        $this->buildResponse($response, true);
     }
 
     public function logoutUser()
