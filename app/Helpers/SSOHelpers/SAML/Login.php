@@ -21,6 +21,7 @@ use \LightSaml\Model\Assertion\Attribute;
 use \LightSaml\ClaimTypes;
 use \LightSaml\Model\Assertion\AuthnStatement;
 use \LightSaml\Model\Assertion\AuthnContext;
+use \LightSaml\Model\XmlDSig\SignatureWriter;
 
 class Login extends Base
 {
