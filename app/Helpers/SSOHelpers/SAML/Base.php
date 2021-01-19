@@ -50,12 +50,13 @@ class Base extends Helper
 
     public function buildResponse(&$response)
     {
+        $this->signature = new SignatureWriter($this->cert, $this->key);
         $response->setID(LSH::generateID())
             ->setIssueInstant(new \DateTime())
             ->setDestination($this->destination)
             ->setIssuer(new Issuer($this->issuer))
             ->setStatus(new Status(new StatusCode('urn:oasis:names:tc:SAML:2.0:status:Success')))
-            ->setSignature($this->signature = new SignatureWriter($this->cert, $this->key))
+            ->setSignature($this->signature)
             ->setRelayState(request()->RelayState);
     }
 
