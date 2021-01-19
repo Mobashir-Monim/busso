@@ -51,7 +51,7 @@ class Login extends Base
 
     public function buildAssertion(&$assertion)
     {
-        dd($this->cert, $this->key);
+        dd($this->entity);
         $assertion->setId(LSH::generateID())
             ->setIssueInstant(new \DateTime())
             ->setIssuer(new Issuer($this->issuer))
