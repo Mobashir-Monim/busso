@@ -71,8 +71,8 @@ class Login extends Base
                     (new SubjectConfirmationData())
                         ->setInResponseTo($this->authN->getId())
                         ->setNotOnOrAfter(new \DateTime('+1 MINUTE'))
-                        // ->setRecipient($this->authN->getAssertionConsumerServiceURL())
-                        ->setRecipient($this->entity->audience)
+                        ->setRecipient($this->authN->getAssertionConsumerServiceURL())
+                        // ->setRecipient($this->entity->audience)
                     )
                 );
     }
