@@ -65,7 +65,7 @@ class Base extends Helper
         $messageContext->setMessage($response)->asResponse();
         $sc = new SC;
         $response->serialize($sc->getDocument(), $sc);
-        dd($sc, $sc->getDocument());
+        dd($sc, $sc->getDocument(), $sc->getDocument()->saveXML());
         $httpResponse = $postBinding->send($messageContext);
 
         print $httpResponse->getContent();
