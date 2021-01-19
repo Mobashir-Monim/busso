@@ -27,7 +27,7 @@ class Base extends Helper
     protected $issuer = null;
     protected $cert = null;
     protected $key = null;
-    public $signature;
+    protected $signature;
 
     public function __construct($saml, $entity, $type)
     {
@@ -71,5 +71,10 @@ class Base extends Helper
         $httpResponse = $postBinding->send($messageContext);
 
         print $httpResponse->getContent();
+    }
+
+    public function getSignature()
+    {
+        return $this->signature;
     }
 }
