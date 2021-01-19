@@ -27,7 +27,6 @@ class Base extends Helper
     protected $issuer = null;
     protected $cert = null;
     protected $key = null;
-    protected $signature;
 
     public function __construct($saml, $entity, $type)
     {
@@ -50,13 +49,12 @@ class Base extends Helper
 
     public function buildResponse(&$response)
     {
-        $this->signature = new SignatureWriter($this->cert, $this->key);
         $response->setID(LSH::generateID())
             ->setIssueInstant(new \DateTime())
             ->setDestination($this->destination)
             ->setIssuer(new Issuer($this->issuer))
             ->setStatus(new Status(new StatusCode('urn:oasis:names:tc:SAML:2.0:status:Success')))
-            ->setSignature($this->signature)
+            ->setSignature(new SignatureWriter($this->cert, $this->key))
             ->setRelayState(request()->RelayState);
     }
 
@@ -71,10 +69,5 @@ class Base extends Helper
         $httpResponse = $postBinding->send($messageContext);
 
         print $httpResponse->getContent();
-    }
-
-    public function getSignature()
-    {
-        return $this->signature;
     }
 }

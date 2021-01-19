@@ -54,7 +54,7 @@ class Login extends Base
         $assertion->setId(LSH::generateID())
             ->setIssueInstant(new \DateTime())
             ->setIssuer(new Issuer($this->issuer))
-            ->setSignature($this->getSignature())
+            ->setSignature(new SignatureWriter($this->cert, $this->key))
             ->setSubject($this->buildAssertionSubject());
     }
 
