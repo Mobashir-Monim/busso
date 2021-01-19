@@ -47,15 +47,16 @@ class Base extends Helper
         $this->key = KH::createPrivateKey(file_get_contents(storage_path("app/certificates/$entity->folder/$entity->key.pem")), $this->entity->pemPass, false);
     }
 
-    public function buildResponse(&$response)
+    public function buildResponse(&$response, $sign = false)
     {
         $response->setID(LSH::generateID())
             ->setIssueInstant(new \DateTime())
             ->setDestination($this->destination)
             ->setIssuer(new Issuer($this->issuer))
             ->setStatus(new Status(new StatusCode('urn:oasis:names:tc:SAML:2.0:status:Success')))
-            ->setSignature(new SignatureWriter($this->cert, $this->key))
             ->setRelayState(request()->RelayState);
+
+        if ($sign) $response->setSignature(new SignatureWriter($this->cert, $this->key));
     }
 
     public function sendResponse($response)

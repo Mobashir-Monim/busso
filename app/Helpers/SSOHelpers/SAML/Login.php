@@ -46,7 +46,7 @@ class Login extends Base
         $this->setAssertionCondition($assertion);
         $this->addAttributeStatement($assertion);
         $this->addAuthNStatement($assertion);
-        $this->buildResponse($response);
+        $this->buildResponse($response, true);
     }
 
     public function buildAssertion(&$assertion)
