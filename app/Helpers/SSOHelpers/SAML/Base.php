@@ -27,6 +27,7 @@ class Base extends Helper
     protected $issuer = null;
     protected $cert = null;
     protected $key = null;
+    public $signature;
 
     public function __construct($saml, $entity, $type)
     {
@@ -54,7 +55,7 @@ class Base extends Helper
             ->setDestination($this->destination)
             ->setIssuer(new Issuer($this->issuer))
             ->setStatus(new Status(new StatusCode('urn:oasis:names:tc:SAML:2.0:status:Success')))
-            ->setSignature(new SignatureWriter($this->cert, $this->key))
+            ->setSignature($this->signature = new SignatureWriter($this->cert, $this->key))
             ->setRelayState(request()->RelayState);
     }
 
