@@ -19,7 +19,7 @@ class OauthController extends Controller
 
     public function authenticator()
     {
-        return redirect(route('sso.oauth.login', ['val' => (new OauthLogin)->authenticatorParamCompactor([
+        return redirect(route('sso.oauth.login', ['oauth' => (new OauthLogin)->authenticatorParamCompactor([
             'client_id' => request()->client_id,
             'scope' => request()->scope,
             'state' => request()->state,
