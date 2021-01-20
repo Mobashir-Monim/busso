@@ -23,4 +23,11 @@ Route::name('sso.')->group(function () {
         Route::post('/assertion/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'login'])->name('login-api')->middleware('sso.saml.login-verify');
         Route::post('/logout/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'logout'])->name('logout-api')->middleware('sso.saml.logout-verify');
     });
+
+    Route::name('oauth.')->prefix('oauth')->group(function () {
+        Route::get('/auth', 'SSOController@authenticator')->middleware(['sso.oauth.param', 'sso.oauth.client']);
+        Route::get('/token', 'SSOController@exchangeCodeToken')->middleware(['sso.oauth.auth-grant', 'sso.oauth.client', 'sso.oauth.client-cred', 'sso.oauth.auth-code']);
+        Route::post('/token', 'SSOController@exchangeCodeToken')->middleware(['sso.oauth.auth-grant', 'sso.oauth.client', 'sso.oauth.client-cred', 'sso.oauth.auth-code']);
+        Route::get('/userinfo', 'SSOController@userInfo')->middleware(['sso.oauth.access-token']);
+    });
 });

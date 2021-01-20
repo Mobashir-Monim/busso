@@ -17,7 +17,7 @@ class ClientChecker
      */
     public function handle($request, Closure $next)
     {
-        if (Passport::client()->where('id', $request->client_id)->first() != null) {
+        if (!is_null(Passport::client()->where('id', $request->client_id)->first())) {
             return response()->json([
                 'success' => false,
             ], 401);

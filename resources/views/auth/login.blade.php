@@ -8,11 +8,11 @@
                 <div class="col-md-7 col-lg-5">
                     <div class="card card-login">
                         <div class="card-body">
-                            <h3>{{ isset(request()->SAMLRequest) || isset($auth) ? 'BuSSO ' : '' }}Login</h3>
+                            <h3>{{ isset(request()->SAMLRequest) || isset($oauth) ? 'BuSSO ' : '' }}Login</h3>
                             <form action="{{ 
-                                !isset(request()->SAMLRequest) && !isset($auth) ? route('login') : (
+                                !isset(request()->SAMLRequest) && !isset($oauth) ? route('login') : (
                                     !isset(request()->SAMLRequest) ?
-                                        route('sso.oauth.login') : route('sso.saml.assert-login', ['entity' => $entity->id])
+                                        route('sso.oauth.login', ['oauth' => request()->oauth]) : route('sso.saml.assert-login', ['entity' => $entity->id])
                                 )
                             }}" method="post">
                                 @csrf

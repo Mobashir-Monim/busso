@@ -26,6 +26,10 @@ Route::name('sso.')->group(function () {
         Route::post('/assertion/{entity}/login', [App\Http\Controllers\SSOControllers\SAMLController::class, 'assertLogin'])->name('assert-login')->middleware('sso.credential-checher');
         Route::get('/metadata/{entity}/{type}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'metaDoc'])->name('metadoc');
     });
+    Route::name('oauth.')->prefix('oauth/v2')->group(function () {
+        Route::get('/auth/{oauth}', [App\Http\Controllers\SSOControllers\OauthController::class, 'login'])->name('login')->middleware('sso.oauth.session');
+        Route::post('/auth/{oauth}', [App\Http\Controllers\SSOControllers\OauthController::class, 'authenticate'])->name('login')->middleware('sso.credential-checher', 'sso.oauth.session');
+    });
 });
 
 Route::middleware(['auth'])->group(function () {

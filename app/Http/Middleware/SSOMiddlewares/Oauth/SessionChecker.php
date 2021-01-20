@@ -17,10 +17,10 @@ class SessionChecker
      */
     public function handle(Request $request, Closure $next)
     {
-        $val = json_decode(base64url_decode(request()->val));
+        $oauth = json_decode(base64url_decode(request()->oauth));
         
-        if (property_exists($val, 'timestamp')) {
-            if (!is_null($val->timestamp) && Carbon::parse($val->timestamp)->addSeconds(60) < Carbon::now()) {
+        if (property_exists($oauth, 'timestamp')) {
+            if (!is_null($oauth->timestamp) && Carbon::parse($oauth->timestamp)->addSeconds(60) < Carbon::now()) {
                 return $next($request);
             }
         }
