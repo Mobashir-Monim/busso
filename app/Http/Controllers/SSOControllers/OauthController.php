@@ -19,7 +19,7 @@ class OauthController extends Controller
 
     public function authenticator()
     {
-        return redirect(route('sso-login', ['val' => (new OauthLogin)->authenticatorParamCompactor([
+        dd(route('sso.oauth.authenticate', ['oauth' => (new OauthLogin)->authenticatorParamCompactor([
             'client_id' => request()->client_id,
             'scope' => request()->scope,
             'state' => request()->state,
@@ -57,9 +57,9 @@ class OauthController extends Controller
     {
         return response()->json([
             'issuer' => url()->to('/'),
-            'authorization_endpoint' => url()->to('/') . '/oauth/authorize',
-            'token_endpoint' => url()->to('/') . '/oauth/token',
-            'userinfo_endpoint' => url()->to('/') . '/oauth',
+            'authorization_endpoint' => route('api.sso.oauth.auth'),
+            'token_endpoint' => route('api.sso.oauth.token'),
+            'userinfo_endpoint' => route('api.sso.oauth.user'),
             'jwks_uri' => route('sso.oauth.certs'),
             'scopes_supported' => url()->to('/'),
             'response_types_supported' => [
