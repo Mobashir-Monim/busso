@@ -19,15 +19,7 @@ class OauthController extends Controller
 
     public function authenticator()
     {
-        dd(['oauth' => (new OauthLogin)->authenticatorParamCompactor([
-            'client_id' => request()->client_id,
-            'scope' => request()->scope,
-            'state' => request()->state,
-            'nonce' => request()->nonce,
-            'redirect_uri' => request()->redirect_uri,
-            'timestamp' => Carbon::now()->timestamp,
-        ])]);
-        dd(route('sso.oauth.login', ['oauth' => (new OauthLogin)->authenticatorParamCompactor([
+        return redirect(route('sso-login', ['val' => (new OauthLogin)->authenticatorParamCompactor([
             'client_id' => request()->client_id,
             'scope' => request()->scope,
             'state' => request()->state,
@@ -65,9 +57,9 @@ class OauthController extends Controller
     {
         return response()->json([
             'issuer' => url()->to('/'),
-            'authorization_endpoint' => route('api.sso.oauth.auth'),
-            'token_endpoint' => route('api.sso.oauth.token'),
-            'userinfo_endpoint' => route('api.sso.oauth.user'),
+            'authorization_endpoint' => url()->to('/') . '/oauth/authorize',
+            'token_endpoint' => url()->to('/') . '/oauth/token',
+            'userinfo_endpoint' => url()->to('/') . '/oauth',
             'jwks_uri' => route('sso.oauth.certs'),
             'scopes_supported' => url()->to('/'),
             'response_types_supported' => [
