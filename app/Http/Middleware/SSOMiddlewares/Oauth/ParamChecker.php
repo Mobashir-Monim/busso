@@ -16,7 +16,7 @@ class ParamChecker
      */
     public function handle(Request $request, Closure $next)
     {
-        dd($request);
+        dd($request->all());
         if (is_null($request->client_id) || is_null($request->redirect_uri) ||
             is_null($request->response_type) || is_null($request->scope)) {
             return response()->json([
