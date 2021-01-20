@@ -19,6 +19,7 @@ class OauthController extends Controller
 
     public function authenticator()
     {
+        dd('henlo');
         dd(route('sso.oauth.login', ['oauth' => (new OauthLogin)->authenticatorParamCompactor([
             'client_id' => request()->client_id,
             'scope' => request()->scope,
