@@ -19,6 +19,14 @@ class OauthController extends Controller
 
     public function authenticator()
     {
+        dd(['oauth' => (new OauthLogin)->authenticatorParamCompactor([
+            'client_id' => request()->client_id,
+            'scope' => request()->scope,
+            'state' => request()->state,
+            'nonce' => request()->nonce,
+            'redirect_uri' => request()->redirect_uri,
+            'timestamp' => Carbon::now()->timestamp,
+        ])]);
         dd(route('sso.oauth.login', ['oauth' => (new OauthLogin)->authenticatorParamCompactor([
             'client_id' => request()->client_id,
             'scope' => request()->scope,
