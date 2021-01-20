@@ -25,9 +25,9 @@ Route::name('sso.')->group(function () {
     });
 
     Route::name('oauth.')->prefix('oauth')->group(function () {
-        Route::get('/auth', 'SSOController@authenticator')->middleware(['sso.oauth.param', 'sso.oauth.client']);
-        Route::get('/token', 'SSOController@exchangeCodeToken')->middleware(['sso.oauth.auth-grant', 'sso.oauth.client', 'sso.oauth.client-cred', 'sso.oauth.auth-code']);
-        Route::post('/token', 'SSOController@exchangeCodeToken')->middleware(['sso.oauth.auth-grant', 'sso.oauth.client', 'sso.oauth.client-cred', 'sso.oauth.auth-code']);
-        Route::get('/userinfo', 'SSOController@userInfo')->middleware(['sso.oauth.access-token']);
+        Route::get('/auth', [App\Http\Controllers\SSOControllers\OauthController::class, 'authenticator'])->middleware(['sso.oauth.param', 'sso.oauth.client']);
+        Route::get('/token', [App\Http\Controllers\SSOControllers\OauthController::class, 'exchangeCodeToken'])->middleware(['sso.oauth.auth-grant', 'sso.oauth.client', 'sso.oauth.client-cred', 'sso.oauth.auth-code']);
+        Route::post('/token', [App\Http\Controllers\SSOControllers\OauthController::class, 'exchangeCodeToken'])->middleware(['sso.oauth.auth-grant', 'sso.oauth.client', 'sso.oauth.client-cred', 'sso.oauth.auth-code']);
+        Route::get('/userinfo', [App\Http\Controllers\SSOControllers\OauthController::class, 'userInfo'])->middleware(['sso.oauth.access-token']);
     });
 });
