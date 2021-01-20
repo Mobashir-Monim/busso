@@ -17,6 +17,7 @@ class AuthGrantChecker
     public function handle(Request $request, Closure $next)
     {
         if ($request->grant_type != 'authorization_code') {
+            dd('in grant');
             return response()->json([
                 'success' => false,
                 'message' => 'bad_request'
