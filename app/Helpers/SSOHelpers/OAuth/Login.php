@@ -69,7 +69,7 @@ class Login extends Helper
             'user_id' => $user_id,
             'client_id' => $client_id,
             'scopes' => $scopes,
-            'name' => 'SSO login for ' . PClient::find($client_id)->name,
+            'name' => 'SSO login for ' . Client::find($client_id)->name,
             'expires_at' => Carbon::now()->addSeconds(604800)->toDateTimeString(),
             'revoked' => false
         ]);
