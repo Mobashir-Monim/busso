@@ -29,7 +29,7 @@ class OauthController extends Controller
         ])]));
     }
 
-    public function authenticate($oauth, Request $request)
+    public function authenticate(Request $request)
     {
         $helper = new OauthLogin;
         $val = $helper->authenticatorParamDecompressor($request->stuff);
