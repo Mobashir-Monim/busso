@@ -57,9 +57,9 @@ class OauthController extends Controller
     {
         return response()->json([
             'issuer' => url()->to('/'),
-            'authorization_endpoint' => route('passport.authorizations.authorize'),
-            'token_endpoint' => route('passport.token'),
-            'userinfo_endpoint' => url()->to('/') . '/oauth',
+            'authorization_endpoint' => route('api.sso.oauth.auth'),
+            'token_endpoint' => route('api.sso.oauth.token'),
+            'userinfo_endpoint' => route('api.sso.oauth.user'),
             'jwks_uri' => route('sso.oauth.certs'),
             'scopes_supported' => url()->to('/'),
             'response_types_supported' => [
