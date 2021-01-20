@@ -21,14 +21,12 @@ class AuthCodeChecker
         $authCode = Passport::authCode()->find(request()->code);
 
         if (is_null($authCode)) {
-            dd('in auth first');
             return response()->json([
                 'success' => false,
             ], 401);
         }
 
         if ($authCode->client_id != $request->client_id || $authCode->revoked || Carbon::now() > Carbon::parse($authCode->expires_at)) {
-            dd('in auth second');
             return response()->json([
                 'success' => false,
             ], 401);

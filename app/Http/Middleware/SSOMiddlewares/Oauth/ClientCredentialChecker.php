@@ -20,7 +20,7 @@ class ClientCredentialChecker
         $client = Passport::client()->find($request->client_id);
 
         if ($client->secret != $request->client_secret || $client->redirect_uri != $request->redirect_uri) {
-            dd('in cred check');
+            dd($client->secret, $request->client_secret, $client->redirect_uri, $request->redirect_uri);
             return response()->json([
                 'success' => false,
             ], 401);
