@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd();
     dd('nothing in test');
 })->name('tester');
 
@@ -29,7 +30,8 @@ Route::name('sso.')->group(function () {
     Route::name('oauth.')->prefix('oauth/v2')->group(function () {
         Route::get('/auth/{oauth}', [App\Http\Controllers\SSOControllers\OauthController::class, 'login'])->name('login')->middleware('sso.oauth.session');
         Route::post('/auth', [App\Http\Controllers\SSOControllers\OauthController::class, 'authenticate'])->name('login')->middleware('sso.credential-checher', 'sso.oauth.session');
-        Route::get('/.well-known/openid-configuration', [App\Http\Controllers\SSOControllers\OauthController::class, 'discoveryDoc']);
+        Route::get('/.well-known/openid-configuration', [App\Http\Controllers\SSOControllers\OauthController::class, 'discoveryDoc'])->name('discovery-doc');
+        Route::get('/oauth2/certs', [App\Http\Controllers\SSOControllers\OauthController::class, 'jwksDoc'])->name('certs');
     });
 });
 
@@ -57,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
             });
 
             /** Resource Routes */
-            Route::get('/{group}/resources', [App\Http\Controllers\ResourceController::class, 'index'])->name('resources');
+            // Route::get('/{group}/resources', [App\Http\Controllers\ResourceController::class, 'index'])->name('resources');
             Route::name('resources.')->prefix('{group}/resources')->group(function () {
 
             });
