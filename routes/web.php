@@ -29,6 +29,7 @@ Route::name('sso.')->group(function () {
     Route::name('oauth.')->prefix('oauth/v2')->group(function () {
         Route::get('/auth/{oauth}', [App\Http\Controllers\SSOControllers\OauthController::class, 'login'])->name('login')->middleware('sso.oauth.session');
         Route::post('/auth/{oauth}', [App\Http\Controllers\SSOControllers\OauthController::class, 'authenticate'])->name('login')->middleware('sso.credential-checher', 'sso.oauth.session');
+        Route::get('/.well-known/openid-configuration', [App\Http\Controllers\SSOControllers\OauthController::class, 'discoveryDoc']);
     });
 });
 
