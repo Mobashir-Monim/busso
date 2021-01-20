@@ -4,6 +4,7 @@ namespace App\Http\Middleware\SSOMiddlewares\Oauth;
 
 use Closure;
 use Illuminate\Http\Request;
+use Laravel\Passport\Passport;
 
 class ClientCredentialChecker
 {
