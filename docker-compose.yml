@@ -1,36 +1,54 @@
-version: '3'
+version: "2"
+services:
+  app:
+    build:
+      args:
+        user: sammy
+        uid: 1000
+        # token: b3026b884d0c7dadb246e48a99c7b8a82d53c7a1
+      context: ./
+      dockerfile: Dockerfile
+    image: busso
+    container_name: busso-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - busso
+
+  # db:
+  #   image: mysql:5.7
+  #   container_name: busso-db
+  #   restart: unless-stopped
+  #   environment:
+  #     MYSQL_DATABASE: ${DB_DATABASE}
+  #     MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+  #     MYSQL_PASSWORD: ${DB_PASSWORD}
+  #     MYSQL_USER: ${DB_USERNAME}
+  #     SERVICE_TAGS: dev
+  #     SERVICE_NAME: mysql
+  #   volumes:
+  #     - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+  #   networks:
+  #     - busso
+
+  # redis:
+  #   image: redis:latest
+  #   container_name: redis
+
+  nginx:
+    image: nginx:alpine
+    container_name: busso-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - busso
 
 networks:
-    busso:
-
-services:
-    app:
-        build:
-            context: ./
-            dockerfile: Dockerfile
-        image: eveneer/busso
-        container_name: app
-        restart: unless-stopped
-        volumes:
-            - ./:/var/www/html
-            - ./config/php/local.ini:/usr/local/etc/php/conf.d/local.ini
-        networks:
-            - busso
-
-    webserver:
-        build:
-            context: .
-            dockerfile: Dockerfile_Nginx
-        image: eveneer/nginx
-        container_name: webserver
-        restart: unless-stopped
-        ports: 
-            - "8080:80"
-            - "443:443"
-        volumes:
-            - ./:/var/www/html
-            - ./config/nginx/conf.d/:/etc/nginx/conf.d/
-        depends_on:
-            - app
-        networks:
-            - busso
+  busso:
+    driver: bridge
