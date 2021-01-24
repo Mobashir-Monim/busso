@@ -37,7 +37,7 @@
                                 <div class="row mt-4">
                                     <div class="col-md-4"></div>
                                     <div class="col-md-8 text-right">
-                                        <button class="btn btn-dark" type="submit">Send Reset Link</button>
+                                        <button class="btn btn-dark" type="submit">Reset Password</button>
                                     </div>
                                 </div>
                             </form>
