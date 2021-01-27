@@ -1,5 +1,9 @@
 <?php
 
+define('APP_ENV', $_SERVER['APP_ENV']);
+define('APP_DEBUG', $_SERVER['APP_DEBUG']);
+define('APP_STORAGE', $_SERVER['APP_STORAGE']);
+
 return [
 
     /*
@@ -26,7 +30,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => APP_ENV == "" || APP_ENV == null ? env('APP_ENV', 'local') : APP_ENV,
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +43,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool) APP_DEBUG == "" || APP_DEBUG == null ? env('APP_DEBUG', true) : APP_DEBUG,
 
     /*
     |--------------------------------------------------------------------------
@@ -133,6 +137,8 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
+    'storage' => APP_STORAGE == "" || APP_STORAGE == null ? env('APP_ENV') : APP_ENV,
 
     'providers' => [
 

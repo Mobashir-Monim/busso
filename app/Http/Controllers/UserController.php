@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\UserHelpers\Stats;
 use App\Models\User;
+use App\Helpers\UserHelpers\Creator;
 
 class UserController extends Controller
 {
@@ -16,18 +17,9 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $pass = \Str::random(rand(12, 16));
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($pass);
-        $user->save();
-
-        $user->roles()->attach($request->system_role);
-
-        flash("User $user->email created with password $pass")->success();
-
-        return redirect()->route('users');
+        $helper = new Creator($request);
+        
+        return $helper->create();
     }
 
     public function showUser(User $user)

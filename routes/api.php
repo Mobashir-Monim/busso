@@ -32,4 +32,10 @@ Route::name('api.')->group(function () {
             Route::get('/userinfo', [App\Http\Controllers\SSOControllers\OauthController::class, 'userInfo'])->name('user')->middleware(['sso.oauth.access-token']);
         });
     });
+
+    Route::middleware(['hasSystemRole:user-admin,super-admin'])->group(function () {
+        Route::name('users.')->prefix('/user')->group(function () {
+            Route::post('/create', [App\Http\Controllers\UserController::class, 'create'])->name('create');
+        });
+    });
 });

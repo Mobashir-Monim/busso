@@ -18,14 +18,14 @@ class UserSeeder extends Seeder
     {
         $users = [
             ['name' => 'Mobashir Monim', 'email' => 'mobashirmonim@gmail.com', 'password' => bcrypt('lalaland')],
-            ['name' => 'Mobashir Monim', 'email' => 'mobashir.monim@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            ['name' => 'Mobashir Monim', 'email' => 'ext.mobashir.monim@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            ['name' => 'Mahbub Majumdar', 'email' => 'majumdar@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            ['name' => 'Sadia Hamid Kazi', 'email' => 'skazi@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            ['name' => 'Matin Saad Abdullah', 'email' => 'mabdullah@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            ['name' => 'Arif Shakil', 'email' => 'arif.shakil@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            ['name' => 'Ahnaf Atef Choudhury', 'email' => 'ahnaf.atef@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            ['name' => 'Tester', 'email' => 'tester@email.com', 'password' => bcrypt('l6LL6vemXhCaSrt')],
+            // ['name' => 'Mobashir Monim', 'email' => 'mobashir.monim@bracu.ac.bd', 'password' => bcrypt('lalaland')],
+            // ['name' => 'Mobashir Monim', 'email' => 'ext.mobashir.monim@bracu.ac.bd', 'password' => bcrypt('lalaland')],
+            // ['name' => 'Mahbub Majumdar', 'email' => 'majumdar@bracu.ac.bd', 'password' => bcrypt('lalaland')],
+            // ['name' => 'Sadia Hamid Kazi', 'email' => 'skazi@bracu.ac.bd', 'password' => bcrypt('lalaland')],
+            // ['name' => 'Matin Saad Abdullah', 'email' => 'mabdullah@bracu.ac.bd', 'password' => bcrypt('lalaland')],
+            // ['name' => 'Arif Shakil', 'email' => 'arif.shakil@bracu.ac.bd', 'password' => bcrypt('lalaland')],
+            // ['name' => 'Ahnaf Atef Choudhury', 'email' => 'ahnaf.atef@bracu.ac.bd', 'password' => bcrypt('lalaland')],
+            // ['name' => 'Tester', 'email' => 'tester@email.com', 'password' => bcrypt('l6LL6vemXhCaSrt')],
         ];
 
         foreach ($users as $user) {

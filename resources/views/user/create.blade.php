@@ -54,13 +54,18 @@
                                         <h5 class="border-bottom border-2 border-primary">Batch Addition</h5>
                                     </div>
                                 </div>
-                                <div class="row form-group">
-                                    <div class="col-md-6 mb-2">
+                                <div class="row form-group" id="batch-progress">
+                                    <div class="col-md-12">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="progress-bar">0%</div>
+                                        </div>
+                                    </div>
+                                    {{-- <div class="col-md-6 mb-2">
                                         <input type="file" name="batch-file" id="batch-file" class="form-control">
                                     </div>
                                     <div class="col-md-6 mb-2">
                                         <button class="btn btn-dark w-100">Batch Add Users</button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-12 my-2">

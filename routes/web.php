@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    dd(route('login'));
+    dd(config('filesystems.default'), storage_path('app'));
+    dd(storage_path('logs/laravel.log'));
+    dd(route('login'), asset('css/app.css'));
     dd('nothing in test');
 })->name('tester');
 
