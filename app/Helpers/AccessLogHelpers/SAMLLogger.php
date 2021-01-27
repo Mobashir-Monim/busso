@@ -8,6 +8,6 @@ class SAMLLogger extends Logger
 {
     public function __construct($user, $group)
     {
-        parent::__construct($user, $group, null, 'SAML');
+        $this->createLog($user, $group, null, 'SAML');
     }
 }
