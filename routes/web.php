@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd(route('login'));
     dd('nothing in test');
 })->name('tester');
 

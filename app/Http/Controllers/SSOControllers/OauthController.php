@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\Helpers\SSOHelpers\OAuth\Login as OauthLogin;
 use Laravel\Passport\Passport;
 use App\Models\Passport\Token;
+use App\Models\Passport\Client;
+use App\Helpers\AccessLogHelpers\OauthLogger;
 
 class OauthController extends Controller
 {
@@ -33,6 +35,7 @@ class OauthController extends Controller
     {
         $helper = new OauthLogin;
         $val = $helper->authenticatorParamDecompressor($request->stuff);
+        new OauthLogger(auth()->user()->id, Client::find($val->client_id)->user_id);
 
         return redirect($val->redirect_uri . "?state=$val->state&code=" . $helper->createAuthCode($val, Passport::authCode())->id . "&scope=$val->scope");
     }
