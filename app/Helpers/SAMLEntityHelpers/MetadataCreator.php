@@ -13,6 +13,7 @@ use \LightSaml\Model\Metadata\KeyDescriptor as KD;
 use \LightSaml\Model\Metadata\SingleSignOnService as SSO;
 use \LightSaml\Model\Metadata\SingleLogoutService as SLO;
 use \LightSaml\Model\Context\SerializationContext as SC;
+use App\Helpers\FileHelpers\LocalCache as LC;
 
 class MetadataCreator extends Helper
 {
@@ -46,6 +47,7 @@ class MetadataCreator extends Helper
 
     public function addKey()
     {
+        new LC("certificates/" . $this->entity->folder, "certificates/" . $this->entity->folder, $this->entity->cert . ".crt");
         return (new KD())
         ->setUse(KD::USE_SIGNING)
         ->setCertificate(X509::fromFile(storage_path("app/certificates/") . $this->entity->folder . "/" . $this->entity->cert . ".crt"));
@@ -55,7 +57,7 @@ class MetadataCreator extends Helper
     {
         $idpDescriptor->addSingleLogoutService((new SLO())
             ->setBinding(SConst::BINDING_SAML2_HTTP_POST)
-            ->setLocation(route('sso.saml.logout-api', ['entity' => $this->entity->id])));
+            ->setLocation(route('api.sso.saml.logout', ['entity' => $this->entity->id])));
 
         $idpDescriptor->addSingleLogoutService((new SLO())
             ->setBinding(SConst::BINDING_SAML2_HTTP_REDIRECT)
@@ -66,7 +68,7 @@ class MetadataCreator extends Helper
     {
         $idpDescriptor->addSingleSignOnService((new SSO())
             ->setBinding(SConst::BINDING_SAML2_HTTP_POST)
-            ->setLocation(route('sso.saml.login-api', ['entity' => $this->entity->id])));
+            ->setLocation(route('api.sso.saml.login', ['entity' => $this->entity->id])));
 
         $idpDescriptor->addSingleSignOnService((new SSO())
             ->setBinding(SConst::BINDING_SAML2_HTTP_REDIRECT)

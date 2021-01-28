@@ -18,6 +18,7 @@ use \LightSaml\Model\Protocol\StatusCode;
 use \LightSaml\Model\XmlDSig\SignatureWriter;
 use \LightSaml\Binding\BindingFactory;
 use \LightSaml\Context\Profile\MessageContext;
+use App\Helpers\FileHelpers\LocalCache as LC;
 
 class Base extends Helper
 {
@@ -39,6 +40,8 @@ class Base extends Helper
 
     public function spreadEssentials($authN, $entity)
     {
+        new LC("certificates/" . $entity->folder, "certificates/" . $entity->folder, $entity->cert . ".crt");
+        new LC("certificates/" . $entity->folder, "certificates/" . $entity->folder, $entity->key . ".pem");
         $this->authN = $authN;
         $this->entity = $entity;
         $this->destination = $entity->acs;

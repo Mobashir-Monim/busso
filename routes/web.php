@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd(\Storage::disk('local')->exists('certificates/test.txt'));
     dd(config('filesystems.default'), storage_path('app'));
     dd(storage_path('logs/laravel.log'));
     dd(route('login'), asset('css/app.css'));

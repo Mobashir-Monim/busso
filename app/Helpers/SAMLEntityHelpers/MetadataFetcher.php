@@ -30,9 +30,9 @@ class MetadataFetcher extends Helper
 
     public function urlResponse()
     {
-        return response(Storage::disk($this->disk)->get(
-            'certificates/' . $this->entity->folder. "/" . $this->entity->metadataDocName . ".xml",
-        ), 200)->header('Content-Type', 'text/xml');
+        return response(
+            Storage::disk($this->disk)->get('certificates/' . $this->entity->folder. "/" . $this->entity->metadataDocName . ".xml"),200
+        )->header('Content-Type', 'text/xml');
     }
 
     public function downloadMetadata()

@@ -21,8 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::name('api.')->group(function () {
     Route::name('sso.')->group(function () {
         Route::name('saml.')->prefix('saml')->group(function () {
-            Route::post('/assertion/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'login'])->name('login-api')->middleware('sso.saml.login-verify');
-            Route::post('/logout/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'logout'])->name('logout-api')->middleware('sso.saml.logout-verify');
+            Route::post('/assertion/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'login'])->name('login')->middleware('sso.saml.login-verify');
+            Route::post('/logout/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'logout'])->name('logout')->middleware('sso.saml.logout-verify');
         });
     
         Route::name('oauth.')->prefix('oauth')->group(function () {
