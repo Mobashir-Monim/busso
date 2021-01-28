@@ -74,5 +74,7 @@ class Kernel extends HttpKernel
         'sso.oauth.redirect'            => \App\Http\Middleware\SSOMiddlewares\Oauth\RedirectChecker::class,
         'sso.oauth.session'             => \App\Http\Middleware\SSOMiddlewares\Oauth\SessionChecker::class,
         'sso.credential-checher'        => \App\Http\Middleware\SSOMiddlewares\CredentialChecker::class,
+        'password-reset.enforced'         => \App\Http\Middleware\PasswordReset\ForceReset::class,
+        'password-reset.validity'       => \App\Http\Middleware\PasswordReset\CheckLastUpdate::class,
     ];
 }
