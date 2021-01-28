@@ -39,6 +39,6 @@ class ResourceGroupHelper extends Helper
     {
         if (!Storage::disk(env('STORAGE_DISK', 'local'))->exists("Resource Group Images")) Storage::disk(env('STORAGE_DISK', 'local'))->makeDirectory("Resource Group Images", 'public');
         if (!is_null($existing)) Storage::disk(env('STORAGE_DISK', 'local'))->delete($existing);
-        return $request->file('image')->storeAs('Resource Group Images', Carbon::now()->timestamp . " - " . $request->name . "." . $request->file('image')->extension(), env('STORAGE_DISK', 'local'));
+        return $request->file('image')->storePubliclyAs('Resource Group Images', Carbon::now()->timestamp . " - " . $request->name . "." . $request->file('image')->extension(), env('STORAGE_DISK', 'local'));
     }
 }
