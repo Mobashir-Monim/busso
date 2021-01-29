@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    $groups = App\Models\ResourceGroup::all();
+    $types = ['SAML', 'OIDC', 'authorization'];
+
+    for ($i = 0; $i <= 100; $i++) {
+        App\Models\AccessLog::create([
+            'user_id' => auth()->user()->id,
+            'resource_group_id' => $groups[rand(0, count($groups) - 1)]->id,
+            'type' => $types[rand(0, 2)],
+            'created_at' => Carbon\Carbon::now()->addSeconds(-1 * rand(0, 1) * rand())->format('Y-m-d H:i:s')
+            ]);
+    }
     dd('nothing in test');
 })->name('tester');
 
@@ -73,6 +84,10 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
                 Route::post('/create', [App\Http\Controllers\UserController::class, 'create'])->name('create');
                 Route::get('/{user}', [App\Http\Controllers\UserController::class, 'showUser']);
             });
+        });
+
+        Route::name('users.')->prefix('/user')->group(function () {
+            Route::get('/logs/services', [App\Http\Controllers\UserController::class, 'accessLog'])->name('access-log');
         });
     });
 });

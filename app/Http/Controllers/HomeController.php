@@ -28,6 +28,6 @@ class HomeController extends Controller
 
     public function needToImplement()
     {
-        return view('need-to-implement');
+        return view('user.');
     }
 }
