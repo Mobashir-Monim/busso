@@ -54,18 +54,18 @@
                                         <h5 class="border-bottom border-2 border-primary">Batch Addition</h5>
                                     </div>
                                 </div>
-                                <div class="row form-group" id="batch-progress">
-                                    <div class="col-md-12">
+                                <div class="row form-group">
+                                    <div class="col-md-12 hidden" id="batch-progress"">
                                         <div class="progress">
                                             <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="progress-bar">0%</div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-6 mb-2">
-                                        <input type="file" name="batch-file" id="batch-file" class="form-control">
+                                    <div class="col-md-6 mb-2" id="batch-inp">
+                                        <input type="file" name="batch-file" id="batch-file" class="form-control" accept=".xls, .xlsx">
                                     </div>
-                                    <div class="col-md-6 mb-2">
-                                        <button class="btn btn-dark w-100">Batch Add Users</button>
-                                    </div> --}}
+                                    <div class="col-md-6 mb-2" id="batch-button">
+                                        <button class="btn btn-dark w-100" onclick="readFile()" type="button">Batch Add Users</button>
+                                    </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-12 my-2">
@@ -78,8 +78,10 @@
                 </div>
             </div>
             <div class="modal-footer bg-dark">
-                <button type="submit" class="btn btn-primary tick-btn"></button>
+                {{-- <button type="submit" class="btn btn-primary tick-btn"></button> --}}
             </div>
         </div>
     </div>
 </div>
+
+@include('user.scripts.create')

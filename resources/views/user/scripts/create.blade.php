@@ -2,79 +2,95 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.min.js"></script>
 <script>
+    const token = 'Bearer {{ auth()->user()->createToken("BuSSO")->accessToken }}';
     const fileInput = document.getElementById('batch-file');
+    const progressBar = document.getElementById('progress-bar');
     const batchProgress = document.getElementById('batch-progress');
+    const batchFile = document.getElementById('batch-inp');
+    const batchButton = document.getElementById('batch-button');
+    let uploads = [];
+    let current = 0;
 
     const readFile = () => {
-        batchProgress.innerHTML = '<div class="mt-2 spinner-border" role="status"><span class="sr-only">Loading...</span></div>';
+        batchProgress.classList.remove('hidden');
+        batchFile.classList.add('hidden');
+        batchButton.classList.add('hidden');
+        
         setTimeout(() => {
             let reader = new FileReader();
 
             reader.onload = function () {
-                exelToJSON(reader.result, out, file);
+                exelToJSON(reader.result);
             };
 
             reader.readAsBinaryString(fileInput.files[0]);
         }, 100);
     };
 
-    function exelToJSON(data, out, file) {
+    const exelToJSON = data => {
         let cfb = XLSX.read(data, {type: 'binary'});
             
         cfb.SheetNames.forEach(function(sheetName) {   
             let oJS = XLS.utils.sheet_to_json(cfb.Sheets[sheetName], {defval: ""});
-            let result = [];
             let headers = Object.keys(oJS[0]);
 
             for (let index = 0; index < oJS.length; index++) {
                 let imm = {};
 
-                if (file == "usis-registrations") {
-                    headers.forEach(key => {
-                        if (key == "section") {
-                            imm[key] = oJS[index][key] != undefined ? parseInt(oJS[index][key].toString().replace(/\s+/g,' ').trim().replace(/\D/g,'')) : oJS[index][key];
-                        } else {
-                            imm[key] = oJS[index][key] != undefined ? oJS[index][key].toString().replace(/\s+/g,' ').trim() : oJS[index][key];
-                        }
-                    });
-                } else {
-                    headers.forEach(key => {
-                        if (file == "eval-response" && key == "Course") {
-                            imm[key] = oJS[index][key] != undefined ? oJS[index][key].toString().replace(/\s+/g,' ').trim().replaceAll(/\s/g, '').replaceAll('-', '.') : oJS[index][key];
-                        } else {
-                            imm[key] = oJS[index][key] != undefined ? oJS[index][key].toString().replace(/\s+/g,' ').trim() : oJS[index][key];
-                        }
-                    });
-                }
+                headers.forEach(key => {
+                    imm[key] = oJS[index][key] != undefined ? oJS[index][key].toString().replace(/\s+/g,' ').trim() : oJS[index][key];
+                });
 
-                if (file == "eval-response") {
-                    imm['timed-identifier'] = `${ imm["Identifier"] }-${ imm["Timestamp"] }`;
-                }
-
-                result.push(imm);
+                uploads.push(imm);
             }
-
-            if (file == "eval-response") {
-                evalsHeader = headers;
-                evals = result;
-            } else if (file == "usis-registrations") {
-                usisRegHeader = headers;
-                usisReg = result;
-            } else if (file == "gsuite") {
-                gsuiteHeader = headers;
-                gsuite = result;
-            } else {
-                parts = result;
-                storeResults();
-            }
-
-            if (usisRegHeader != null && gsuiteHeader != null && file != 'backup') { console.log('Generating ID Map'); generateIDMap(); }
-            if (usisRegHeader != null && evalsHeader != null && gsuiteHeader != null && file != 'backup') {
-                document.getElementById('evaluator').classList.remove('hidden');
-            }
-
-
-            out.innerHTML = "";
         });
+
+        createAccount();
+    }
+
+    const createAccount = () => {
+        console.log(uploads[current].name)
+        console.log(uploads[current].email)
+        fetch("{{ route('api.users.create') }}", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "Authorization": token,
+                    },
+                method: 'post',
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    name: uploads[current].name,
+                    email: uploads[current].email,
+                    isApi: true,
+                })
+            }).then(response => {
+                console.log(response)
+                return response.json();
+            }).then(data => {
+                console.log(data);
+                updateProgress();
+            }).catch(error => {
+                console.log(error);
+                alert('Whoop! Something went wrong, please refresh the page and try again');
+            });
+    }
+
+    const updateProgress = () => {
+        let completed = `${ (current / uploads.length).toFixed(2) }%`;
+        progressBar.style.width = completed;
+        progressBar.innerText = completed;
+        current++;
+
+        if (current < uploads.length) {
+            setTimeout(() => {
+                createAccount();
+            }, 100);
+        } else {
+            alert('All done!!');
+            location.reload();
+        }
     }
 </script>

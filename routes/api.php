@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::name('api.')->group(function () {
+Route::middleware(['password-reset.enforced', 'password-reset.validity'])->name('api.')->group(function () {
     Route::name('sso.')->group(function () {
         Route::name('saml.')->prefix('saml')->group(function () {
             Route::post('/assertion/{entity}', [App\Http\Controllers\SSOControllers\SAMLController::class, 'login'])->name('login')->middleware('sso.saml.login-verify');
@@ -33,9 +33,11 @@ Route::name('api.')->group(function () {
         });
     });
 
-    Route::middleware(['hasSystemRole:user-admin,super-admin'])->group(function () {
-        Route::name('users.')->prefix('/user')->group(function () {
-            Route::post('/create', [App\Http\Controllers\UserController::class, 'create'])->name('create');
+    Route::middleware(['auth'])->group(function () {
+        Route::middleware(['hasSystemRole:user-admin,super-admin'])->group(function () {
+            Route::name('users.')->prefix('/user')->group(function () {
+                Route::post('/create', [App\Http\Controllers\UserController::class, 'create'])->name('create');
+            });
         });
     });
 });
