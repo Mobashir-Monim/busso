@@ -14,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    dd(config('app.env'));
+    if (request()->type == 'config') {
+        dd(config(request()->cmd));
+    } else {
+        dd(getConfig(request()->cmd));
+    }
+
     dd('nothing in test');
 })->name('tester');
 
