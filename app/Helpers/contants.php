@@ -40,17 +40,12 @@ define('CONFIG_CONSTANTS', [
 function getConfig($config)
 {
     try {
-        echo "$config\n";
         $parts = explode('.', $config);
         $res = CONFIG_CONSTANTS;
 
         for ($i = 0; $i < sizeof($parts); $i++) {
-            print_r($res);
-            echo "\n";
             $res = $res[$parts[$i]];
         }
-
-        echo $res;
 
         return $res;
     } catch (\Throwable $th) {
