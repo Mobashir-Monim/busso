@@ -2,10 +2,18 @@
 
 use Illuminate\Support\Str;
 
-define('RDS_HOSTNAME', $_SERVER['RDS_HOSTNAME']);
-define('RDS_USERNAME', $_SERVER['RDS_USERNAME']);
-define('RDS_PASSWORD', $_SERVER['RDS_PASSWORD']);
-define('RDS_DB_NAME', $_SERVER['RDS_DB_NAME']);
+
+if (isset($_SERVER['RDS_HOSTNAME'])) {
+    define('RDS_HOSTNAME', $_SERVER['RDS_HOSTNAME']);
+    define('RDS_USERNAME', $_SERVER['RDS_USERNAME']);
+    define('RDS_PASSWORD', $_SERVER['RDS_PASSWORD']);
+    define('RDS_DB_NAME', $_SERVER['RDS_DB_NAME']);
+} else {
+    define('RDS_HOSTNAME', env('DB_HOST'));
+    define('RDS_USERNAME', env('DB_DATABASE'));
+    define('RDS_PASSWORD', env('DB_USERNAME'));
+    define('RDS_DB_NAME', env('DB_PASSWORD'));
+}
 
 return [
 
@@ -52,14 +60,10 @@ return [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'port' => env('DB_PORT', '3306'),
-            // 'host' => RDS_HOSTNAME,
-            // 'database' => RDS_DB_NAME,
-            // 'username' => RDS_USERNAME,
-            // 'password' => RDS_PASSWORD,
-            'host' => RDS_HOSTNAME == "" || RDS_HOSTNAME == null ? env('DB_HOST') : RDS_HOSTNAME,
-            'database' => RDS_DB_NAME == "" || RDS_DB_NAME == null ? env('DB_DATABASE') : RDS_DB_NAME,
-            'username' => RDS_USERNAME == "" || RDS_USERNAME == null ? env('DB_USERNAME') : RDS_USERNAME,
-            'password' => RDS_PASSWORD == "" || RDS_PASSWORD == null ? env('DB_PASSWORD') : RDS_PASSWORD,
+            'host' => RDS_HOSTNAME,
+            'database' => RDS_DB_NAME,
+            'username' => RDS_USERNAME,
+            'password' => RDS_PASSWORD,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

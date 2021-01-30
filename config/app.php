@@ -1,8 +1,14 @@
 <?php
 
-define('APP_ENV', $_SERVER['APP_ENV']);
-define('APP_DEBUG', $_SERVER['APP_DEBUG']);
-define('APP_STORAGE', $_SERVER['APP_STORAGE']);
+if (isset($_SERVER['APP_ENV'])) {
+    define('APP_ENV', $_SERVER['APP_ENV']);
+    define('APP_DEBUG', $_SERVER['APP_DEBUG']);
+    define('APP_STORAGE', $_SERVER['APP_STORAGE']);
+} else {
+    define('APP_ENV', env('APP_ENV', 'local'));
+    define('APP_DEBUG', env('APP_DEBUG', true));
+    define('APP_STORAGE', env('FILESYSTEM_DRIVER', 'local'));
+}
 
 return [
 
@@ -30,7 +36,7 @@ return [
     |
     */
 
-    'env' => APP_ENV == "" || APP_ENV == null ? env('APP_ENV', 'local') : APP_ENV,
+    'env' => APP_ENV,
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +49,7 @@ return [
     |
     */
 
-    'debug' => (bool) APP_DEBUG == "" || APP_DEBUG == null ? env('APP_DEBUG', true) : APP_DEBUG,
+    'debug' => (bool) APP_DEBUG,
 
     /*
     |--------------------------------------------------------------------------
@@ -138,7 +144,7 @@ return [
     |
     */
 
-    'storage' => APP_STORAGE == "" || APP_STORAGE == null ? env('APP_ENV') : APP_ENV,
+    'storage' => APP_STORAGE,
 
     'providers' => [
 
