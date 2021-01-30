@@ -1,15 +1,5 @@
 <?php
 
-if (isset($_SERVER['APP_STORAGE'])) {
-    define('BUSSO_ENV', $_SERVER['APP_ENV']);
-    define('APP_DEBUG', $_SERVER['APP_DEBUG']);
-    define('APP_STORAGE', $_SERVER['APP_STORAGE']);
-} else {
-    // define('BUSSO_ENV', env('APP_ENV', 'local'));
-    define('APP_DEBUG', env('APP_DEBUG', true));
-    define('APP_STORAGE', env('FILESYSTEM_DRIVER', 'local'));
-}
-
 return [
 
     /*
@@ -36,7 +26,7 @@ return [
     |
     */
 
-    'env' => APP_ENV,
+    'env' => isset($_SERVER['APP_ENV']) ? $_SERVER['APP_ENV'] : env('APP_ENV'),
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) APP_DEBUG,
+    'debug' => (bool) isset($_SERVER['APP_DEBUG']) ? $_SERVER['APP_DEBUG'] : env('APP_DEBUG'),
 
     /*
     |--------------------------------------------------------------------------
@@ -144,7 +134,7 @@ return [
     |
     */
 
-    'storage' => APP_STORAGE,
+    'storage' => isset($_SERVER['APP_STORAGE']) ? $_SERVER['APP_STORAGE'] : env('FILESYSTEM_DRIVER', 'local'),
 
     'providers' => [
 
