@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => getConfig('mail.host'),
-            'port' => getConfig('mail.port'),
+            'host' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['MAIL_HOST'] : env('MAIL_HOST'),
+            'port' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['MAIL_PORT'] : env('MAIL_PORT'),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => getConfig('mail.username'),
-            'password' => getConfig('mail.password'),
+            'username' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['MAIL_USER'] : env('MAIL_USERNAME'),
+            'password' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['MAIL_PASS'] : env('MAIL_PASSWORD'),
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -84,8 +84,8 @@ return [
     */
 
     'from' => [
-        'address' => getConfig('mail.from_address'),
-        'name' => getConfig('mail.from_name'),
+        'address' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['MAIL_ADDRESS'] : env('MAIL_FROM_ADDRESS'),
+        'name' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['MAIL_NAME'] : env('MAIL_FROM_NAME'),
     ],
 
     /*

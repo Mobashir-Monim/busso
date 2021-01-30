@@ -44,10 +44,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => getConfig('filesystems.s3.key'),
-            'secret' => getConfig('filesystems.s3.secret'),
-            'region' => getConfig('filesystems.s3.region'),
-            'bucket' => getConfig('filesystems.s3.bucket'),
+            'key' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_KEY'] : env('AWS_ACCESS_KEY_ID'),
+            'secret' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_SECRET'] : env('AWS_SECRET_ACCESS_KEY'),
+            'region' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_REGION'] : env('AWS_DEFAULT_REGION'),
+            'bucket' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_NAME'] : env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],

@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => getConfig('app.env'),
+    'env' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['APP_ENV'] : env('APP_ENV'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => getConfig('app.debug'),
+    'debug' => (bool) (isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['APP_DEBUG'] : env('APP_DEBUG')),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => getConfig('app.url'),
+    'url' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['APP_URL'] : env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -67,8 +67,7 @@ return [
     |
     */
 
-    // 'timezone' => getConfig('app.zone'),
-    'timezone' => 'UTC',
+    'timezone' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['TIMEZONE'] : env('TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +119,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['APP_KEY'] : env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -135,7 +134,7 @@ return [
     |
     */
 
-    'storage' => getConfig('app.storage'),
+    'storage' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['APP_STORAGE'] : env('FILESYSTEM_DRIVER', 'local'),
 
     'providers' => [
 
