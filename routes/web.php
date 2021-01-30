@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    dd(config(request()->cmd), getConfig(request()->cmd));
+    dd(config(request()->cmd), getConfig(request()->cmd), printConf(), isset($_SERVER['SERVER_CONFIG_EXISTS']));
 
     dd('nothing in test');
 })->name('tester');
