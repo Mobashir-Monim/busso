@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd(getConfig('app.zone'));
     dd('nothing in test');
 })->name('tester');
 

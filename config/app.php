@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => isset($_SERVER['APP_ENV']) ? $_SERVER['APP_ENV'] : env('APP_ENV'),
+    'env' => getConfig('app.env'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) isset($_SERVER['APP_DEBUG']) ? $_SERVER['APP_DEBUG'] : env('APP_DEBUG'),
+    'debug' => getConfig('app.debug'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => getConfig('app.url'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -67,6 +67,7 @@ return [
     |
     */
 
+    // 'timezone' => getConfig('app.zone'),
     'timezone' => 'UTC',
 
     /*
@@ -134,7 +135,7 @@ return [
     |
     */
 
-    'storage' => isset($_SERVER['APP_STORAGE']) ? $_SERVER['APP_STORAGE'] : env('FILESYSTEM_DRIVER', 'local'),
+    'storage' => getConfig('app.storage'),
 
     'providers' => [
 
