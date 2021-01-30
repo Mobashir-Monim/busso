@@ -1,11 +1,11 @@
 <?php
 
 if (isset($_SERVER['APP_STORAGE'])) {
-    define('ENV_STAT', $_SERVER['APP_ENV']);
+    define('DEP_STAT', $_SERVER['APP_ENV']);
     define('APP_DEBUG', $_SERVER['APP_DEBUG']);
     define('APP_STORAGE', $_SERVER['APP_STORAGE']);
 } else {
-    define('ENV_STAT', env('APP_ENV', 'local'));
+    define('DEP_STAT', env('APP_ENV', 'local'));
     define('APP_DEBUG', env('APP_DEBUG', true));
     define('APP_STORAGE', env('FILESYSTEM_DRIVER', 'local'));
 }
@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'env' => ENV_STAT,
+    'env' => DEP_STAT,
 
     /*
     |--------------------------------------------------------------------------
