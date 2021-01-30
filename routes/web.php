@@ -14,11 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    if (request()->type == 'config') {
-        dd(config(request()->cmd));
-    } else {
-        dd(getConfig(request()->cmd));
-    }
+    dd(config(request()->cmd), getConfig(request()->cmd));
 
     dd('nothing in test');
 })->name('tester');
