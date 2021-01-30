@@ -11,8 +11,8 @@ if (isset($_SERVER['RDS_HOSTNAME'])) {
 } else {
     define('RDS_HOSTNAME', env('DB_HOST'));
     define('RDS_USERNAME', env('DB_DATABASE'));
-    define('RDS_PASSWORD', env('DB_USERNAME'));
-    define('RDS_DB_NAME', env('DB_PASSWORD'));
+    define('RDS_PASSWORD', env('RDS_PASSWORD'));
+    define('RDS_DB_NAME', env('RDS_DB_NAME'));
 }
 
 return [
