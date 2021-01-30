@@ -5,7 +5,7 @@ if (isset($_SERVER['APP_STORAGE'])) {
     define('APP_DEBUG', $_SERVER['APP_DEBUG']);
     define('APP_STORAGE', $_SERVER['APP_STORAGE']);
 } else {
-    define('BUSSO_ENV', env('APP_ENV', 'local'));
+    // define('BUSSO_ENV', env('APP_ENV', 'local'));
     define('APP_DEBUG', env('APP_DEBUG', true));
     define('APP_STORAGE', env('FILESYSTEM_DRIVER', 'local'));
 }
@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'env' => BUSSO_ENV,
+    'env' => APP_ENV,
 
     /*
     |--------------------------------------------------------------------------
