@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_SERVER['APP_ENV'])) {
+if (isset($_SERVER['APP_STORAGE'])) {
     define('APP_ENV', $_SERVER['APP_ENV']);
     define('APP_DEBUG', $_SERVER['APP_DEBUG']);
     define('APP_STORAGE', $_SERVER['APP_STORAGE']);
