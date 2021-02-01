@@ -34,6 +34,7 @@ class AuthnVerifier
 
         for ($i = 0; $i < sizeof($verificationArray) && $this->status['next']; $i++) {
             $this->verifyPart($verificationArray[$i][0], $verificationArray[$i][1]);
+            if (!$this->status['next']) dd(request()->url(), $this->destination);
             $this->count++;
         }
 
