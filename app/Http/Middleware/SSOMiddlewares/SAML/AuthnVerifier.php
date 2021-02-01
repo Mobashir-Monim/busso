@@ -34,7 +34,6 @@ class AuthnVerifier
 
         for ($i = 0; $i < sizeof($verificationArray) && $this->status['next']; $i++) {
             $this->verifyPart($verificationArray[$i][0], $verificationArray[$i][1]);
-            if (!$this->status['next']) dd(request()->url(), $this->destination);
             $this->count++;
         }
 
@@ -65,7 +64,7 @@ class AuthnVerifier
     {
         return [
             [!is_null($this->entity), 404],
-            [request()->url() == $this->destination, 400],
+            [str_replace("http://", "https://", request()->url()) == $this->destination, 400],
             [$this->entity->issuer == $this->issuer, 404],
             [$this->entity->acs == $this->acs, 404],
             [Carbon::now() >= Carbon::parse($this->issueInstant), 425],
