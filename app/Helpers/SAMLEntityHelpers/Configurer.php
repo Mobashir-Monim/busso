@@ -38,7 +38,7 @@ class Configurer extends Helper
         $this->entity->aud = $aud;
         
         if (!is_null($cert)) {
-            Storage::disk(env('STORAGE_DISK', 'local'))->put("certificates/" . $this->entity->folder. "/" . $this->entity->id . ".crt", $cert, 0600);
+            Storage::disk(config('app.storage'))->put("certificates/" . $this->entity->folder. "/" . $this->entity->id . ".crt", $cert, 0600);
             $this->entity->sig = "certificates/" . $this->entity->folder. "/" . $this->entity->id . ".crt";
         }
 

@@ -15,7 +15,7 @@ class MetadataFetcher extends Helper
     {
         $this->entity = $entity;
         $this->type = $type;
-        $this->disk = env('STORAGE_DISK', 'local');
+        $this->disk = config('app.storage');
     }
 
     public function getMetadata()

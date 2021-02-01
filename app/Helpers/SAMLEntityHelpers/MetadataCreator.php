@@ -23,7 +23,7 @@ class MetadataCreator extends Helper
     public function __construct($entity)
     {
         $this->entity = $entity;
-        $this->disk = env('STORAGE_DISK', 'local');
+        $this->disk = config('app.storage');
     }
 
     public function createMetadata()
