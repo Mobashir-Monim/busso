@@ -54,5 +54,11 @@
 @endsection
 
 @section('scripts')
-    
+    <script>
+        const copyData = id => {
+            $(`#${ id }`).select();
+            document.execCommand('copy');
+            alert(`Copied ${ id }`);
+        }
+    </script>
 @endsection

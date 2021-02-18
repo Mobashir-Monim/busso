@@ -39,6 +39,14 @@ class ResourceGroupController extends Controller
         return redirect(route('resource-groups.show', ['group' => $group->id]));
     }
 
+    public function redirectSet(RG $group, OC $oauth, Request $request)
+    {
+        $oauth->redirect = $request->redirect;
+        $oauth->save();
+
+        return redirect(route('resource-groups.show', ['group' => $group->id]));
+    }
+
     public function samlConfig(RG $group, SE $saml, Request $request)
     {
         (new Configurer($saml))->updateConfig($request);

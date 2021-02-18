@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         $users = [
-            ['name' => 'Mobashir Monim', 'email' => 'mobashirmonim@gmail.com', 'password' => bcrypt('lalaland')],
+            ['name' => 'Mobashir Monim', 'email' => 'mobashirmonim@gmail.com', 'password' => bcrypt('lalaland'), 'is_active' => true, 'force_reset' => false],
             // ['name' => 'Mobashir Monim', 'email' => 'mobashir.monim@bracu.ac.bd', 'password' => bcrypt('lalaland')],
             // ['name' => 'Mobashir Monim', 'email' => 'ext.mobashir.monim@bracu.ac.bd', 'password' => bcrypt('lalaland')],
             // ['name' => 'Mahbub Majumdar', 'email' => 'majumdar@bracu.ac.bd', 'password' => bcrypt('lalaland')],

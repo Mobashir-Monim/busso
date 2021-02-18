@@ -121,12 +121,4 @@
             </div>
         </div>
     </form>
-
-    <script>
-        const copyData = id => {
-            $(`#${ id }`).select();
-            document.execCommand('copy');
-            alert(`Copied ${ id }`);
-        }
-    </script>
 @endif

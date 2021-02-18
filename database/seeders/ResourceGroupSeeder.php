@@ -15,7 +15,8 @@ class ResourceGroupSeeder extends Seeder
      */
     public function run()
     {
-        $types = ['saml', 'oauth', 'both'];
+        // $types = ['saml', 'oauth', 'both'];
+        $types = ['oauth'];
         
         for ($i = 1; $i <= 10; $i++) {
             $group = RG::create(['name' => "RG $i", 'url' => "http://127.0.0.1:800$i"]);
@@ -23,7 +24,8 @@ class ResourceGroupSeeder extends Seeder
             $helper->onboardGroup(json_decode(json_encode(
                 ['name' => "RG $i",
                 'url' => "http://127.0.0.1:800$i/oauth/callback",
-                "type" => $types[rand(0, 2)],
+                // "type" => $types[rand(0, 2)],
+                "type" => $types[0],
                 'endpoint' => "http://127.0.0.1:800$i/oauth/callback"]
             )));
 
