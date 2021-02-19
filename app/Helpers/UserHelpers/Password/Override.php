@@ -33,7 +33,7 @@ class Override extends Helper
         $user->password = bcrypt($pass);
         $this->updateLastChange($user);
         $this->forceReset($user);
-        $this->mailUserWithPassword($user, $request->new_password);
+        $this->mailUserWithPassword($user, $pass);
     }
 
     public function updateLastChange($user)
