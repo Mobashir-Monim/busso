@@ -31,6 +31,7 @@ class Override extends Helper
     public function updateUserPassword($user, $pass)
     {
         $user->password = bcrypt($pass);
+        $user->save();
         $this->updateLastChange($user);
         $this->forceReset($user);
         $this->mailUserWithPassword($user, $pass);
@@ -39,6 +40,7 @@ class Override extends Helper
     public function updateLastChange($user)
     {
         $user->pass_change_at = Carbon::now()->toDateTimeString();
+        $user->save();
     }
 
     public function forceReset($user)

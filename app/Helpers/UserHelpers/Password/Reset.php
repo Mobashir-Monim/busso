@@ -27,10 +27,12 @@ class Reset extends Helper
     public function updateLastChange($user)
     {
         $user->pass_change_at = Carbon::now()->toDateTimeString();
+        $user->save();
     }
 
     public function noForceReset($user)
     {
         $user->force_reset = false;
+        $user->save();
     }
 }
