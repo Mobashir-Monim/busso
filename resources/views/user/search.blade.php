@@ -10,18 +10,16 @@
                         <h3 class="border-bottom border-2 border-primary">Search User(s)</h3>
                         <div class="row">
                             <div class="col-md-6 mb-2">
-                                <input type="text" name="phrase" class="form-control" placeholder="Search Phrase">
+                                <input type="text" name="phrase" class="form-control" placeholder="Search Phrase" value="{{ $phrase }}">
                             </div>
                             <div class="col-md-4 mb-2">
                                 <select name="type" class="form-control" required>
-                                    <option value="">Search Phrase Type</option>
-                                    <option value="email @bracu.ac.bd">@bracu.ac.bd Email</option>
-                                    <option value="email @g.bracu.ac.bd">@g.bracu.ac.bd Email</option>
-                                    <option value="email non-bracu">Non BracU Email</option>
-                                    <option value="all">All Users</option>
-                                    <option value="email specific">Specific Email Address</option>
-                                    <option value="role application">Application Role</option>
-                                    <option value="role system">System Role</option>
+                                    <option value="{{ App\Helpers\UserHelpers\SearchHelpers\SearchHelper::getType($type)[0] }}">{{ App\Helpers\UserHelpers\SearchHelpers\SearchHelper::getType($type)[1] }}</option>
+                                    @foreach (App\Helpers\UserHelpers\SearchHelpers\SearchHelper::getTypes() as $searchType)
+                                        @if ($searchType[0] != $type)
+                                            <option value="{{ $searchType[0] }}">{{ $searchType[1] }}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2 mb-2 text-right">
@@ -38,6 +36,15 @@
         <div class="col-md-12">
             <h5 class="border-bottom mb-0 mt-3">Search Results</h5>
             <div class="row">
+                @if (count($users) == 0)
+                    <div class="col-md-12">
+                        <div class="card card-rounded mt-4">
+                            <div class="card-body">
+                                <h4 class="text-center text-primary mb-0">No Users meet this criteria</h4>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @foreach ($users as $user)
                     <div class="col-md-6 my-3">
                         <div class="card card-rounded">

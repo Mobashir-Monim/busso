@@ -21,18 +21,35 @@ class SearchHelper extends Helper
     public function searchUsers()
     {
         if (in_array('email', $this->type)) {
-            
+            return (new EmailSearch($this->type[1]))->searchUsers($this->phrase);
         } elseif (in_array('role', $this->type)) {
-
+            return (new RoleSearch($this->type[1]))->searchUsers($this->phrase);
         } else {
             return User::paginate(30);
         }
     }
-}
 
-// <option value="email @bracu.ac.bd">@bracu.ac.bd Email</option>
-// <option value="email @g.bracu.ac.bd">@g.bracu.ac.bd Email</option>
-// <option value="email non-bracu">Non BracU Email</option>
-// <option value="all">All email</option>
-// <option value="email specific">Specific Email Address</option>
-// <option value="role">Application Role</option>
+    public static function getTypes()
+    {
+        return [
+            ["email @bracu.ac.bd", "@bracu.ac.bd Email"],
+            ["email @g.bracu.ac.bd", "@g.bracu.ac.bd Email"],
+            ["email non-bracu", "Non BracU Email"],
+            ["email specific", "Specific Email Address"],
+            ["all", "All Users"],
+            ["role application", "Application Role"],
+            ["role system", "System Role"],
+        ];
+    }
+
+    public static function getType($type)
+    {
+        $types = self::getTypes();
+
+        foreach ($types as $searchType) {
+            if ($type == $searchType[0]) {
+                return $searchType;
+            }
+        }
+    }
+}

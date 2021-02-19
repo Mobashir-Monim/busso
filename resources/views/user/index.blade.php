@@ -81,8 +81,8 @@
                                             <option value="email @bracu.ac.bd">@bracu.ac.bd Email</option>
                                             <option value="email @g.bracu.ac.bd">@g.bracu.ac.bd Email</option>
                                             <option value="email non-bracu">Non BracU Email</option>
-                                            <option value="all">All Users</option>
                                             <option value="email specific">Specific Email Address</option>
+                                            <option value="all">All Users</option>
                                             <option value="role application">Application Role</option>
                                             <option value="role system">System Role</option>
                                         </select>

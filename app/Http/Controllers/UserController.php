@@ -62,7 +62,7 @@ class UserController extends Controller
     {
         $helper = new SearchHelper($request);
 
-        return view('user.search', ['users' => $helper->searchUsers()]);
+        return view('user.search', ['users' => $helper->searchUsers(), 'phrase' => $request->phrase, 'type' => $request->type]);
     }
 
     public function overridePassword(User $user, OverrideRequest $request)
