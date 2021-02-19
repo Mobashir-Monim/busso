@@ -1,5 +1,6 @@
 @if (auth()->user()->hasRole('super-admin'))
     <form action="{{ route('users.password.override', ['user' => $user->id]) }}" method="POST">
+        @csrf
         <div class="row mb-4">
             <div class="col-md-12">
                 <div class="card card-rounded">
