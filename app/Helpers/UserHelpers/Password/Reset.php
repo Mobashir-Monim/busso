@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Helpers\UserHelpers;
+namespace App\Helpers\UserHelpers\Password;
 
 use App\Helpers\Helper;
 use Carbon\Carbon;
 
-class PasswordReset extends Helper
+class Reset extends Helper
 {
     public function resetPassword($pass)
     {
