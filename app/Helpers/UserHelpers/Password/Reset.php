@@ -15,6 +15,7 @@ class Reset extends Helper
         $user->password = bcrypt($pass);
         $this->passwordResetted($user);
         $user->save();
+        Mail::to($user->email)->send(new ResetMail($user->name, $pass));
     }
 
     public function passwordResetted($user)
@@ -26,12 +27,10 @@ class Reset extends Helper
     public function updateLastChange($user)
     {
         $user->pass_change_at = Carbon::now()->toDateTimeString();
-        $user->save();   
     }
 
     public function noForceReset($user)
     {
         $user->force_reset = false;
-        $user->save();
     }
 }
