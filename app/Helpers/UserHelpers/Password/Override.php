@@ -19,7 +19,7 @@ class Override extends Helper
     public function verifySuperAdmin($pass)
     {
         if (\Hash::check($pass, auth()->user()->password)) {
-            flash("Your new password cannot be the same as the last password")->error();
+            flash("Super Admin password does not match")->error();
 
             return false;
         }
