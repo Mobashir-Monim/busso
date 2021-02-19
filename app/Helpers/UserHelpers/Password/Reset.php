@@ -4,6 +4,8 @@ namespace App\Helpers\UserHelpers\Password;
 
 use App\Helpers\Helper;
 use Carbon\Carbon;
+use App\Mail\Password\ResetMail;
+use Mail;
 
 class Reset extends Helper
 {

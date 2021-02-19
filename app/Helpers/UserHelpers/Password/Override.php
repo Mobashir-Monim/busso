@@ -5,6 +5,7 @@ namespace App\Helpers\UserHelpers\Password;
 use App\Helpers\Helper;
 use Carbon\Carbon;
 use App\Mail\Password\OverrideMail;
+use Mail;
 
 class Override extends Helper
 {
