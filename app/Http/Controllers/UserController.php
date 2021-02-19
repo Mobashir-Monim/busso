@@ -40,7 +40,6 @@ class UserController extends Controller
 
     public function resetPassword(ResetRequest $request)
     {
-        dd('in here');
         if (\Hash::check($request->password, auth()->user()->password)) {
             flash("Your new password cannot be the same as the last password")->error();
 
