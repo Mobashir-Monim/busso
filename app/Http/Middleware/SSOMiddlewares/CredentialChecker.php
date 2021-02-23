@@ -18,7 +18,7 @@ class CredentialChecker
     public function handle(Request $request, Closure $next)
     {
         $credentials = request(['email', 'password']);
-
+        dd(Auth::attempt($credentials), $request->all(), $credentials);
         if (!Auth::attempt($credentials))
             return back()->withErrors(['email' => 'Credentials not found', 'password' => 'Credentials not found'])
                 ->with('val', request()->val);
