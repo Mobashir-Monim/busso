@@ -19,10 +19,11 @@ class CredentialChecker
     {
         $credentials = request(['email', 'password']);
         
-        if (!Auth::attempt($credentials))
+        if (!Auth::attempt($credentials)) {
             dd(Auth::attempt($credentials), $request->all(), $credentials);
             return back()->withErrors(['email' => 'Credentials not found', 'password' => 'Credentials not found'])
                 ->with('val', request()->val);
+        }
         
         return $next($request);
     }
