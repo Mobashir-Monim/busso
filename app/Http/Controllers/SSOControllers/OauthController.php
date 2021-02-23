@@ -16,13 +16,11 @@ class OauthController extends Controller
 {
     public function login($oauth, Request $request)
     {
-        dd('login');
         return view('auth.login', ['oauth' => $oauth]);
     }
 
     public function authenticator()
     {
-        dd('authenticator');
         return redirect(route('sso.oauth.authenticate', ['oauth' => (new OauthLogin)->authenticatorParamCompactor([
             'client_id' => request()->client_id,
             'scope' => request()->scope,
@@ -35,11 +33,9 @@ class OauthController extends Controller
 
     public function authenticate(Request $request)
     {
-        dd('authenticate');
         $helper = new OauthLogin;
         $val = $helper->authenticatorParamDecompressor($request->stuff);
         new OauthLogger(auth()->user()->id, Client::find($val->client_id)->user_id);
-        dd($val);
 
         return redirect($val->redirect_uri . "?state=$val->state&code=" . $helper->createAuthCode($val, Passport::authCode())->id . "&scope=$val->scope");
     }
