@@ -21,14 +21,14 @@ class OauthController extends Controller
 
     public function authenticator()
     {
-        return redirect(route('sso.oauth.authenticate', ['oauth' => (new OauthLogin)->authenticatorParamCompactor([
+        return redirect()->route('sso.oauth.authenticate', ['oauth' => (new OauthLogin)->authenticatorParamCompactor([
             'client_id' => request()->client_id,
             'scope' => request()->scope,
             'state' => request()->state,
             'nonce' => request()->nonce,
             'redirect_uri' => request()->redirect_uri,
             'timestamp' => Carbon::now()->timestamp,
-        ])]));
+        ])]);
     }
 
     public function authenticate(Request $request)
