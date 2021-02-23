@@ -36,7 +36,6 @@ class OauthController extends Controller
         $helper = new OauthLogin;
         $val = $helper->authenticatorParamDecompressor($request->stuff);
         new OauthLogger(auth()->user()->id, Client::find($val->client_id)->user_id);
-        dd(auth()->user()->email);
 
         return redirect()->away($val->redirect_uri . "?state=$val->state&code=" . $helper->createAuthCode($val, Passport::authCode())->id . "&scope=$val->scope");
     }
