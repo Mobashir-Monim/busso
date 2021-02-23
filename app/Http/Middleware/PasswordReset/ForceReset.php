@@ -16,6 +16,7 @@ class ForceReset
      */
     public function handle(Request $request, Closure $next)
     {
+        dd('password-reset.enforced');
         if (!is_null(auth()->user())) {
             if (auth()->user()->force_reset) {
                 flash("You need to reset your password before you can access the requested resource!")->error();
