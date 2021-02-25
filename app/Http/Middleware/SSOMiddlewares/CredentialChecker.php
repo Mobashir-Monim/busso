@@ -24,6 +24,8 @@ class CredentialChecker
                 ->with('val', request()->val);
         }
         
+        Auth::login(auth()->user());
+
         return $next($request);
     }
 }
