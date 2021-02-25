@@ -38,7 +38,7 @@ class OauthController extends Controller
         $val = $helper->authenticatorParamDecompressor($request->stuff);
         new OauthLogger(auth()->user()->id, Client::find($val->client_id)->user_id);
 
-        dd(redirect()->away($val->redirect_uri . "?code=" . $helper->createAuthCode($val, Passport::authCode())->id . "&state=$val->state"));
+        return redirect()->away($val->redirect_uri . "?code=" . $helper->createAuthCode($val, Passport::authCode())->id);
     }
 
     public function exchangeCodeToken()
