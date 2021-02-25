@@ -2,6 +2,6 @@
 
 <script>
     window.onload = () => {
-        console.log('{{ (new App\Helpers\SSOHelpers\OAuth\LoginOauthLogin)->authenticatorParamDecompressor($oauth) }}');
+        console.log('{{ (new App\Helpers\SSOHelpers\OAuth\Login)->authenticatorParamDecompressor($oauth) }}');
     }
 </script>
