@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    $x = file_get_contents("../storage/oauth-private.key");
-    dd(\Firebase\JWT\JWT::encode(['test' => 'success', 'lala' => 'lala'], $x, 'RS256'));
-    dd(file_get_contents("../storage/oauth-private.key"));
     dd('nothing in test');
 })->name('tester');
 
