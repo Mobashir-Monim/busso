@@ -84,7 +84,7 @@ class Login extends Helper
             'access_token' => $access_token->id,
             'token_type' => 'Bearer',
             'expires_in' => 604800,
-            'id_token' => JWT::encode($this->generateIDToken($auth_code, $access_token), file_get_contents("../storage/oauth-private.key"), 'RS512'),
+            'id_token' => JWT::encode($this->generateIDToken($auth_code, $access_token), file_get_contents("../storage/oauth-private.key"), 'RS256'),
         ];
     }
 

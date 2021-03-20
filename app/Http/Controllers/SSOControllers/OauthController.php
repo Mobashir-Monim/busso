@@ -92,7 +92,7 @@ class OauthController extends Controller
                     "n" => base64url_encode($data['rsa']['n']),
                     "e" => base64url_encode($data['rsa']['e']),
                     "use" => "sig",
-                    "alg" => "RS512"
+                    "alg" => "RS256"
                 ],
               ]
         ]);
