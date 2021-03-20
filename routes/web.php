@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd(\Firebase\JWT\JWT::decode(request()->x, file_get_contents('../storage/oauth-public.key'), array('RS256')));
+    dd(base64url_decode($x), base64url_decode($y));
     dd('nothing in test');
 })->name('tester');
 
