@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    $x = file_get_contents("../storage/oauth-private.key");
+    echo $x;
+    dd();
+    JWT::encode($this->generateIDToken($auth_code, $access_token), $x, 'RS256');
     dd(file_get_contents("../storage/oauth-private.key"));
     dd('nothing in test');
 })->name('tester');
