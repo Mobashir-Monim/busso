@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    $key = file_get_contents("../storage/oauth-public.key");
+    $data = openssl_pkey_get_public($key);
+    $data = openssl_pkey_get_details($data);
+    dd($data);
     dd('nothing in test');
 })->name('tester');
 
