@@ -18,7 +18,7 @@ Route::get('/test', function () {
     $private_key = file_get_contents('../storage/oauth-private.key');
     $binary_signature = "";
 
-    openssl_sign($data, $binary_signature, $private_key, "SHA256");
+    openssl_sign(json_encode($data), $binary_signature, $private_key, "SHA256");
     dd($binary_signature, base64_encode($binary_signature) ."\n");
     dd('nothing in test');
 })->name('tester');
