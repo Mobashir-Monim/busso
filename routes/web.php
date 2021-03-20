@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    $key = file_get_contents("../storage/oauth-public.key");
-    $data = openssl_pkey_get_public($key);
-    $data = openssl_pkey_get_details($data);
-    dd($data);
+    $data = ['lala' => 'lala', 'henlo' => 'hi'];
+    $private_key = file_get_contents('../storage/oauth-private.key');
+    $binary_signature = "";
+
+    openssl_sign($data, $binary_signature, $private_key, "SHA256");
+    dd($binary_signature, base64_encode($binary_signature) ."\n");
     dd('nothing in test');
 })->name('tester');
 
