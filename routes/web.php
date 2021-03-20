@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd(file_get_contents("../storage/oauth-private.key"));
     dd('nothing in test');
 })->name('tester');
 
