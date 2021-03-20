@@ -80,20 +80,11 @@ class Login extends Helper
         $auth_code->revoked = true;
         $auth_code->save();
 
-        $private_key = file_get_contents('../storage/oauth-private.key');
-        $binary_signature = "";
-        $payload = $this->generateIDToken($auth_code, $access_token);
-
-        $header = base64url_encode(json_encode(['alg' => 'RS256', 'typ' => 'jwt']));
-        $payload_enc = base64url_encode(json_encode($payload));
-        openssl_sign($header . "." . $payload_enc, $binary_signature, $private_key, "SHA256");
-
         return [
             'access_token' => $access_token->id,
             'token_type' => 'Bearer',
             'expires_in' => 604800,
-            // 'id_token' => JWT::encode($this->generateIDToken($auth_code, $access_token), file_get_contents("../storage/oauth-private.key"), 'RS256'),
-            'id_token' => $header . "." . $payload_enc . "." . base64url_encode($binary_signature) ."\n",
+            'id_token' => JWT::encode($this->generateIDToken($auth_code, $access_token), file_get_contents("../storage/oauth-private.key"), 'RS256'),
         ];
     }
 
