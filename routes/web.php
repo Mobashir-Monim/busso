@@ -14,12 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    $data = ['lala' => 'lala', 'henlo' => 'hi'];
-    $private_key = file_get_contents('../storage/oauth-private.key');
-    $binary_signature = "";
-
-    openssl_sign(json_encode($data), $binary_signature, $private_key, "SHA256");
-    dd($binary_signature, base64_encode($binary_signature) ."\n");
     dd('nothing in test');
 })->name('tester');
 
