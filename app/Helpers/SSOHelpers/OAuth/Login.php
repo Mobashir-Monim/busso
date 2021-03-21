@@ -14,6 +14,11 @@ use \Firebase\JWT\JWT;
 
 class Login extends Helper
 {
+    protected $headers = [
+        'RS256' => ['typ' => 'JWT', 'alg' => 'RS256'],
+        'HS256' => ['typ' => 'JWT', 'alg' => 'HS256'],
+    ];
+
     public function authenticatorParamCompactor($data = null)
     {
         return base64url_encode(json_encode([
@@ -37,7 +42,7 @@ class Login extends Helper
         return Auth::attempt($credentials);
     }
 
-    public function generateIDToken($auth_code, $access_token)
+    public function generateIDTokenPayload($auth_code, $access_token)
     {
         return [
             "iss" => url()->to('/'),
@@ -84,7 +89,7 @@ class Login extends Helper
             'access_token' => $access_token->id,
             'token_type' => 'Bearer',
             'expires_in' => 604800,
-            'id_token' => JWT::encode($this->generateIDToken($auth_code, $access_token), file_get_contents("../storage/oauth-private.key"), 'RS256'),
+            'id_token' => $this->generateIDToken('RS256', $this->generateIDTokenPayload($auth_code, $access_token)),
         ];
     }
 
@@ -116,5 +121,30 @@ class Login extends Helper
         // }
 
         return $user_info;
+    }
+
+    public function generateIDToken($type, $payload, $key = null)
+    {
+        if ($type == 'RS256') {
+            return $this->generateRS256Token($payload, file_get_contents('../storage/oauth-private.key'));
+        } else {
+            return $this->generateHS256Token($payload, $key);
+        }
+    }
+
+    public function generateRS256Token($payload, $key)
+    {
+        $penc = base64url_encode(json_encode($payload, JSON_UNESCAPED_SLASHES));
+        $header = base64url_encode(json_encode($this->headers['RS256'], JSON_UNESCAPED_SLASHES));
+        $msg = $header . "." . $penc;
+        $ossign = "";
+        openssl_sign($msg, $ossign, $key, OPENSSL_ALGO_SHA256);
+        
+        return $msg . "." . base64url_encode($ossign);
+    }
+
+    public function generateHS256Token($payload, $key, $enc = false)
+    {
+        return JWT::encode($payload, $key, 'HS256');
     }
 }

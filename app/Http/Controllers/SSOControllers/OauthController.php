@@ -84,6 +84,7 @@ class OauthController extends Controller
         $data = openssl_pkey_get_public($key);
         $data = openssl_pkey_get_details($data);
 
+        // return response()->header('Content-Type', 'text/plain')->json([
         return response()->json([
             "keys" => [
                 [

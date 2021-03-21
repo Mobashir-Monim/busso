@@ -14,7 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    dd(\Firebase\JWT\JWT::decode(request()->x, file_get_contents('../storage/oauth-public.key'), array('RS256')));
+    $key = file_get_contents('../storage/oauth-private.key');
+    $payload = json_decode('{"iss": "https://busso-staging.eveneer.xyz","azp": "d609fc33-430f-4aa6-a628-0b03f190e60d","aud": "d609fc33-430f-4aa6-a628-0b03f190e60d","sub": "421bd7c4-3035-4915-a681-0573a07cd82b","at_hash": "1b25b4eadc9be4b1ab8fd35ba218d670740c98be3763d2c7500fd0b156cfbeb6","iat": 1616270399,"exp": 1616875199,"nonce": null}', true);
+    $penc = base64url_encode(json_encode($payload, JSON_UNESCAPED_SLASHES));
+    $header = base64url_encode(json_encode(['typ' => 'JWT', 'alg' => 'RS256'], JSON_UNESCAPED_SLASHES));
+    $msg = $header . "." . $penc;
+    $ossign = "";
+    openssl_sign($msg, $ossign, $key, OPENSSL_ALGO_SHA256);
+    $ossign = base64url_encode($ossign);
+
+
+    dd($msg . "." . $ossign);
     dd(base64url_decode($x), base64url_decode($y));
     dd('nothing in test');
 })->name('tester');
