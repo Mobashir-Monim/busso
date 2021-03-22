@@ -75,7 +75,8 @@ class OauthController extends Controller
                 'client_secret_basic',
                 'client_secret_post'
             ],
-        ]);
+        ], 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+        JSON_UNESCAPED_SLASHES);
     }
 
     public function jwksDoc()
@@ -84,7 +85,7 @@ class OauthController extends Controller
         $data = openssl_pkey_get_public($key);
         $data = openssl_pkey_get_details($data);
 
-        // return response()->header('Content-Type', 'text/plain')->json([
+        // return response()->header('Content-Type', 'application/json')->json([
         return response()->json([
             "keys" => [
                 [
@@ -96,6 +97,7 @@ class OauthController extends Controller
                     "alg" => "RS256"
                 ],
               ]
-        ]);
+        ], 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+        JSON_UNESCAPED_SLASHES);
     }
 }
