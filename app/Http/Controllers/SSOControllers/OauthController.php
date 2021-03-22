@@ -93,7 +93,7 @@ class OauthController extends Controller
                     "kty" => "RSA",
                     "n" => base64_encode($data['rsa']['n']),
                     "e" => base64_encode($data['rsa']['e']),
-                    // "use" => "sig",
+                    "use" => "sig",
                     "alg" => "RS256"
                 ],
               ]
