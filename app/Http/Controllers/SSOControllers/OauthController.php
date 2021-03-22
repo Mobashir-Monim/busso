@@ -86,7 +86,7 @@ class OauthController extends Controller
         $data = openssl_pkey_get_details($data);
 
         return response()->json([
-            "keys" => [
+            // "keys" => [
                 [
                     // "kid" => "178ab1dc5913d929d37c23dcaa961872f8d70b68",
                     "kty" => "RSA",
@@ -95,7 +95,7 @@ class OauthController extends Controller
                     "use" => "sig",
                     "alg" => "RS256"
                 ],
-              ]
+            //   ]
         ], 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
         JSON_UNESCAPED_SLASHES);
     }
