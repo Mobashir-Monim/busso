@@ -84,15 +84,15 @@ class OauthController extends Controller
         $key = file_get_contents("../storage/oauth-public.key");
         $data = openssl_pkey_get_public($key);
         $data = openssl_pkey_get_details($data);
-
+        // base64_encode
         // return response()->header('Content-Type', 'application/json')->json([
         return response()->json([
             "keys" => [
                 [
                     // "kid" => "178ab1dc5913d929d37c23dcaa961872f8d70b68",
                     "kty" => "RSA",
-                    "n" => base64url_encode($data['rsa']['n']),
-                    "e" => base64url_encode($data['rsa']['e']),
+                    "n" => base64_encode($data['rsa']['n']),
+                    "e" => base64_encode($data['rsa']['e']),
                     "use" => "sig",
                     "alg" => "RS256"
                 ],
