@@ -5,6 +5,7 @@ namespace App\Http\Middleware\SSOMiddlewares\Oauth;
 use Closure;
 use Illuminate\Http\Request;
 use Laravel\Passport\Passport;
+use Carbon\Carbon;
 use App\Models\OidcResponseLogger;
 
 class AccessTokenChecker
@@ -27,7 +28,7 @@ class AccessTokenChecker
             ], 401);
         }
 
-        if ($token->revoked || Carbon\Carbon::now() > Carbon\Carbon::parse($token->expires_at)) {
+        if ($token->revoked || Carbon::now() > Carbon::parse($token->expires_at)) {
             OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all(), JSON_UNESCAPED_SLASHES), 'response' => '401 access token token revoked or expired', 'error' => true]);
             return response()->json([
                 'success' => false,

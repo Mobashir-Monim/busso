@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd(hash('sha256', 'lala'), hash_hmac('sha256', 'lala'));
     return view('test');
     dd('nothing in test');
 })->name('tester');
