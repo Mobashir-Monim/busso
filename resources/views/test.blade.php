@@ -18,7 +18,7 @@
                         <tr>
                             <td>{{ $item->route }}</td>
                             <td>{{ $item->data }}</td>
-                            <td>{{ $item->eesponse }}</td>
+                            <td>{{ $item->response }}</td>
                             <td>{{ $item->error ? '1' : '0' }}</td>
                             <td>{{ $item->created_at }}</td>
                         </tr>
