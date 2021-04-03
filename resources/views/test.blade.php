@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-dark">
+            <table class="table table-dark table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Route</th>
