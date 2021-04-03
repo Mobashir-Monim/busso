@@ -49,7 +49,7 @@ class Login extends Helper
             "azp" => $access_token->client_id,
             "aud" => $access_token->client_id,
             "sub" => $access_token->user_id,
-            // "at_hash" => hash_hmac('sha256', $access_token->id),
+            "at_hash" => hash_hmac('sha256', $access_token->id),
             "iat" => Carbon::parse($access_token->created_at)->timestamp,
             "exp" => Carbon::parse($access_token->expires_at)->timestamp,
             "nonce" => $auth_code->nonce,
