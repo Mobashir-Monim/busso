@@ -4,6 +4,7 @@ namespace App\Http\Middleware\SSOMiddlewares\Oauth;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\OidcResponseLogger;
 
 class AuthGrantChecker
 {
@@ -17,11 +18,14 @@ class AuthGrantChecker
     public function handle(Request $request, Closure $next)
     {
         if ($request->grant_type != 'authorization_code') {
+            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all()), 'response' => '400 auth grant', 'error' => true]);
             return response()->json([
                 'success' => false,
                 'message' => 'bad_request'
             ], 400);
         }
+
+        OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all()), 'response' => 'next clousure', 'error' => false]);
 
         return $next($request);
     }

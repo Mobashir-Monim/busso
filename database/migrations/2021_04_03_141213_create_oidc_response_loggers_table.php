@@ -15,10 +15,10 @@ class CreateOidcResponseLoggersTable extends Migration
     {
         Schema::create('oidc_response_loggers', function (Blueprint $table) {
             $table->id();
-            $table->text('caller');
             $table->text('route');
             $table->text('data');
             $table->text('response');
+            $table->boolean('error');
             $table->timestamps();
         });
     }

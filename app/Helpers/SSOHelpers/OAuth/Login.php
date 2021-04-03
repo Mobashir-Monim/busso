@@ -110,7 +110,6 @@ class Login extends Helper
         if (in_array('profile', $scopes)) {
             $user_info['email'] = $user->email;
             $user_info['name'] = $user->name;
-            $user_info['username'] = 'Mobashir Monim';
         }
 
         // foreach ($scopes as $key => $scope) {

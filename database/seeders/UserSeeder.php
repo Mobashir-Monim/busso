@@ -18,14 +18,7 @@ class UserSeeder extends Seeder
     {
         $users = [
             ['name' => 'Mobashir Monim', 'email' => 'mobashirmonim@gmail.com', 'password' => bcrypt('lalaland'), 'is_active' => true, 'force_reset' => false],
-            // ['name' => 'Mobashir Monim', 'email' => 'mobashir.monim@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            // ['name' => 'Mobashir Monim', 'email' => 'ext.mobashir.monim@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            // ['name' => 'Mahbub Majumdar', 'email' => 'majumdar@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            // ['name' => 'Sadia Hamid Kazi', 'email' => 'skazi@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            // ['name' => 'Matin Saad Abdullah', 'email' => 'mabdullah@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            // ['name' => 'Arif Shakil', 'email' => 'arif.shakil@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            // ['name' => 'Ahnaf Atef Choudhury', 'email' => 'ahnaf.atef@bracu.ac.bd', 'password' => bcrypt('lalaland')],
-            // ['name' => 'Tester', 'email' => 'tester@email.com', 'password' => bcrypt('l6LL6vemXhCaSrt')],
+            ['name' => 'n_edunext_support', 'email' => 'support@edunext.co', 'password' => bcrypt("Qdpa5K'(<NK)_B#"), 'force_reset' => false],
         ];
 
         foreach ($users as $user) {
