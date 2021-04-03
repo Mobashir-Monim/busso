@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (App\Models\OidcResponseLogger as $item)
+                    @foreach (App\Models\OidcResponseLogger::all() as $item)
                         <tr>
                             <td>{{ $item->route }}</td>
                             <td>{{ $item->data }}</td>
