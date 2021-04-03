@@ -22,13 +22,13 @@ class ClientCredentialChecker
         $flag = false;
 
         if (strlen($client->redirect) > strlen($request->redirect_uri)) {
-
+            $flag = startsWith($request->redirect_uri, $client->redirect);
         } else {
-
+            $flag = startsWith($request->redirect_uri, $client->redirect);
         }
 
         if ($client->secret != $request->client_secret || $client->redirect != $request->redirect_uri) {
-            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all(), JSON_UNESCAPED_SLASHES), 'response' => '401 client cred', 'error' => true]);
+            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all(), JSON_UNESCAPED_SLASHES), 'response' => "401 client cred \n req: $request->redirect_uri \n client: $client->redirect", 'error' => true]);
             return response()->json([
                 'success' => false,
             ], 401);
