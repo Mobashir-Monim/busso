@@ -22,20 +22,20 @@ class AuthCodeChecker
         $authCode = Passport::authCode()->find(request()->code);
 
         if (is_null($authCode)) {
-            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all()), 'response' => '401 auth code no such auth code', 'error' => true]);
+            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all(), JSON_UNESCAPED_SLASHES), 'response' => '401 auth code no such auth code', 'error' => true]);
             return response()->json([
                 'success' => false,
             ], 401);
         }
 
         if ($authCode->client_id != $request->client_id || $authCode->revoked || Carbon::now() > Carbon::parse($authCode->expires_at)) {
-            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all()), 'response' => '401 auth code client id miss match or revoked', 'error' => true]);
+            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all(), JSON_UNESCAPED_SLASHES), 'response' => '401 auth code client id miss match or revoked', 'error' => true]);
             return response()->json([
                 'success' => false,
             ], 401);
         }
 
-        OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all()), 'response' => 'next clousure', 'error' => false]);
+        OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all(), JSON_UNESCAPED_SLASHES), 'response' => 'next clousure', 'error' => false]);
         return $next($request);
     }
 }

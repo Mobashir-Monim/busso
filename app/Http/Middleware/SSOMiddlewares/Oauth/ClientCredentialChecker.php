@@ -19,15 +19,22 @@ class ClientCredentialChecker
     public function handle(Request $request, Closure $next)
     {
         $client = Passport::client()->find($request->client_id);
+        $flag = false;
+
+        if (strlen($client->redirect) > strlen($request->redirect_uri)) {
+
+        } else {
+
+        }
 
         if ($client->secret != $request->client_secret || $client->redirect != $request->redirect_uri) {
-            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all()), 'response' => '401 client cred', 'error' => true]);
+            OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all(), JSON_UNESCAPED_SLASHES), 'response' => '401 client cred', 'error' => true]);
             return response()->json([
                 'success' => false,
             ], 401);
         }
 
-        OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all()), 'response' => 'next clousure', 'error' => false]);
+        OidcResponseLogger::create([ 'route' => $request->url(), 'data' => json_encode($request->all(), JSON_UNESCAPED_SLASHES), 'response' => 'next clousure', 'error' => false]);
         
         return $next($request);
     }
