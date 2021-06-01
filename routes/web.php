@@ -40,11 +40,21 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/access-log', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('access-logs');
         Route::get('/claims', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('claims');
-        Route::get('/roles', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('roles');
         Route::get('/scopes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('scopes');
         Route::get('/user-attribute-values', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attribute-values');
         Route::get('/user-attributes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attributes');
         
+        Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles');
+        Route::prefix('/roles')->name('roles.')->group(function () {
+            Route::post('/create', [App\Http\Controllers\RoleController::class, 'create'])->name('create');
+            Route::post('/update/{role}', [App\Http\Controllers\RoleController::class, 'update'])->name('update');
+            Route::get('/show/{role}', [App\Http\Controllers\RoleController::class, 'show'])->name('show');
+            Route::get('/user/attachments/{role}', [App\Http\Controllers\RoleController::class, 'showUsers'])->name('attachment.user');
+            Route::post('/user/attachments/{role}/detach', [App\Http\Controllers\RoleController::class, 'detachUser'])->name('attachment.user.detach');
+            Route::post('/user/attachments/{role}/attach', [App\Http\Controllers\RoleController::class, 'attachUser'])->name('attachment.user.attach');
+            Route::get('/group/attachments/{role}', [App\Http\Controllers\RoleController::class, 'showGroups'])->name('attachment.group');
+        });
+
         /** Resource Group and Resource Routes */
         Route::middleware(['hasSystemRole:resource-admin,super-admin'])->group(function () {
             Route::get('/resource-groups', [App\Http\Controllers\ResourceGroupController::class, 'index'])->name('resource-groups');

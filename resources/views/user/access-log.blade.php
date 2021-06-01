@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="row mn-3">
+    <div class="row my-3">
         <div class="col-md-12">
             <table class="table table-striped">
                 <thead>

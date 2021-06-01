@@ -21,9 +21,10 @@ class RoleSeeder extends Seeder
 
         $roles = [
             ['name' => 'super-admin', 'display_name' => 'Super Admin', 'is_system_role' => true, 'description' => 'Super admin access to the entire application'],
+            ['name' => 'admin', 'display_name' => 'System Admin', 'is_system_role' => true, 'description' => 'System admin access to the entire application'],
             ['name' => 'user-admin', 'display_name' => 'User Admin', 'is_system_role' => true, 'description' => 'User admin access to the entire application'],
             ['name' => 'resource-admin', 'display_name' => 'Resource Admin', 'is_system_role' => true, 'description' => 'Resource admin access to the entire application'],
-            ['name' => 'system-user', 'display_name' => 'System User', 'is_system_role' => true, 'description' => 'Normal system user'],
+            ['name' => 'system-user', 'display_name' => 'System User', 'is_system_role' => true, 'description' => 'Regular system user'],
         ];
 
         foreach ($roles as $role) {
