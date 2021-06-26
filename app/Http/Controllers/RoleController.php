@@ -14,9 +14,11 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::where('is_system_role', false)->orderBy('created_at', 'ASC')->paginate(20);
+        $count = count(Role::where('is_system_role', false)->get());
 
         if (auth()->user()->hasSystemRole('super-admin')) {
             $roles = Role::orderBy('created_at', 'ASC')->paginate(20);
+            $count = count(Role::all());
         }
 
         $existing_roles = Role::get()->pluck('name')->toArray();
@@ -24,7 +26,7 @@ class RoleController extends Controller
         return view('roles.index', [
             'roles' => $roles,
             'existing_roles' => $existing_roles,
-            'role_count' => count(Role::where('is_system_role', false)->get())
+            'role_count' => $count
         ]);
     }
 

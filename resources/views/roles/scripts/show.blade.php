@@ -46,4 +46,26 @@
     const showUsers = () => {
         window.open("{{ route('roles.attachment.user', ['role' => 'role_id']) }}".replace('role_id', currentShown), '_blank');
     }
+
+    const setRoleSystemName = (type = 'create') => {
+        let targetSource = type == 'show' ? shownDisplayName : displayName;
+        let targetDestination = type == 'show' ? shownSystemName : systemName;
+        let value = targetSource.value.toLowerCase().replaceAll(' ', '-');
+
+        if (existingRoles.includes(value)) {
+            let count = 0
+            
+            while (true) {
+                if (existingRoles.includes(`${ value }-${ count }`)) {
+                    count += 1;
+                } else {
+                    break;
+                }
+            }
+
+            value = `${ value }-${ count }`;
+        }
+
+        targetDestination.value = value;
+    }
 </script>
