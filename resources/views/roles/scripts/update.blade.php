@@ -26,10 +26,11 @@
                     console.log(data)
                     if (data.hasOwnProperty('success') && data.hasOwnProperty('message')) {
                         if (data.success) {
-                            appendRole(data.role_id);
+                            existingRoles.splice(existingRoles.indexOf(document.getElementById(`name-${ currentShown }`).innerText), 1);
+                            existingRoles.push(shownSystemName.value);
+                            updateViewDetails(currentShown);
                         }
 
-                        updateViewDetails(currentShown);
                         alert(data.message);
                     } else {
                         throw 'Error!!!';
