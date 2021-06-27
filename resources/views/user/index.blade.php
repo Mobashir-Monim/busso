@@ -101,7 +101,9 @@
         </div>
     </form>
 
-    <button class="btn add-btn btn-dark" data-toggle="modal" data-target="#user-create"></button>
+    <button class="btn add-btn btn-dark" data-toggle="modal" data-target="#user-create">
+        <span class="material-icons-outlined" style="font-size: 2.2em">add</span>
+    </button>
 
     @include('user.create')
 @endsection

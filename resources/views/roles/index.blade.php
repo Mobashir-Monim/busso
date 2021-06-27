@@ -46,7 +46,9 @@
 
     {{ $roles->links() }}
     
-    <button class="btn add-btn btn-dark" data-toggle="modal" data-target="#role-create"></button>
+    <button class="btn add-btn btn-dark" data-toggle="modal" data-target="#role-create">
+        <span class="material-icons-outlined" style="font-size: 2.2em">add</span>
+    </button>
     <button class="hidden" data-toggle="modal" data-target="#role-show" id="role-show-btn"></button>
     @include('roles.parts.create')
     @include('roles.parts.show')

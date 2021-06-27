@@ -137,7 +137,7 @@ body {
     text-align: center;
     padding: 5px !important;
     vertical-align: middle !important;
-    background-image: url('../img/plus.svg');
+    /* background-image: url('../img/plus.svg'); */
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
