@@ -33,6 +33,7 @@
                     console.log(data)
                     if (data.hasOwnProperty('success') && data.hasOwnProperty('message')) {
                         if (data.success) {
+                            existingRoles.push(systemName.value);
                             appendRole(data.role_id);
                         }
 
