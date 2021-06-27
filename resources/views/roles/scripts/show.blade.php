@@ -51,8 +51,9 @@
         let targetSource = type == 'show' ? shownDisplayName : displayName;
         let targetDestination = type == 'show' ? shownSystemName : systemName;
         let value = targetSource.value.toLowerCase().replaceAll(' ', '-');
+        let flag = type == 'show' ? existingRoles.includes(value) && document.getElementById(`name-${ currentShown }`).innerText != value : existingRoles.includes(value);
 
-        if (existingRoles.includes(value)) {
+        if (flag) {
             let count = 0
             
             while (true) {
