@@ -34,6 +34,7 @@ class OauthController extends Controller
 
     public function authenticate(Request $request)
     {
+        // Role checker here
         $helper = new OauthLogin;
         $val = $helper->authenticatorParamDecompressor($request->stuff);
         new OauthLogger(auth()->user()->id, Client::find($val->client_id)->user_id);

@@ -99,4 +99,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(AccessLog::class);
     }
+
+    public function hasAccess($entity)
+    {
+
+    }
 }
