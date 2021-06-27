@@ -83,7 +83,13 @@
                             </p>
                         </div>
                         <div class="col-md-3 mt-auto text-right">
-                            <button class="btn btn-dark">
+                            <a class="btn btn-dark align-middle" href="${ '{{ route('roles.attachment.user', ['role' => 'ROLEID']) }}'.replace('ROLEID', id) }">
+                                <i class="fas fa-user"></i>
+                            </a>
+                            <a class="btn btn-dark align-middle" href="${ '{{ route('roles.attachment.user', ['role' => 'ROLEID']) }}'.replace('ROLEID', id) }">
+                                <i class="fa fas fa-layer-group"></i>
+                            </a>
+                            <button class="btn btn-dark" onclick="showRole('{{ $role->id }}')">
                                 <i class="fas fa-info-circle"></i>
                             </button>
                         </div>
