@@ -7,6 +7,7 @@ use App\Helpers\RoleHelpers\Creator;
 use App\Helpers\RoleHelpers\Viewer;
 use App\Helpers\RoleHelpers\Updator;
 use App\Helpers\RoleHelpers\UserAttachmentHelper;
+use App\Helpers\RoleHelpers\GroupAttachmentHelper;
 use App\Models\Role;
 
 class RoleController extends Controller
@@ -92,6 +93,37 @@ class RoleController extends Controller
     public function attachUser(Role $role, Request $request)
     {
         $helper = new UserAttachmentHelper($role, $request->user, 'attach');
+
+        return response()->json($helper->status);
+    }
+
+    public function showGroups(Role $role, Request $request)
+    {
+        $helper = new Viewer($role, 'groups');
+        
+        if ($request->mode != 'api') {
+            return view('roles.groups', [
+                'role' => $helper->data['details'],
+                'groups' => $helper->data['groups']
+            ]);
+        } else {
+            return response()->json([
+                'success' => true,
+                'users' => json_decode($helper->data['users']->toJson())->data
+            ]);
+        }
+    }
+
+    public function detachGroup(Role $role, Request $request)
+    {
+        $helper = new GroupAttachmentHelper($role, $request->group, 'detach');
+
+        return response()->json($helper->status);
+    }
+
+    public function attachGroup(Role $role, Request $request)
+    {
+        $helper = new GroupAttachmentHelper($role, $request->group, 'attach');
 
         return response()->json($helper->status);
     }

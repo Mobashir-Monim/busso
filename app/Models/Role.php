@@ -24,6 +24,11 @@ class Role extends Model
 
     public function resourceGroups()
     {
-        return $this->belongsToMany(Permission::class);
+        return $this->belongsToMany(ResourceGroup::class);
+    }
+
+    public function groupIsAttached($group)
+    {
+        return in_array($group, $this->resourceGroups->pluck('id')->toArray());
     }
 }

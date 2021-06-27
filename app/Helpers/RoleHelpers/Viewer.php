@@ -3,7 +3,9 @@
 namespace App\Helpers\RoleHelpers;
 
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Role;
+use App\Models\ResourceGroup;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -11,15 +13,20 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class Viewer extends Helper
 {
     protected $role;
-    public $data;
+    public $data = [];
 
     public function __construct($role, $view = 'show')
     {
         $this->role = $role;
         $this->constructRoleDetails();
         
-        if ($view == 'users')
+        if ($view == 'users') {
             $this->constructRoleUsers();
+        } elseif ($view == 'groups') {
+            $this->data['groups'] = [];
+            $this->constructRoleGroups();
+        }
+
     }
 
     public function constructRoleDetails()
@@ -40,5 +47,32 @@ class Viewer extends Helper
         $page = Paginator::resolveCurrentPage() ?: 1;
         $users = $this->role->users instanceof Collection ? $this->role->users : Collection::make($this->role->users);
         $this->data['users'] = new LengthAwarePaginator($users->forPage($page, 100), $users->count(), 100, $page);
+    }
+
+    public function constructRoleGroups()
+    {
+        $attached = $this->role->resourceGroups;
+        $detached = ResourceGroup::whereNotIn('id', $attached->plucK('id')->toArray())->get();
+
+        $this->data['groups'] = [
+            'attached' => $this->formatResourceGroups($attached),
+            'detached' => $this->formatResourceGroups($detached)
+        ];
+    }
+
+    public function formatResourceGroups($groups)
+    {
+        $formatted = [];
+
+        foreach ($groups as $group) {
+            $formatted[] = [
+                'id' => $group->id,
+                'name' => $group->name,
+                'description' => $group->description,
+                'image' => !is_null($group->image) ? Storage::url($group->image) : "/img/rg-placeholder.png",
+            ];
+        }
+
+        return $formatted;
     }
 }

@@ -53,6 +53,8 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
             Route::post('/user/attachments/{role}/detach', [App\Http\Controllers\RoleController::class, 'detachUser'])->name('attachment.user.detach');
             Route::post('/user/attachments/{role}/attach', [App\Http\Controllers\RoleController::class, 'attachUser'])->name('attachment.user.attach');
             Route::get('/group/attachments/{role}', [App\Http\Controllers\RoleController::class, 'showGroups'])->name('attachment.group');
+            Route::post('/group/attachments/{role}/detach', [App\Http\Controllers\RoleController::class, 'detachGroup'])->name('attachment.group.detach');
+            Route::post('/group/attachments/{role}/attach', [App\Http\Controllers\RoleController::class, 'attachGroup'])->name('attachment.group.attach');
         });
 
         /** Resource Group and Resource Routes */
