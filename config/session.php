@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'file'),
+    'driver' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['SESSION_DRIVER'] : env('SESSION_DRIVER', 'file'),
 
     /*
     |--------------------------------------------------------------------------
