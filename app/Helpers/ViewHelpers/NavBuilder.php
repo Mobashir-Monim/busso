@@ -35,6 +35,10 @@ class NavBuilder extends Helper
 
     public function getNavItems()
     {
-        return $this->navItems[auth()->user()->roles->where('is_system_role', true)->first()->name];
+        foreach ($this->navItems as $role => $items) {
+            if (auth()->user()->hasRole($role)) {
+                return $items;
+            }
+        }
     }
 }

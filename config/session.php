@@ -155,7 +155,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', null),
+    'domain' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['APP_URL'] : env('SESSION_DOMAIN', '127.0.0.1'),
 
     /*
     |--------------------------------------------------------------------------

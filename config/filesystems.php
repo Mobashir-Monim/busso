@@ -44,6 +44,7 @@ return [
 
         's3' => [
             'driver' => 's3',
+            // 'root' => env('APP_NAME') . '-' . (isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['APP_ENV'] : env('APP_ENV')),
             'key' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_KEY'] : env('AWS_ACCESS_KEY_ID'),
             'secret' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_SECRET'] : env('AWS_SECRET_ACCESS_KEY'),
             'region' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_REGION'] : env('AWS_DEFAULT_REGION'),

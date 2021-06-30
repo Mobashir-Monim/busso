@@ -12,12 +12,15 @@ use App\Helpers\UserHelpers\Creator;
 use App\Helpers\UserHelpers\SearchHelpers\SearchHelper;
 use App\Http\Requests\Password\ResetRequest;
 use App\Http\Requests\Password\OverrideRequest;
+use App\Helpers\UserHelpers\AccessClientHelper;
 
 class UserController extends Controller
 {
     public function index()
     {
         $helper = new Stats;
+        new AccessClientHelper();
+
         return view('user.index', ['stats' => $helper->getQuickStats()]);
     }
 
