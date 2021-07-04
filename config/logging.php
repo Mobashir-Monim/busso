@@ -17,7 +17,8 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    // 'default' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_CHANNEL'] : env('LOG_CHANNEL', 'stack'),
+    'default' => 'cloudwatch',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,13 +45,13 @@ return [
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
+            'level' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_LEVEL'] : env('LOG_LEVEL', 'debug'),
         ],
 
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
+            'level' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_LEVEL'] : env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
 
@@ -64,7 +65,7 @@ return [
 
         'papertrail' => [
             'driver' => 'monolog',
-            'level' => env('LOG_LEVEL', 'debug'),
+            'level' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_LEVEL'] : env('LOG_LEVEL', 'debug'),
             'handler' => SyslogUdpHandler::class,
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
@@ -83,12 +84,12 @@ return [
 
         'syslog' => [
             'driver' => 'syslog',
-            'level' => env('LOG_LEVEL', 'debug'),
+            'level' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_LEVEL'] : env('LOG_LEVEL', 'debug'),
         ],
 
         'errorlog' => [
             'driver' => 'errorlog',
-            'level' => env('LOG_LEVEL', 'debug'),
+            'level' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_LEVEL'] : env('LOG_LEVEL', 'debug'),
         ],
 
         'null' => [
@@ -99,6 +100,21 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'cloudwatch' => [
+            'driver' => 'custom',
+            'via' => \App\Logging\CloudWatchLoggerFactory::class,
+            'sdk' => [
+              'region' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_REGION'] : env('AWS_DEFAULT_REGION', 'ap-southeast-1'),
+              'version' => 'latest',
+              'credentials' => [
+                'key' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_KEY'] : env('AWS_ACCESS_KEY_ID'),
+                'secret' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['BUCKET_SECRET'] : env('AWS_SECRET_ACCESS_KEY')
+              ]
+            ],
+            'retention' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_RETENTION'] : env('LOG_RETENTION',7),
+            'level' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_LEVEL'] : env('LOG_LEVEL','info')
+          ],
     ],
 
 ];

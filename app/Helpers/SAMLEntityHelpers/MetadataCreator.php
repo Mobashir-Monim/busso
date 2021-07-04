@@ -47,10 +47,10 @@ class MetadataCreator extends Helper
 
     public function addKey()
     {
-        new LC("certificates/" . $this->entity->folder, "certificates/" . $this->entity->folder, $this->entity->cert . ".crt");
+        new LC("certificates/SAML/" . $this->entity->folder, "certificates/SAML/" . $this->entity->folder, $this->entity->cert . ".crt");
         return (new KD())
         ->setUse(KD::USE_SIGNING)
-        ->setCertificate(X509::fromFile(storage_path("app/certificates/") . $this->entity->folder . "/" . $this->entity->cert . ".crt"));
+        ->setCertificate(X509::fromFile(storage_path("app/certificates/SAML/") . $this->entity->folder . "/" . $this->entity->cert . ".crt"));
     }
 
     public function addSLOs(&$idpDescriptor)
@@ -82,7 +82,7 @@ class MetadataCreator extends Helper
         $entityDescriptor->serialize($context->getDocument(), $context);
         $name = $this->entity->metadataDocName;
         $content = $context->getDocument()->saveXML();
-        if (Storage::disk($this->disk)->exists("certificates/" . $this->entity->folder. "/$name.xml")) Storage::delete("certificates/" . $this->entity->folder. "/$name.xml");
-        Storage::disk($this->disk)->put("certificates/" . $this->entity->folder. "/$name.xml", $context->getDocument()->saveXML(), 0600);
+        if (Storage::disk($this->disk)->exists("certificates/SAML/" . $this->entity->folder. "/$name.xml")) Storage::delete("certificates/SAML/" . $this->entity->folder. "/$name.xml");
+        Storage::disk($this->disk)->put("certificates/SAML/" . $this->entity->folder. "/$name.xml", $context->getDocument()->saveXML(), 0600);
     }
 }

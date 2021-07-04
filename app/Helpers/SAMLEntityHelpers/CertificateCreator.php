@@ -11,11 +11,11 @@ class CertificateCreator extends Helper
     protected $crt = null;
     protected $dn = null;
 
-    public function __construct($pass, $entity)
+    public function __construct($path = 'SAML', $entity)
     {
         $this->buildDN();
         $this->createX509($entity);
-        $this->storeCertificates($entity, config('app.storage'));
+        $this->storeCertificates($entity, $path, config('app.storage'));
     }
 
     public function buildDN()
@@ -34,7 +34,7 @@ class CertificateCreator extends Helper
     public function createX509($entity)
     {
         $privkey = openssl_pkey_new(array(
-            "private_key_bits" => 2048,
+            "private_key_bits" => 4096,
             "private_key_type" => OPENSSL_KEYTYPE_RSA,
         ));
         $csr = openssl_csr_new($this->dn, $privkey, array('digest_alg' => 'sha256'));
@@ -44,13 +44,24 @@ class CertificateCreator extends Helper
         openssl_pkey_export($privkey, $this->key, $entity->pemPass);
     }
 
-    public function storeCertificates($entity, $disk)
+    public function storeCertificates($entity, $path, $disk)
+    {
+        $this->checkFolders($entity, $path, $disk);
+        $this->checkFiles($entity, $path, $disk);
+        Storage::disk($disk)->put("certificates/$path/$entity->folder/$entity->key.pem", $this->key, 0600);
+        Storage::disk($disk)->put("certificates/$path/$entity->folder/$entity->cert.crt", $this->crt, 0600);
+    }
+
+    public function checkFolders($entity, $path, $disk)
     {
         if (!Storage::disk($disk)->exists("certificates")) Storage::disk($disk)->makeDirectory("certificates", 0700, true);
-        if (!Storage::disk($disk)->exists("certificates/$entity->folder")) Storage::disk($disk)->makeDirectory("certificates/$entity->folder", 0700, true);
-        if (Storage::disk($disk)->exists("certificates/$entity->folder/$entity->key.pem")) Storage::delete("certificates/$entity->folder/$entity->key.pem");
-        if (Storage::disk($disk)->exists("certificates/$entity->folder/$entity->cert.crt")) Storage::delete("certificates/$entity->folder/$entity->cert.crt");
-        Storage::disk($disk)->put("certificates/$entity->folder/$entity->key.pem", $this->key, 0600);
-        Storage::disk($disk)->put("certificates/$entity->folder/$entity->cert.crt", $this->crt, 0600);
+        if (!Storage::disk($disk)->exists("certificates/$path")) Storage::disk($disk)->makeDirectory("certificates/$path", 0700, true);
+        if (!Storage::disk($disk)->exists("certificates/$path/$entity->folder")) Storage::disk($disk)->makeDirectory("certificates/$path/$entity->folder", 0700, true);
+    }
+
+    public function checkFiles($entity, $path, $disk)
+    {
+        if (Storage::disk($disk)->exists("certificates/$path/$entity->folder/$entity->key.pem")) Storage::delete("certificates/$path/$entity->folder/$entity->key.pem");
+        if (Storage::disk($disk)->exists("certificates/$path/$entity->folder/$entity->cert.crt")) Storage::delete("certificates/$path/$entity->folder/$entity->cert.crt");
     }
 }

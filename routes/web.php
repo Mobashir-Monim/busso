@@ -30,8 +30,8 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
         Route::name('oauth.')->prefix('oauth/v2')->group(function () {
             Route::get('/auth/{oauth}', [App\Http\Controllers\SSOControllers\OauthController::class, 'login'])->name('authenticate')->middleware('sso.oauth.session');
             Route::post('/auth', [App\Http\Controllers\SSOControllers\OauthController::class, 'authenticate'])->name('login')->middleware('sso.credential-checher', 'sso.oauth.session');
-            Route::get('/.well-known/openid-configuration', [App\Http\Controllers\SSOControllers\OauthController::class, 'discoveryDoc'])->name('discovery-doc');
-            Route::get('/oauth2/certs', [App\Http\Controllers\SSOControllers\OauthController::class, 'jwksDoc'])->name('certs');
+            Route::get('/{group}/.well-known/openid-configuration', [App\Http\Controllers\SSOControllers\OauthController::class, 'discoveryDoc'])->name('discovery-doc');
+            Route::get('/{group}/oauth2/certs', [App\Http\Controllers\SSOControllers\OauthController::class, 'jwksDoc'])->name('certs');
         });
     });
     

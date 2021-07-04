@@ -27,15 +27,15 @@ class UserSeeder extends Seeder
             ['name' => 'n_edunext_support', 'email' => 'support@edunext.co', 'password' => bcrypt("Qdpa5K'(<NK)_B#"), 'force_reset' => false],
         ];
         
-        for ($i = 0; $i <= rand(1000, 10000); $i++) {
-            $users[] = [
-                'name' => "User $i",
-                'email' => "user$i@gmail.com",
-                'password' => bcrypt('lalaland'),
-                'is_active' => true,
-                'force_reset' => false
-            ];
-        }
+        // for ($i = 0; $i <= rand(1000, 10000); $i++) {
+        //     $users[] = [
+        //         'name' => "User $i",
+        //         'email' => "user$i@gmail.com",
+        //         'password' => bcrypt('lalaland'),
+        //         'is_active' => true,
+        //         'force_reset' => false
+        //     ];
+        // }
 
         foreach ($users as $user) {
             $attach = [rand(0, 1), rand(0, 1), rand(0, 1), rand(0, 1)];
@@ -47,6 +47,8 @@ class UserSeeder extends Seeder
             }
         }
 
-        User::where('email', 'mobashirmonim@gmail.com')->first()->roles()->attach(Role::where('name', 'super-admin')->first()->id);
+        User::where('email', 'mobashirmonim@gmail.com')->first()->roles()->attach($roles[0]);
+        User::where('email', 'mobashirmonim@gmail.com')->first()->roles()->attach($roles[3]);
+        User::where('email', 'support@edunext.co')->first()->roles()->attach($roles[3]);
     }
 }

@@ -40,14 +40,14 @@ class Base extends Helper
 
     public function spreadEssentials($authN, $entity)
     {
-        new LC("certificates/" . $entity->folder, "certificates/" . $entity->folder, $entity->cert . ".crt");
-        new LC("certificates/" . $entity->folder, "certificates/" . $entity->folder, $entity->key . ".pem");
+        new LC("certificates/SAML/" . $entity->folder, "certificates/SAML/" . $entity->folder, $entity->cert . ".crt");
+        new LC("certificates/SAML/" . $entity->folder, "certificates/SAML/" . $entity->folder, $entity->key . ".pem");
         $this->authN = $authN;
         $this->entity = $entity;
         $this->destination = $entity->acs;
         $this->issuer = $entity->entityID;
-        $this->cert = X509::fromFile(storage_path("app/certificates/$entity->folder/$entity->cert.crt"));
-        $this->key = KH::createPrivateKey(file_get_contents(storage_path("app/certificates/$entity->folder/$entity->key.pem")), $this->entity->pemPass, false);
+        $this->cert = X509::fromFile(storage_path("app/certificates/SAML/$entity->folder/$entity->cert.crt"));
+        $this->key = KH::createPrivateKey(file_get_contents(storage_path("app/certificates/SAML/$entity->folder/$entity->key.pem")), $this->entity->pemPass, false);
     }
 
     public function buildResponse(&$response, $sign = false)

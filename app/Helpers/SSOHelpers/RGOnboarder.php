@@ -23,22 +23,25 @@ class RGOnboarder extends Helper
     {
         if ($request->type == 'oauth' || $request->type == 'both') {
             $oauth = $this->createOauthEntity($request);
+            new CertificateCreator('Oauth', $oauth);
         }
 
         if ($request->type == 'saml' || $request->type == 'both') {
             $saml = $this->createSAMLEntity($this->group->id);
+            new CertificateCreator('SAML', $saml);
+            (new MetadataCreator($saml))->createMetadata();
         }
     }
 
     public function createSAMLEntity($pass)
     {
-        $entity = SAMLENtity::create(['resource_group_id' => $this->group->id]);
-        new CertificateCreator($pass, $entity);
-        (new MetadataCreator($entity))->createMetadata();
+        return SAMLENtity::create(['resource_group_id' => $this->group->id]);
     }
 
     public function createOauthEntity($request)
     {
+        $values = $this->generateCertificateIdentificationValues();
+
         return Passport::client()->create([
             'name' => $request->name,
             'user_id' => $this->group->id,
@@ -48,6 +51,24 @@ class RGOnboarder extends Helper
             'password_client' => true,
             'redirect' => $request->endpoint,
             'revoked' => false,
+            'folder' => $values['folder'],
+            'key' => $values['key'],
+            'cert' => $values['cert']
         ]);
+    }
+
+    public function generateCertificateIdentificationValues()
+    {
+        $values = ['folder' => Str::random(rand(100, 250)), 'key' => Str::random(rand(100, 250)), 'cert' => Str::random(rand(100, 250))];
+
+        foreach ($values as $key => $value) {
+            while (!is_null(Passport::client()->where($key, $value)->first())) {
+                $value = Str::random(rand(100, 250));
+            }
+
+            $values[$key] = $value;
+        }
+
+        return $values;
     }
 }

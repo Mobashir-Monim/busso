@@ -11,9 +11,12 @@ use App\Models\User;
 use App\Models\Passport\Token;
 use App\Models\Passport\Client;
 use \Firebase\JWT\JWT;
+use App\Helpers\FileHelpers\LocalCache as LC;
+use App\Models\OauthClient;
 
 class Login extends Helper
 {
+    protected $entity;
     protected $headers = [
         'RS256' => ['typ' => 'JWT', 'alg' => 'RS256'],
         'HS256' => ['typ' => 'JWT', 'alg' => 'HS256'],
@@ -80,10 +83,11 @@ class Login extends Helper
         ]);
     }
 
-    public function exchangeCodeToken($auth_code, $access_token)
+    public function exchangeCodeToken($auth_code, $access_token, $client_id)
     {
         $auth_code->revoked = true;
         $auth_code->save();
+        $this->fetchFiles($client_id);
 
         return [
             'access_token' => $access_token->id,
@@ -91,6 +95,13 @@ class Login extends Helper
             'expires_in' => 604800,
             'id_token' => $this->generateIDToken('RS256', $this->generateIDTokenPayload($auth_code, $access_token)),
         ];
+    }
+
+    public function fetchFiles($client_id)
+    {
+        $this->entity = OauthClient::find($client_id);
+        new LC("certificates/Oauth/" . $entity->folder, "certificates/Oauth/" . $entity->folder, $entity->cert . ".crt");
+        new LC("certificates/Oauth/" . $entity->folder, "certificates/Oauth/" . $entity->folder, $entity->key . ".pem");
     }
 
     public function getUserInfo($token)
@@ -126,7 +137,16 @@ class Login extends Helper
     public function generateIDToken($type, $payload, $key = null)
     {
         if ($type == 'RS256') {
-            return $this->generateRS256Token($payload, file_get_contents('../storage/oauth-private.key'));
+            return $this->generateRS256Token(
+                $payload,
+                file_get_contents(
+                    storage_path(
+                        "app/certificates/Oauth/" .
+                        $this->entity->folder . "/" .
+                        $this->entity->key . ".pem"
+                    )
+                )
+            );
         } else {
             return $this->generateHS256Token($payload, $key);
         }

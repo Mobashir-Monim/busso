@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
 use App\Helpers\SSOHelpers\OAuth\Login as OauthLogin;
+use App\Helpers\SSOHelpers\OAuth\JwksHelper;
 use Laravel\Passport\Passport;
 use App\Models\Passport\Token;
 use App\Models\Passport\Client;
 use App\Helpers\AccessLogHelpers\OauthLogger;
+use App\Models\ResourceGroup;
 
 class OauthController extends Controller
 {
@@ -48,7 +50,7 @@ class OauthController extends Controller
         $auth_code = Passport::authCode()->find(request()->code);
         $access_token = $helper->createAccessToken($auth_code->user_id, $auth_code->client_id, $auth_code->scopes, Passport::token());
 
-        return response()->json($helper->exchangeCodeToken($auth_code, $access_token));
+        return response()->json($helper->exchangeCodeToken($auth_code, $access_token, $auth_code->client_id));
     }
 
     public function userInfo()
@@ -58,14 +60,14 @@ class OauthController extends Controller
         return response()->json((new OauthLogin)->getUserInfo($token));
     }
 
-    public function discoveryDoc()
+    public function discoveryDoc(ResourceGroup $group)
     {
         return response()->json([
             'issuer' => url()->to('/'),
             'authorization_endpoint' => route('api.sso.oauth.auth'),
             'token_endpoint' => route('api.sso.oauth.token'),
             'userinfo_endpoint' => route('api.sso.oauth.user'),
-            'jwks_uri' => route('sso.oauth.certs'),
+            'jwks_uri' => route('sso.oauth.certs', ['group' => $group->id]),
             'scopes_supported' => url()->to('/'),
             'response_types_supported' => [
                 'code',
@@ -80,24 +82,18 @@ class OauthController extends Controller
         JSON_UNESCAPED_SLASHES);
     }
 
-    public function jwksDoc()
+    public function jwksDoc(ResourceGroup $group)
     {
-        $key = file_get_contents("../storage/oauth-public.key");
-        $data = openssl_pkey_get_public($key);
-        $data = openssl_pkey_get_details($data);
+        $helper = new JwksHelper($group);
 
-        return response()->json([
-            "keys" => [
-                [
-                    // "kid" => "178ab1dc5913d929d37c23dcaa961872f8d70b68",
-                    "kty" => "RSA",
-                    "n" => base64_encode($data['rsa']['n']),
-                    "e" => base64_encode($data['rsa']['e']),
-                    "use" => "sig",
-                    "alg" => "RS256"
-                ],
-              ]
-        ], 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
-        JSON_UNESCAPED_SLASHES);
+        return response()->json(
+            $helper->getJwksDoc(),
+            200,
+            [
+                'Content-Type' => 'application/json;charset=UTF-8',
+                'Charset' => 'utf-8'
+            ],
+            JSON_UNESCAPED_SLASHES
+        );
     }
 }

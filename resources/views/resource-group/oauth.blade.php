@@ -33,6 +33,32 @@
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
+                                <div class="col-md-10 col-9 mb-2">
+                                    <input type="text" class="form-control disabled" readonly id="discovery_doc" value="{{ route('sso.oauth.discovery-doc', ['group' => $group->id]) }}">
+                                    <label for="" class="sso-inp-label mr-2 text-primary"><b>Discovery Document</b></label>
+                                </div>
+                                <div class="col-md-2 col-3 mb-2 text-right">
+                                    <button type="button" class="btn btn-dark" onclick="copyData('discovery_doc')"><i class="far fa-copy"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-10 col-9 mb-2">
+                                    <input type="text" class="form-control disabled" readonly id="jwks_doc" value="{{ route('sso.oauth.certs', ['group' => $group->id]) }}">
+                                    <label for="" class="sso-inp-label mr-2 text-primary"><b>Jwks Document</b></label>
+                                </div>
+                                <div class="col-md-2 col-3 mb-2 text-right">
+                                    <button type="button" class="btn btn-dark" onclick="copyData('jwks_doc')"><i class="far fa-copy"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
                                 <div class="col-md-12 col-12 mb-2">
                                     <form action="{{ route('resource-groups.oauth.reset', ['group' => $group->id, 'oauth' => $group->oauth->id]) }}" method="POST">
                                         @csrf

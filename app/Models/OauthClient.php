@@ -19,4 +19,19 @@ class OauthClient extends Model
 
         return $this->morphTo(__FUNCTION__, 'user_type', 'user_id');
     }
+
+    public function getPemPassAttribute()
+    {
+        $helper = new Helper;
+        return hash('sha512', $helper->base64url_encode($this->group->id));
+    }
+
+    public function getGroupAttribute()
+    {
+        if ($this->attributes['user_type'] == 'resource_group') {
+            return ResourceGroup::find($this->attributes['user_id']);
+        }
+
+        return null;
+    }
 }
