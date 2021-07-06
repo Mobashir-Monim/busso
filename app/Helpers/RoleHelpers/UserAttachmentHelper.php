@@ -17,19 +17,20 @@ class UserAttachmentHelper extends Helper
         'user-admin' => ['resource-admin', 'system-user'],
     ];
 
-    public function __construct(Role $role, $email, $mode = 'attach')
+    public function __construct(Role $role, $email, $mode = 'attach', $flag = false)
     {
         $user = User::where('email', $email)->first();
 
         if (!is_null($user)) {
             if ($this->verifyAttachmentPrivilege($role)) {
                 if ($mode == 'attach') {
-                    $this->attachUser($role, $user);
+                    $flag = $this->attachUser($role, $user);
                 } else {
-                    $this->detachUser($role, $user);
+                    $flag = $this->detachUser($role, $user);
                 }
     
-                $this->setStatusToTrue($mode, $email);
+                if ($flag)
+                    $this->setStatusToTrue($mode, $email);
             }
         } else {
             $this->setStatusToFalse("User $email not found, please add the user first");
@@ -69,17 +70,31 @@ class UserAttachmentHelper extends Helper
             return false;
         }
 
-        return in_array(true, $role_priviledge);
+        return in_array(true, $this->role_priviledge);
     }
 
     public function attachUser($role, $user)
     {
-        $role->users()->attach($user->id);
+        if (!$user->hasRole($role->name)) {
+            $role->users()->attach($user->id);
+            
+            return true;
+        }
+
+        $this->setStatusToFalse("The user $user->email already has this role attached");
+        
+        return false;
     }
 
     public function detachUser($role, $user)
     {
-        $role->users()->detach($user->id);
+        if ($user->hasRole($role->name)) {
+            $role->users()->detach($user->id);
+        }
+
+        $this->setStatusToFalse("The user $user->email does not have this role attached");
+
+        return false;
     }
 
     public function setStatusToFalse($message = 'You do not have required permission to attach/detach users to/from roles')

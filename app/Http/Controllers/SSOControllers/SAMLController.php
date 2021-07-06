@@ -22,11 +22,16 @@ class SAMLController extends Controller
 
     public function assertLogin(SAMLEntity $entity, Request $request)
     {
-        // Role checker here
-        new SAMLLogger(auth()->user()->id,$entity->group->id);
-        $helper = new SamlSSO($request->SAMLRequest, $entity);
-        $response = $helper->loginResponse();
-        $helper->sendResponse($response);
+        if (auth()->user()->hasAccess($entity->group)) {
+            new SAMLLogger(auth()->user()->id, $entity->group->id);
+            $helper = new SamlSSO($request->SAMLRequest, $entity);
+            $response = $helper->loginResponse();
+            $helper->sendResponse($response);
+        } else {
+            flash('You are not authorized to access the requested resource')->error();
+
+            return redirect()->route('home');
+        }
     }
 
     public function logout(SAMLEntity $entity, Request $request)

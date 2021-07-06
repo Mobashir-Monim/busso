@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-4 mt-auto text-right mb-4">
                         <button class="btn btn-dark align-middle" onclick="showUsers()"><i class="fas fa-user"></i></button>
-                        <button class="btn btn-dark align-middle" onclick="updateRole()"><i class="fa fas fa-layer-group"></i></button>
+                        <button class="btn btn-dark align-middle" onclick="showGroups()"><i class="fa fas fa-layer-group"></i></button>
                         <button class="btn btn-dark align-middle" onclick="updateRole()"><i class="far fa-save"></i></button>
                     </div>
                 </div>

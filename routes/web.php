@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd(startsWith('https:\/\/openidconnect.net\/callback', 'https:\/\/openidconnect.net\/callback'));
     dd('nothing in test');
 })->name('tester');
 

@@ -47,6 +47,10 @@
         window.open("{{ route('roles.attachment.user', ['role' => 'role_id']) }}".replace('role_id', currentShown), '_blank');
     }
 
+    const showGroups = () => {
+        window.open("{{ route('roles.attachment.group', ['role' => 'role_id']) }}".replace('role_id', currentShown), '_blank');
+    }
+
     const setRoleSystemName = (type = 'create') => {
         let targetSource = type == 'show' ? shownDisplayName : displayName;
         let targetDestination = type == 'show' ? shownSystemName : systemName;

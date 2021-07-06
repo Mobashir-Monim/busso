@@ -18,7 +18,12 @@ class OauthController extends Controller
 {
     public function login($oauth, Request $request)
     {
-        return view('auth.login', ['oauth' => $oauth]);
+        if (!Auth::check()) return view('auth.login', ['oauth' => $oauth]);
+
+        $helper = new OauthLogin;
+        $val = $helper->authenticatorParamDecompressor($oauth);
+
+        return $helper->loginStatus($val);
     }
 
     public function authenticator()
@@ -36,12 +41,10 @@ class OauthController extends Controller
 
     public function authenticate(Request $request)
     {
-        // Role checker here
         $helper = new OauthLogin;
         $val = $helper->authenticatorParamDecompressor($request->stuff);
-        new OauthLogger(auth()->user()->id, Client::find($val->client_id)->user_id);
 
-        return redirect()->away($val->redirect_uri . "?code=" . $helper->createAuthCode($val, Passport::authCode())->id . "&state=$val->state");
+        return $helper->loginStatus($val);
     }
 
     public function exchangeCodeToken()

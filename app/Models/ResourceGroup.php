@@ -31,4 +31,9 @@ class ResourceGroup extends Model
     {
         return $this->hasMany(AccessLog::class);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

@@ -11,10 +11,11 @@ class CertificateCreator extends Helper
     protected $crt = null;
     protected $dn = null;
 
-    public function __construct($path = 'SAML', $entity)
+    public function __construct($path = 'SAML', $entity, $use_password = true)
     {
+        $this->use_password = $use_password;
         $this->buildDN();
-        $this->createX509($entity);
+        $this->createX509($entity, $use_password);
         $this->storeCertificates($entity, $path, config('app.storage'));
     }
 
@@ -31,7 +32,7 @@ class CertificateCreator extends Helper
         ];
     }
 
-    public function createX509($entity)
+    public function createX509($entity, $use_password)
     {
         $privkey = openssl_pkey_new(array(
             "private_key_bits" => 4096,
@@ -41,7 +42,12 @@ class CertificateCreator extends Helper
         $x509 = openssl_csr_sign($csr, null, $privkey, $days = 365, array('digest_alg' => 'sha256'));
         openssl_csr_export($csr, $csrout);
         openssl_x509_export($x509, $this->crt);
-        openssl_pkey_export($privkey, $this->key, $entity->pemPass);
+        
+        if ($use_password) {
+            openssl_pkey_export($privkey, $this->key, $entity->pemPass);
+        } else {
+            openssl_pkey_export($privkey, $this->key);
+        }
     }
 
     public function storeCertificates($entity, $path, $disk)

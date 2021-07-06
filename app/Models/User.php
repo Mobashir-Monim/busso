@@ -100,8 +100,36 @@ class User extends Authenticatable
         return $this->hasMany(AccessLog::class);
     }
 
-    public function hasAccess($entity)
+    public function hasAccess($entity, $type = 'resource_group')
     {
+        if ($this->hasRoleBasedAccess($entity, $type)) return true;
 
+        return $this->hasPermissionBasedAccess($entity, $type);
+    }
+
+    public function hasRoleBasedAccess($entity, $type = 'resource_group')
+    {
+        $user_roles = $this->roles->pluck('id')->toArray();
+
+        if ($type == 'resource') {
+            if ($this->hasAccess($entity->group)) return true;
+            
+            return $this->hasPermissionBasedAccess($entity, $type);
+        } else {
+            $entity_roles = $entity->roles->pluck('id')->toArray();
+            
+            return sizeof(array_intersect($user_roles, $entity_roles)) > 0;
+        }
+    }
+
+    public function hasPermissionBasedAccess($entity, $type = 'resource_group')
+    {
+        return in_array(
+            $entity->id,
+            $this->permissions
+                ->where('entity_type', $type)
+                ->pluck('entity_id')
+                ->toArray()
+        );
     }
 }

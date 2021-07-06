@@ -22,7 +22,7 @@ class ClientCredentialChecker
                 startsWith($request->redirect_uri, $client->redirect) :
                 startsWith($client->redirect, $request->redirect_uri);
 
-        if ($client->secret != $request->client_secret || $flag) {
+        if ($client->secret != $request->client_secret || !$flag) {
             return response()->json([
                 'success' => false,
             ], 401);

@@ -23,7 +23,7 @@ class RGOnboarder extends Helper
     {
         if ($request->type == 'oauth' || $request->type == 'both') {
             $oauth = $this->createOauthEntity($request);
-            new CertificateCreator('Oauth', $oauth);
+            new CertificateCreator('Oauth', $oauth, false);
         }
 
         if ($request->type == 'saml' || $request->type == 'both') {

@@ -13,6 +13,7 @@ use App\Models\Passport\Client;
 use \Firebase\JWT\JWT;
 use App\Helpers\FileHelpers\LocalCache as LC;
 use App\Models\OauthClient;
+use App\Helpers\AccessLogHelpers\OauthLogger;
 
 class Login extends Helper
 {
@@ -100,8 +101,8 @@ class Login extends Helper
     public function fetchFiles($client_id)
     {
         $this->entity = OauthClient::find($client_id);
-        new LC("certificates/Oauth/" . $entity->folder, "certificates/Oauth/" . $entity->folder, $entity->cert . ".crt");
-        new LC("certificates/Oauth/" . $entity->folder, "certificates/Oauth/" . $entity->folder, $entity->key . ".pem");
+        new LC("certificates/Oauth/" . $this->entity->folder, "certificates/Oauth/" . $this->entity->folder, $this->entity->cert . ".crt");
+        new LC("certificates/Oauth/" . $this->entity->folder, "certificates/Oauth/" . $this->entity->folder, $this->entity->key . ".pem");
     }
 
     public function getUserInfo($token)
@@ -166,5 +167,18 @@ class Login extends Helper
     public function generateHS256Token($payload, $key, $enc = false)
     {
         return JWT::encode($payload, $key, 'HS256');
+    }
+
+    public function loginStatus($val)
+    {
+        if (auth()->user()->hasAccess(OauthClient::find($val->client_id)->group)) {
+            new OauthLogger(auth()->user()->id, OauthClient::find($val->client_id)->user_id);
+            
+            return redirect()->away($val->redirect_uri . "?code=" . $this->createAuthCode($val, Passport::authCode())->id . "&state=$val->state");
+        } else {
+            flash('You are not authorized to access the requested resource')->error();
+
+            return redirect()->route('home');
+        }
     }
 }

@@ -66,9 +66,10 @@
         }
     }
 
-    const appendRole = (id) => {
+    const appendRole = (createdRoleID) => {
+        console.log(createdRoleID);
         let role = `
-            <div class="card my-3 card-rounded" id="${ id }">
+            <div class="card my-3 card-rounded" id="${ createdRoleID }">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -83,13 +84,13 @@
                             </p>
                         </div>
                         <div class="col-md-3 mt-auto text-right">
-                            <a class="btn btn-dark align-middle" href="${ '{{ route('roles.attachment.user', ['role' => 'ROLEID']) }}'.replace('ROLEID', id) }">
+                            <a class="btn btn-dark align-middle" href="${ "{{ route('roles.attachment.user', ['role' => 'role_id']) }}".replace('role_id', createdRoleID) }">
                                 <i class="fas fa-user"></i>
                             </a>
-                            <a class="btn btn-dark align-middle" href="${ '{{ route('roles.attachment.user', ['role' => 'ROLEID']) }}'.replace('ROLEID', id) }">
+                            <a class="btn btn-dark align-middle" href="${ "{{ route('roles.attachment.group', ['role' => 'role_id']) }}".replace('role_id', createdRoleID) }">
                                 <i class="fa fas fa-layer-group"></i>
                             </a>
-                            <button class="btn btn-dark" onclick="showRole('{{ $role->id }}')">
+                            <button class="btn btn-dark" onclick="showRole('${ createdRoleID }')">
                                 <i class="fas fa-info-circle"></i>
                             </button>
                         </div>

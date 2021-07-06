@@ -28,7 +28,7 @@
                                     </div>
                                     <div class="col-md-6 mb-2 text-right" id="detach-single-btn-cont">
                                         <button class="btn btn-dark" type="button" onclick="singleDetachUser()">
-                                            <i class="fas fa-user-plus"></i>
+                                            <i class="fas fa-user-times"></i>
                                         </button>
                                     </div>
                                 </div>
