@@ -14,6 +14,7 @@ use \Firebase\JWT\JWT;
 use App\Helpers\FileHelpers\LocalCache as LC;
 use App\Models\OauthClient;
 use App\Helpers\AccessLogHelpers\OauthLogger;
+use Illuminate\Support\Facades\Storage;
 
 class Login extends Helper
 {
@@ -88,7 +89,7 @@ class Login extends Helper
     {
         $auth_code->revoked = true;
         $auth_code->save();
-        $this->fetchFiles($client_id);
+        // $this->fetchFiles($client_id);
 
         return [
             'access_token' => $access_token->id,
@@ -140,13 +141,14 @@ class Login extends Helper
         if ($type == 'RS256') {
             return $this->generateRS256Token(
                 $payload,
-                file_get_contents(
-                    storage_path(
-                        "app/certificates/Oauth/" .
-                        $this->entity->folder . "/" .
-                        $this->entity->key . ".pem"
-                    )
-                )
+                Storage::disk('s3')->get("certificates/Oauth/" . $this->entity->folder . "/" . $this->entity->key . ".pem")
+                // file_get_contents(
+                //     storage_path(
+                //         "app/certificates/Oauth/" .
+                //         $this->entity->folder . "/" .
+                //         $this->entity->key . ".pem"
+                //     )
+                // )
             );
         } else {
             return $this->generateHS256Token($payload, $key);
