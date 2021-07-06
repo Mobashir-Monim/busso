@@ -90,6 +90,8 @@ class UserAttachmentHelper extends Helper
     {
         if ($user->hasRole($role->name)) {
             $role->users()->detach($user->id);
+
+            return true;
         }
 
         $this->setStatusToFalse("The user $user->email does not have this role attached");
