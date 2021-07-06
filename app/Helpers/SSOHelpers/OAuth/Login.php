@@ -11,7 +11,6 @@ use App\Models\User;
 use App\Models\Passport\Token;
 use App\Models\Passport\Client;
 use \Firebase\JWT\JWT;
-use App\Helpers\FileHelpers\LocalCache as LC;
 use App\Models\OauthClient;
 use App\Helpers\AccessLogHelpers\OauthLogger;
 use Illuminate\Support\Facades\Storage;
@@ -89,7 +88,7 @@ class Login extends Helper
     {
         $auth_code->revoked = true;
         $auth_code->save();
-        // $this->fetchFiles($client_id);
+        $this->entity = OauthClient::find($client_id);
 
         return [
             'access_token' => $access_token->id,
@@ -97,13 +96,6 @@ class Login extends Helper
             'expires_in' => 604800,
             'id_token' => $this->generateIDToken('RS256', $this->generateIDTokenPayload($auth_code, $access_token)),
         ];
-    }
-
-    public function fetchFiles($client_id)
-    {
-        $this->entity = OauthClient::find($client_id);
-        new LC("certificates/Oauth/" . $this->entity->folder, "certificates/Oauth/" . $this->entity->folder, $this->entity->cert . ".crt");
-        new LC("certificates/Oauth/" . $this->entity->folder, "certificates/Oauth/" . $this->entity->folder, $this->entity->key . ".pem");
     }
 
     public function getUserInfo($token)
@@ -142,13 +134,6 @@ class Login extends Helper
             return $this->generateRS256Token(
                 $payload,
                 Storage::disk('s3')->get("certificates/Oauth/" . $this->entity->folder . "/" . $this->entity->key . ".pem")
-                // file_get_contents(
-                //     storage_path(
-                //         "app/certificates/Oauth/" .
-                //         $this->entity->folder . "/" .
-                //         $this->entity->key . ".pem"
-                //     )
-                // )
             );
         } else {
             return $this->generateHS256Token($payload, $key);
