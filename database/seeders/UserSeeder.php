@@ -41,10 +41,10 @@ class UserSeeder extends Seeder
             $attach = [rand(0, 1), rand(0, 1), rand(0, 1), rand(0, 1)];
             $user = User::create($user);
 
-            foreach ($roles as $key => $role) {
-                if ($attach[$key] >= 0.5)
-                    $user->roles()->attach($role);
-            }
+            // foreach ($roles as $key => $role) {
+            //     if ($attach[$key] >= 0.5)
+            //         $user->roles()->attach($role);
+            // }
         }
 
         User::where('email', 'mobashirmonim@gmail.com')->first()->roles()->attach($roles[0]);

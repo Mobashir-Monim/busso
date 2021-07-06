@@ -45,17 +45,23 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
         Route::get('/user-attribute-values', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attribute-values');
         Route::get('/user-attributes', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('user-attributes');
         
-        Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles');
-        Route::prefix('/roles')->name('roles.')->group(function () {
+        Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles')->middleware('hasSystemRole:user-admin,resource-admin,super-admin');
+        Route::middleware(['hasSystemRole:user-admin,resource-admin,super-admin'])->prefix('/roles')->name('roles.')->group(function () {
             Route::post('/create', [App\Http\Controllers\RoleController::class, 'create'])->name('create');
             Route::post('/update/{role}', [App\Http\Controllers\RoleController::class, 'update'])->name('update');
             Route::get('/show/{role}', [App\Http\Controllers\RoleController::class, 'show'])->name('show');
-            Route::get('/user/attachments/{role}', [App\Http\Controllers\RoleController::class, 'showUsers'])->name('attachment.user');
-            Route::post('/user/attachments/{role}/detach', [App\Http\Controllers\RoleController::class, 'detachUser'])->name('attachment.user.detach');
-            Route::post('/user/attachments/{role}/attach', [App\Http\Controllers\RoleController::class, 'attachUser'])->name('attachment.user.attach');
-            Route::get('/group/attachments/{role}', [App\Http\Controllers\RoleController::class, 'showGroups'])->name('attachment.group');
-            Route::post('/group/attachments/{role}/detach', [App\Http\Controllers\RoleController::class, 'detachGroup'])->name('attachment.group.detach');
-            Route::post('/group/attachments/{role}/attach', [App\Http\Controllers\RoleController::class, 'attachGroup'])->name('attachment.group.attach');
+
+            Route::middleware(['hasSystemRole:resource-admin,super-admin'])->group(function () {
+                Route::get('/group/attachments/{role}', [App\Http\Controllers\RoleController::class, 'showGroups'])->name('attachment.group');
+                Route::post('/group/attachments/{role}/detach', [App\Http\Controllers\RoleController::class, 'detachGroup'])->name('attachment.group.detach');
+                Route::post('/group/attachments/{role}/attach', [App\Http\Controllers\RoleController::class, 'attachGroup'])->name('attachment.group.attach');
+            });
+
+            Route::middleware(['hasSystemRole:user-admin,super-admin'])->group(function () {
+                Route::get('/user/attachments/{role}', [App\Http\Controllers\RoleController::class, 'showUsers'])->name('attachment.user');
+                Route::post('/user/attachments/{role}/detach', [App\Http\Controllers\RoleController::class, 'detachUser'])->name('attachment.user.detach');
+                Route::post('/user/attachments/{role}/attach', [App\Http\Controllers\RoleController::class, 'attachUser'])->name('attachment.user.attach');
+            });
         });
 
         /** Resource Group and Resource Routes */
