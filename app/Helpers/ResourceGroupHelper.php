@@ -4,7 +4,8 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-use App\Helpers\SSOHelpers\RGOnboarder as RGO;
+use App\Helpers\SSOHelpers\RGOnboarder as RGOn;
+use App\Helpers\SSOHelpers\RGOffboarder as RGOff;
 use App\Models\ResourceGroup as RG;
 
 class ResourceGroupHelper extends Helper
@@ -12,7 +13,7 @@ class ResourceGroupHelper extends Helper
     public function create($request)
     {
         $rg = RG::create($this->stripRequestParameters($request));
-        $onboarder = new RGO($rg);
+        $onboarder = new RGOn($rg);
         $onboarder->onboardGroup($request);
 
         return $rg;
@@ -40,5 +41,13 @@ class ResourceGroupHelper extends Helper
         if (!Storage::disk(config('app.storage'))->exists("Resource Group Images")) Storage::disk(config('app.storage'))->makeDirectory("Resource Group Images", 'public');
         if (!is_null($existing)) Storage::disk(config('app.storage'))->delete($existing);
         return $request->file('image')->storePubliclyAs('Resource Group Images', Carbon::now()->timestamp . " - " . $request->name . "." . $request->file('image')->extension(), config('app.storage'));
+    }
+
+    public function offBoard($group)
+    {
+        $offboarder = new RGOff($group);
+        $offboarder->offboard();
+
+        return $offboarder->status;
     }
 }

@@ -53,4 +53,19 @@ class ResourceGroupController extends Controller
 
         return redirect(route('resource-groups.show', ['group' => $group->id]));
     }
+
+    public function delete(RG $group, Request $request)
+    {
+        $status = (new RGH)->offBoard($group);
+        $route = route('resource-groups');
+        
+        if ($status['success']) {
+            flash($status['message'])->success();
+        } else {
+            flash($status['message'])->error();
+            $route = route('resource-groups.show', ['group' => $group->id]);
+        }
+
+        return redirect($route);
+    }
 }

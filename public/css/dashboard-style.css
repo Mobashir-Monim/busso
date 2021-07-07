@@ -358,3 +358,12 @@ input[type=file] {
     color: #343a40 !important;
     text-shadow: 2px 2px 3px #62b6fa;
 }
+
+.deletable-link {
+    color: #6c757d !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.deletable-link:hover {
+    color: #e3352f !important;
+}

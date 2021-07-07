@@ -10,7 +10,16 @@
         <div class="col-md-8 my-2">
             <div class="card card-rounded">
                 <div class="card-body">
-                    <h4 class="border-bottom border-3 border-primary">{{ $group->name }}</h4>
+                    <h4 class="border-bottom border-3 border-primary">
+                        <div class="row">
+                            <div class="col-10">
+                                {{ $group->name }}
+                            </div>
+                            <div class="col-2 text-right">
+                                <i class="fas fa-trash-alt deletable-link" onclick="deleteRG()"></i>
+                            </div>
+                        </div> 
+                    </h4>
                     <div class="row">
                         <div class="col-md-12 mb-2">{{ $group->description }}</div>
                     </div>
@@ -51,6 +60,7 @@
 
     @include('resource-group.oauth')
     @include('resource-group.saml')
+    @include('resource-group.delete')
 @endsection
 
 @section('scripts')
