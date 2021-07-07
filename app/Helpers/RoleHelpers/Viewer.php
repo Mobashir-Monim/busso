@@ -69,7 +69,7 @@ class Viewer extends Helper
                 'id' => $group->id,
                 'name' => $group->name,
                 'description' => $group->description,
-                'image' => !is_null($group->image) ? Storage::url($group->image) : "/img/rg-placeholder.png",
+                'image' => !is_null($group->image) ? Storage::disk(config('app.storage'))->url($group->image) : "/img/rg-placeholder.png",
             ];
         }
 

@@ -52,7 +52,7 @@
         <div class="col-md-2 my-2">
             <div class="card card-rounded">
                 <div class="card-body rg-image card-rounded"
-                    style="background-image: url('{{ is_null($group->image) ? "/img/rg-placeholder.png" : Storage::url("$group->image") }}');">
+                    style="background-image: url('{{ is_null($group->image) ? "/img/rg-placeholder.png" : Storage::disk(config('app.storage'))->url("$group->image") }}');">
                 </div>
             </div>
         </div>

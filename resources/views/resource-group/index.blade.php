@@ -11,7 +11,7 @@
             @foreach ($groups as $group)
                 <a href="{{ route('resource-groups.show', ['group' => $group->id]) }}" class="text-left">
                     <div class="card hoverable-card m-3">
-                        <div class="card-img-top rg-image" style="background-image: url('{{ is_null($group->image) ? "/img/rg-placeholder.png" : Storage::url("$group->image") }}');"></div>
+                        <div class="card-img-top rg-image" style="background-image: url('{{ is_null($group->image) ? "/img/rg-placeholder.png" : Storage::disk(config('app.storage'))->url("$group->image") }}');"></div>
                         <div class="card-body">
                             <h5>{{ $group->name }}</h5>
                         </div>
