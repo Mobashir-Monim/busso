@@ -23,7 +23,7 @@ class ResourceGroupHelper extends Helper
     {
         return [
             'name' => $request->name,
-            'description' => $request->description,
+            'description' => substr($request->description, 0, 250),
             'url' => $this->stripURL($request->url),
             'image' => $request->hasFile('image') ? $this->storeImage($request) : null,
         ];

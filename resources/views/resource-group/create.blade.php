@@ -21,7 +21,8 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <textarea class="form-control" name="description" id="rg-description" placeholder="Resource Group Description"></textarea>
+                            <textarea class="form-control" name="description" onkeyup="updateLengthRemaining()" maxlength="250" id="rg-description" placeholder="Resource Group Description"></textarea>
+                            <p class="mb-0 text-muted text-right pr-3" style="font-size:0.8em" id="description-length">250 remaining</p>
                         </div>
                     </div>
                     <div class="row form-group">
@@ -58,3 +59,12 @@
         </div>
     </div>
 </form>
+
+<script>
+    let rgDescription = document.getElementById('rg-description');
+    let descriptionLength = document.getElementById('description-length');
+
+    const updateLengthRemaining = () => {
+        descriptionLength.innerHTML = 250 - rgDescription.value.length + " remaining";
+    }
+</script>
