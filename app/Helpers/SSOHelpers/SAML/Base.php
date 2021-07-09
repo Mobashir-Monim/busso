@@ -47,7 +47,7 @@ class Base extends Helper
         $this->destination = $entity->acs;
         $this->issuer = $entity->entityID;
         $this->cert = X509::fromFile(storage_path("app/certificates/SAML/$entity->folder/$entity->cert.crt"));
-        $this->key = KH::createPrivateKey(Storage::disk('s3')->get("certificates/Oauth/" . $entity->folder . "/" . $entity->key . ".pem"), $this->entity->pemPass, false);
+        $this->key = KH::createPrivateKey(Storage::disk('s3')->get("certificates/SAML/" . $entity->folder . "/" . $entity->key . ".pem"), $this->entity->pemPass, false);
     }
 
     public function buildResponse(&$response, $sign = false)
