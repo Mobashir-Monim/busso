@@ -13,35 +13,32 @@
                     <div class="col-sm-8">
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="p-2 tab-pane fade show active" id="single" role="tabpanel" aria-labelledby="single-create">
-                                {{-- <form action="{{ route('users.create') }}" method="POST">
-                                    @csrf --}}
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h5 class="border-bottom border-2 border-primary">Add Single User</h5>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h5 class="border-bottom border-2 border-primary">Add Single User</h5>
                                     </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-6 mb-2">
-                                            <input type="text" name="name" class="form-control" placeholder="User Name" id="user-name" required>
-                                        </div>
-                                        <div class="col-md-6 mb-2">
-                                            <input type="email" name="email" class="form-control" placeholder="User Email" id="user-email" required>
-                                        </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-6 mb-2">
+                                        <input type="text" name="name" class="form-control" placeholder="User Name" id="user-name" required>
                                     </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-6 mb-2">
-                                            <select name="system_role" id="system_role" class="form-control" required>
-                                                <option value="">Please select System Role</option>
-                                                @foreach (App\Models\Role::where('is_system_role', true)->where('name', '!=', 'super-admin')->get() as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->display_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 mb-2">
-                                            <button class="btn btn-dark w-100" type="button" onclick="createUser()">Add User</button>
-                                        </div>
+                                    <div class="col-md-6 mb-2">
+                                        <input type="email" name="email" class="form-control" placeholder="User Email" id="user-email" required>
                                     </div>
-                                {{-- </form> --}}
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-6 mb-2">
+                                        <select name="system_role" id="system_role" class="form-control" required>
+                                            <option value="">Please select System Role</option>
+                                            @foreach (App\Models\Role::where('is_system_role', true)->where('name', '!=', 'super-admin')->get() as $role)
+                                                <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <button class="btn btn-dark w-100" type="button" onclick="createUser()">Add User</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="p-2 tab-pane fade" id="batch" role="tabpanel" aria-labelledby="batch-create">
                                 <div class="row form-group">
@@ -75,9 +72,6 @@
                     <div class="col-md-12" id="status-cont"></div>
                 </div>
             </div>
-            {{-- <div class="modal-footer bg-dark">
-                <button type="submit" class="btn btn-primary tick-btn"></button>
-            </div> --}}
         </div>
     </div>
 </div>
