@@ -1,13 +1,8 @@
 <div class="modal fade" id="user-create" tabIndex="-1" role="dialog" aria-labelledby="user-create-title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="user-create-title">Add New User(s)</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="text-white">&times;</span>
-                </button>
-            </div>
+        <div class="modal-content card-rounded">
             <div class="modal-body">
+                <h3 class="border-bottom border-primary" id="user-create-title">Add New User(s)</h3>
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -18,8 +13,8 @@
                     <div class="col-sm-8">
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="p-2 tab-pane fade show active" id="single" role="tabpanel" aria-labelledby="single-create">
-                                <form action="{{ route('users.create') }}" method="POST">
-                                    @csrf
+                                {{-- <form action="{{ route('users.create') }}" method="POST">
+                                    @csrf --}}
                                     <div class="row">
                                         <div class="col-md-12">
                                             <h5 class="border-bottom border-2 border-primary">Add Single User</h5>
@@ -43,10 +38,10 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-2">
-                                            <button class="btn btn-dark w-100">Add User</button>
+                                            <button class="btn btn-dark w-100" type="button" onclick="createUser()">Add User</button>
                                         </div>
                                     </div>
-                                </form>
+                                {{-- </form> --}}
                             </div>
                             <div class="p-2 tab-pane fade" id="batch" role="tabpanel" aria-labelledby="batch-create">
                                 <div class="row form-group">
@@ -76,10 +71,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12" id="status-cont"></div>
+                </div>
             </div>
-            <div class="modal-footer bg-dark">
-                {{-- <button type="submit" class="btn btn-primary tick-btn"></button> --}}
-            </div>
+            {{-- <div class="modal-footer bg-dark">
+                <button type="submit" class="btn btn-primary tick-btn"></button>
+            </div> --}}
         </div>
     </div>
 </div>

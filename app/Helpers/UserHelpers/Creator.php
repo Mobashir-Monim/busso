@@ -15,6 +15,7 @@ class Creator extends Helper
     protected $pass;
     protected $role;
     protected $mode;
+    public $status;
 
     public function __construct($request)
     {
@@ -22,35 +23,35 @@ class Creator extends Helper
         $this->email = $request->email;
         $this->pass = \Str::random(rand(12, 16));
         $this->role = is_null($request->system_role) ? Role::where('name', 'system-user')->first()->id : $request->system_role;
-        $this->mode = is_int(strpos($request->path(), 'api')) ;
     }
 
     public function create()
     {
-        $message = "Account for " . $this->name . " created.";
-
-        if (is_null(User::where('email', $this->email)->first())) {
+        $user = User::where('email', $this->email)->first();
+        
+        if (is_null($user)) {
             $user = User::create(['name' => $this->name, 'email' => str_replace(" ", "", $this->email), 'password' => bcrypt($this->pass)]);
             $user->roles()->attach($this->role);
             Mail::to($this->email)->send(new PassEmailer($this->name, $this->email, $this->pass));
+            $this->setStatusToTrue("Account for $user->name with email $user->email created");
         } else {
-            $message = "User already exists";
+            $this->setStatusToTrue("User with email $user->email already exists");
         }
-
-        return $this->returningMessage($message);
     }
 
-    public function returningMessage($message)
+    public function setStatusToFalse($message)
     {
-        if ($this->mode) {
-            return response()->json([
-                'success' => true,
-                'message' => $message
-            ]);
-        } else {
-            flash($message)->success();
+        $this->status = [
+            'success' => false,
+            'message' => $message
+        ];
+    }
 
-            return redirect()->route('users');
-        }
+    public function setStatusToTrue($message)
+    {
+        $this->status = [
+            'success' => true,
+            'message' => $message
+        ];
     }
 }
