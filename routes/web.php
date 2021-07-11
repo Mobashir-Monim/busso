@@ -91,8 +91,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
             Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
             Route::name('users.')->prefix('/user')->group(function () {
                 Route::post('/create', [App\Http\Controllers\UserController::class, 'create'])->name('create');
-                Route::
-                Route::get('/create', [App\Http\Controllers\UserController::class, 'create'])->name('create');get('/{user}', [App\Http\Controllers\UserController::class, 'showUser'])->name('show');
+                Route::get('/{user}', [App\Http\Controllers\UserController::class, 'showUser'])->name('show');
                 Route::post('/search/results', [App\Http\Controllers\UserController::class, 'search'])->name('search');
                 Route::post('/{user}/password/override', [App\Http\Controllers\UserController::class, 'overridePassword'])->name('password.override')->middleware('hasSystemRole:super-admin');
             });
