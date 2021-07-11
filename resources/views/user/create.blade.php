@@ -31,7 +31,7 @@
                                         <select name="system_role" id="system_role" class="form-control" required>
                                             <option value="">Please select System Role</option>
                                             @foreach (App\Models\Role::where('is_system_role', true)->where('name', '!=', 'super-admin')->get() as $role)
-                                                <option value="{{ $role->id }}">{{ $role->display_name }}</option>
+                                                <option value="{{ $role->name }}">{{ $role->display_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

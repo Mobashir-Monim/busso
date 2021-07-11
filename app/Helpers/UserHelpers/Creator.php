@@ -22,7 +22,7 @@ class Creator extends Helper
         $this->name = $request->name;
         $this->email = $request->email;
         $this->pass = \Str::random(rand(12, 16));
-        $this->role = is_null($request->system_role) ? Role::where('name', 'system-user')->first()->id : $request->system_role;
+        $this->role = Role::where('name', $request->system_role)->first()->id;
     }
 
     public function create()
@@ -35,7 +35,7 @@ class Creator extends Helper
             Mail::to($this->email)->send(new PassEmailer($this->name, $this->email, $this->pass));
             $this->setStatusToTrue("Account for $user->name with email $user->email created");
         } else {
-            $this->setStatusToTrue("User with email $user->email already exists");
+            $this->setStatusToFalse("User with email $user->email already exists");
         }
     }
 
@@ -53,5 +53,10 @@ class Creator extends Helper
             'success' => true,
             'message' => $message
         ];
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

@@ -70,8 +70,10 @@
                     system_role: uploads[current].role,
                 })
             }).then(response => {
+                console.log(response);
                 return response.json();
             }).then(data => {
+                console.log(data);
                 setStatus(data);
                 updateProgress();
             }).catch(error => {
@@ -91,8 +93,12 @@
                 createAccount();
             }, 100);
         } else {
+            if (batchFile.classList.contains('hidden')) {
+                batchFile.classList.add('hidden');
+                batchButton.classList.add('hidden');
+            }
+
             alert('All done!!');
-            location.reload();
         }
     }
 
@@ -108,16 +114,17 @@
 
     const setStatus = (status) => {
         let timeout = 2000;
+        let id = `status-${ current }`;
 
         if (status.success) {
-            statusCont.innerHTML += `<div class="alert alert-primary" role="alert" id="status-${ current }">${ status.message }</div>`;
+            statusCont.innerHTML += `<div class="alert alert-primary" role="alert" id="${ id }">${ status.message }</div>`;
         } else {
-            statusCont.innerHTML += `<div class="alert alert-danger alert-important" role="alert" id="status-${ current }">${ status.message }</div>`;
+            statusCont.innerHTML += `<div class="alert alert-danger alert-important" role="alert" id="${ id }">${ status.message }</div>`;
             timeout = 5000;
         }
 
         setTimeout(() => {
-            document.getElementById(id).remove();
+            document.getElementById(`${ id }`).remove();
         }, timeout);
     }
 </script>
