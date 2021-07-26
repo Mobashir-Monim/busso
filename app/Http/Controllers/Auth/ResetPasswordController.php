@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Password;
 use App\Helpers\UserHelpers\Password\Reset as ResetHelper;
 use App\Http\Requests\Password\ResetRequest;
 
@@ -42,7 +43,7 @@ class ResetPasswordController extends Controller
 
         if ($response == Password::PASSWORD_RESET) {
             $helper = new ResetHelper();
-            $helper->passwordResetted();
+            $helper->passwordResetted(auth()->user());
         }
 
         return $response == Password::PASSWORD_RESET
