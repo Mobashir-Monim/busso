@@ -14,10 +14,14 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{{ route('users.update', ['user' => $user->id]) }}" method="POST">
-                                @csrf
-                                <input type="text" name="name" class="form-control mb-3 h4-input" value="{{ $user->name }}">
-                            </form>
+                            @if (auth()->user()->hasSystemRole('super-admin') || auth()->user()->hasSystemRole('admin') || auth()->user()->hasSystemRole('user-admin'))
+                                <form action="{{ route('users.update', ['user' => $user->id]) }}" method="POST">
+                                    @csrf
+                                    <input type="text" name="name" class="form-control mb-3 h4-input" value="{{ $user->name }}">
+                                </form>
+                            @else
+                                <input type="text" name="name" class="form-control mb-3 h4-input" style="background-color: #fff;border-bottom: 1px solid #3490dc !important;" disabled value="{{ $user->name }}">
+                            @endif
                         </div>
                     </div>
                     <div class="row">
