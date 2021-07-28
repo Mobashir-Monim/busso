@@ -95,7 +95,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
                 Route::post('/search/results', [App\Http\Controllers\UserController::class, 'search'])->name('search');
                 Route::post('/{user}/password/override', [App\Http\Controllers\UserController::class, 'overridePassword'])->name('password.override')->middleware('hasSystemRole:super-admin');
                 Route::post('/{user}/alter-status', [App\Http\Controllers\UserController::class, 'alterStatus'])->name('alter-status');
-                Route::post('/{user}/update', [App\Http\Controllers\UserController::class, 'alterStatus'])->name('update');
+                Route::post('/{user}/update', [App\Http\Controllers\UserController::class, 'update'])->name('update');
             });
         });
 
