@@ -86,4 +86,14 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
+    public function update(User $user, Request $request)
+    {
+        $helper = new Updator($user, ['name' => $request->name]);
+        $helper->update();
+
+        flash('User name successfully updated!')->success();
+
+        return redirect()->back();
+    }
 }
