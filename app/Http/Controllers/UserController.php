@@ -9,6 +9,7 @@ use App\Helpers\UserHelpers\Password\Override as PasswordOverride;
 use App\Models\User;
 use App\Models\AccessLog;
 use App\Helpers\UserHelpers\Creator;
+use App\Helpers\UserHelpers\Updator;
 use App\Helpers\UserHelpers\SearchHelpers\SearchHelper;
 use App\Http\Requests\Password\ResetRequest;
 use App\Http\Requests\Password\OverrideRequest;
@@ -72,6 +73,16 @@ class UserController extends Controller
     public function overridePassword(User $user, OverrideRequest $request)
     {
         new PasswordOverride($user, $request);
+
+        return redirect()->back();
+    }
+
+    public function alterStatus(User $user, Request $request)
+    {
+        $helper = new Updator($user, ['is_active' => true]);
+        $helper->update();
+
+        flash('User account status successfully updated!')->success();
 
         return redirect()->back();
     }
