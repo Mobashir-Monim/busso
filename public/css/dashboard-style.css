@@ -335,7 +335,7 @@ input[type=file] {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .role-description {
