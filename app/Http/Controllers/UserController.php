@@ -35,7 +35,7 @@ class UserController extends Controller
 
     public function showUser(User $user)
     {
-        return view('home', ['user' => $user]);
+        return view('user.dashboard.index', ['user' => $user]);
     }
 
     public function passwordReset()
