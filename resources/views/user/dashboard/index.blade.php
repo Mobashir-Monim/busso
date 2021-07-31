@@ -26,7 +26,6 @@
             @endif
         </div>
     </div>
-
-    @include('user.dashboard.roles')
+    
     @include('user.password.override')
 @endsection

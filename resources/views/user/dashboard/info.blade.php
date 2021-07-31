@@ -30,7 +30,7 @@
                 <div class="col-10 col-sm-11 my-auto">{{ !is_null($user->pass_change_at) ? Carbon\Carbon::parse($user->pass_change_at)->format('d M, Y') : 'Not changed' }}</div>
             </div>
             
-            @include('user.dashboard.actions')
+            @include('user.dashboard.actions.index')
         </div>
     </div>
 </div>

@@ -1,3 +1,7 @@
+<button class="btn btn-dark user-access-button" type="button" data-toggle="modal" data-target="#access-list">
+    <span class="material-icons-outlined">accessibility_new</span>
+</button>
+
 <div class="modal fade" id="access-list" tabIndex="-1" role="dialog" aria-labelledby="access-list-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content card-rounded">
