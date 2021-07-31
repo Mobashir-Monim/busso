@@ -78,5 +78,6 @@ class Kernel extends HttpKernel
         'sso.credential-checher' => \App\Http\Middleware\SSOMiddlewares\CredentialChecker::class,
         'password-reset.enforced' => \App\Http\Middleware\PasswordReset\ForceReset::class,
         'password-reset.validity' => \App\Http\Middleware\PasswordReset\CheckLastUpdate::class,
+        'roles.has-system-role' => \App\Http\Middleware\RoleMiddlewares\HasSystemRole::class,
     ];
 }
