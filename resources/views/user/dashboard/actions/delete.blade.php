@@ -7,7 +7,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content card-rounded">
                 <div class="modal-body">
-                    <h3 class="border-bottom border-primary" id="user-delete-prompt">Application Roles</h3>
+                    <h3 class="border-bottom border-primary" id="user-delete-prompt">Confirm Deletion</h3>
                     <div class="row">
                         <div class="col-md-12">
                             <form action="{{ route('users.delete', ['user' => $user->id]) }}" method="POST" id="user-delete">
