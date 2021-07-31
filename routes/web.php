@@ -35,7 +35,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
         });
     });
     
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth', 'roles.has-system-role'])->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/access-log', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('access-logs');
@@ -96,6 +96,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
                 Route::post('/{user}/password/override', [App\Http\Controllers\UserController::class, 'overridePassword'])->name('password.override')->middleware('hasSystemRole:super-admin');
                 Route::post('/{user}/alter-status', [App\Http\Controllers\UserController::class, 'alterStatus'])->name('alter-status');
                 Route::post('/{user}/update', [App\Http\Controllers\UserController::class, 'update'])->name('update');
+                Route::delete('/{user}/delete', [App\Http\Controllers\UserController::class, 'delete'])->name('delete');
             });
         });
 

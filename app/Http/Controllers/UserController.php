@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\AccessLog;
 use App\Helpers\UserHelpers\Creator;
 use App\Helpers\UserHelpers\Updator;
+use App\Helpers\UserHelpers\Deletor;
 use App\Helpers\UserHelpers\SearchHelpers\SearchHelper;
 use App\Http\Requests\Password\ResetRequest;
 use App\Http\Requests\Password\OverrideRequest;
@@ -95,5 +96,13 @@ class UserController extends Controller
         flash('User name successfully updated!')->success();
 
         return redirect()->back();
+    }
+
+    public function delete(User $user, Request $request)
+    {
+        $helper = new Deletor($user);
+        $helper->execute();
+
+        return $helper->status['redirect'];
     }
 }
