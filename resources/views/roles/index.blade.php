@@ -20,6 +20,9 @@
                                     </p>
                                 </div>
                                 <div class="col-md-3 mt-auto text-right">
+                                    <button class="btn btn-danger align-middle" type="button" data-toggle="modal" data-target="#role-delete" onclick="prepareDeletePrompt('{{ $role->id }}','{{ $role->name }}', '{{ count($role->users) }}', '{{ count($role->resourceGroups) }}')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
                                     <a class="btn btn-dark align-middle" href="{{ route('roles.attachment.user', ['role' => $role['id']]) }}">
                                         <i class="fas fa-user"></i>
                                     </a>
@@ -52,4 +55,5 @@
     <button class="hidden" data-toggle="modal" data-target="#role-show" id="role-show-btn"></button>
     @include('roles.parts.create')
     @include('roles.parts.show')
+    @include('roles.parts.delete')
 @endsection

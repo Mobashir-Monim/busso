@@ -48,6 +48,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
         Route::middleware(['hasSystemRole:user-admin,resource-admin,super-admin,admin'])->prefix('/roles')->name('roles.')->group(function () {
             Route::post('/create', [App\Http\Controllers\RoleController::class, 'create'])->name('create');
             Route::post('/update/{role}', [App\Http\Controllers\RoleController::class, 'update'])->name('update');
+            Route::delete('/delete/{role}', [App\Http\Controllers\RoleController::class, 'delete'])->name('delete');
             Route::get('/show/{role}', [App\Http\Controllers\RoleController::class, 'show'])->name('show');
 
             Route::middleware(['hasSystemRole:resource-admin,super-admin,admin'])->group(function () {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Helpers\RoleHelpers\Creator;
 use App\Helpers\RoleHelpers\Viewer;
 use App\Helpers\RoleHelpers\Updator;
+use App\Helpers\RoleHelpers\Deletor;
 use App\Helpers\RoleHelpers\UserAttachmentHelper;
 use App\Helpers\RoleHelpers\GroupAttachmentHelper;
 use App\Models\Role;
@@ -126,5 +127,13 @@ class RoleController extends Controller
         $helper = new GroupAttachmentHelper($role, $request->group, 'attach');
 
         return response()->json($helper->status);
+    }
+
+    public function delete(Role $role, Request $request)
+    {
+        $helper = new Deletor($role);
+        $helper->execute();
+
+        return $helper->status['redirect'];
     }
 }
