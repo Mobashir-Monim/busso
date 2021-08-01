@@ -8,6 +8,7 @@ use App\Helpers\SSOHelpers\SAML\Login as SamlSSO;
 use App\Helpers\SSOHelpers\SAML\Logout as SamlSLO;
 use App\Helpers\SAMLEntityHelpers\MetadataFetcher;
 use App\Helpers\AccessLogHelpers\SAMLLogger;
+use App\Helpers\UserHelpers\AccessHelper;
 use App\Models\SAMLEntity;
 use Auth;
 
@@ -22,15 +23,15 @@ class SAMLController extends Controller
 
     public function assertLogin(SAMLEntity $entity, Request $request)
     {
-        if (auth()->user()->hasAccess($entity->group)) {
+        $access_helper = new AccessHelper($entity->group);
+
+        if ($access_helper->status['success']) {
             new SAMLLogger(auth()->user()->id, $entity->group->id);
             $helper = new SamlSSO($request->SAMLRequest, $entity);
             $response = $helper->loginResponse();
             $helper->sendResponse($response);
         } else {
-            flash('You are not authorized to access the requested resource')->error();
-
-            return redirect()->route('home');
+            return $access_helper->accessDenied();
         }
     }
 

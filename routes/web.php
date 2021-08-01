@@ -35,7 +35,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
         });
     });
     
-    Route::middleware(['auth', 'roles.has-system-role'])->group(function () {
+    Route::middleware(['auth', 'roles.has-system-role', 'users.is-active'])->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/access-log', [App\Http\Controllers\HomeController::class, 'needToImplement'])->name('access-logs');

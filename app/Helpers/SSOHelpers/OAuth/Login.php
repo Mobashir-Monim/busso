@@ -158,14 +158,8 @@ class Login extends Helper
 
     public function loginStatus($val)
     {
-        if (auth()->user()->hasAccess(OauthClient::find($val->client_id)->group)) {
-            new OauthLogger(auth()->user()->id, OauthClient::find($val->client_id)->user_id);
+        new OauthLogger(auth()->user()->id, OauthClient::find($val->client_id)->user_id);
             
-            return redirect()->away($val->redirect_uri . "?code=" . $this->createAuthCode($val, Passport::authCode())->id . "&state=$val->state");
-        } else {
-            flash('You are not authorized to access the requested resource')->error();
-
-            return redirect()->route('home');
-        }
+        return redirect()->away($val->redirect_uri . "?code=" . $this->createAuthCode($val, Passport::authCode())->id . "&state=$val->state");
     }
 }

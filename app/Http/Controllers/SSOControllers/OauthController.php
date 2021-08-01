@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
+use App\Helpers\UserHelpers\AccessHelper;
 use App\Helpers\SSOHelpers\OAuth\Login as OauthLogin;
 use App\Helpers\SSOHelpers\OAuth\JwksHelper;
 use Laravel\Passport\Passport;
@@ -19,11 +20,15 @@ class OauthController extends Controller
     public function login($oauth, Request $request)
     {
         if (!Auth::check()) return view('auth.login', ['oauth' => $oauth]);
-
         $helper = new OauthLogin;
         $val = $helper->authenticatorParamDecompressor($oauth);
+        $access_helper = new AccessHelper(Client::find($val->client_id)->group);
 
-        return $helper->loginStatus($val);
+        if ($access_helper->status['success']) {
+            return $helper->loginStatus($val);
+        } else {
+            return $access_helper->accessDenied();
+        }
     }
 
     public function authenticator()
@@ -43,8 +48,13 @@ class OauthController extends Controller
     {
         $helper = new OauthLogin;
         $val = $helper->authenticatorParamDecompressor($request->stuff);
+        $access_helper = new AccessHelper(Client::find($val->client_id)->group);
 
-        return $helper->loginStatus($val);
+        if ($access_helper->status['success']) {
+            return $helper->loginStatus($val);
+        } else {
+            return $access_helper->accessDenied();
+        }
     }
 
     public function exchangeCodeToken()

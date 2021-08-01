@@ -79,5 +79,6 @@ class Kernel extends HttpKernel
         'password-reset.enforced' => \App\Http\Middleware\PasswordReset\ForceReset::class,
         'password-reset.validity' => \App\Http\Middleware\PasswordReset\CheckLastUpdate::class,
         'roles.has-system-role' => \App\Http\Middleware\RoleMiddlewares\HasSystemRole::class,
+        'users.is-active' => \App\Http\Middleware\UserMiddlewares\IsActive::class,
     ];
 }
