@@ -3,6 +3,7 @@
 namespace App\Helpers\UserHelpers;
 
 use App\Helpers\Helper;
+use Auth;
 
 class AccessHelper extends Helper
 {
