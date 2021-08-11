@@ -30,7 +30,7 @@ class AccessHelper extends Helper
     public function checkAccountStatus($message = 'Please login to continue')
     {   
         if ($this->user != null) {
-            if ($this->user->is_active) {
+            if ($this->user->is_active || $this->isSystemSuperAdmin()) {
                 return true;
             } else {
                 $message = 'Your account has been deactived. Please contact the administrators if you think this was as a mistake';
@@ -76,5 +76,13 @@ class AccessHelper extends Helper
         flash($this->status['message']);
 
         return redirect()->route('login');
+    }
+
+    public function isSystemSuperAdmin()
+    {
+        if ($this->user->hasSystemRole('super-admin'))
+            return true;
+
+        return false;
     }
 }
