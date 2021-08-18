@@ -14,15 +14,23 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="icon" href="/img/EAuth.svg" type="image/gif" sizes="16x16" id="light-scheme-icon">
+    <link rel="icon" href="/img/EAuth-white.svg" type="image/gif" sizes="16x16" id="dark-scheme-icon">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             
             <span class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">
-                <i class="fas fa-list text-white pr-3 d-md-none" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"></i>
-                <a class="text-white d-md-none" href="{{ route('home') }}">BuSSO</a>
-                <a class="text-white ml-5 d-none d-md-block" href="{{ route('home') }}">BuSSO</a>
+                {{-- <i class="fas fa-list text-white pr-3 d-md-none float-left align-middle" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"></i> --}}
+                <img src="/img/EAuth-white.svg" alt="EAuth" width="30" height="30" class="d-md-none align-middle" onclick="$('#sidebarMenu').collapse('toggle')" type="button">
+                <a class="text-white d-md-none d-inline-block text-center ml-3" href="{{ route('home') }}">
+                    BuSSO
+                </a>
+                <a class="text-white d-none d-md-block ml-2" href="{{ route('home') }}">
+                    <img src="/img/EAuth-white.svg" alt="EAuth" width="30" height="30" class="d-inline-block align-middle">
+                    <span class="d-inline-block ml-3">BuSSO</span>
+                </a>
             </span>
             
             <ul class="navbar-nav pr-5 py-1 d-none d-md-block">
@@ -32,9 +40,6 @@
                         <button class="btn btn-primary nav-link px-2"><i class="fas fa-power-off text-white"></i></button>
                     </form>
                 </li>
-                {{-- <li class="nav-item float-right mx-2">
-                    <a class="nav-link" href="{{ route('home') }}">Dashboard</a>
-                </li> --}}
             </ul>
         </nav>
 
@@ -57,6 +62,15 @@
     @yield('scripts')
     <script>
         $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+    
+        const hideSideNav = () => {
+            if (document.getElementById('sidebarMenu').classList.contains('show')) {
+                // document.getElementById('sidebarMenu').classList.remove('show');
+                $('#sidebarMenu').collapse();
+            } else {
+                
+            }
+        }
     </script>
 </body>
 </html>

@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="icon" href="/img/EAuth.svg" type="image/gif" sizes="16x16">
 </head>
 <body>
     <div id="app">
