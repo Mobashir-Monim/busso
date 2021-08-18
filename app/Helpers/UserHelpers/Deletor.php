@@ -4,6 +4,7 @@ namespace App\Helpers\UserHelpers;
 
 use App\Helpers\Helper;
 use Carbon\Carbon;
+use App\Helpers\ChangeLogHelpers\User\LogHelper;
 
 class Deletor extends Helper
 {
@@ -54,6 +55,7 @@ class Deletor extends Helper
     public function execute()
     {
         if ($this->status['success']) {
+            new LogHelper($this->user, 'delete');
             $this->deleteAccessLogs();
             $this->detachRoles();
             $this->user->delete();

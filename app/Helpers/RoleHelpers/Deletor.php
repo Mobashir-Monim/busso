@@ -3,6 +3,7 @@
 namespace App\Helpers\RoleHelpers;
 
 use App\Helpers\Helper;
+use App\Helpers\ChangeLogHelpers\Role\LogHelper;
 
 class Deletor extends Helper
 {
@@ -50,6 +51,7 @@ class Deletor extends Helper
     public function execute()
     {
         if ($this->status['success']) {
+            new LogHelper($role, 'delete');
             $this->detachUsers();
             $this->detachResourceGroups();
             $this->role->delete();

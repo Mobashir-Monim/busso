@@ -4,6 +4,7 @@ namespace App\Helpers\RoleHelpers;
 
 use App\Helpers\Helper;
 use App\Models\Role;
+use App\Helpers\ChangeLogHelpers\Role\LogHelper;
 
 class Creator extends Helper
 {
@@ -37,6 +38,7 @@ class Creator extends Helper
     public function createRole()
     {
         $role = Role::create($this->role);
+        new LogHelper($role, 'create');
 
         $this->status = [
             'success' => true,

@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use Carbon\Carbon;
 use App\Mail\Password\OverrideMail;
 use Mail;
+use App\Helpers\ChangeLogHelpers\User\LogHelper;
 
 class Override extends Helper
 {
@@ -30,6 +31,7 @@ class Override extends Helper
 
     public function updateUserPassword($user, $pass)
     {
+        new LogHelper($user, 'update', ['password' => bcrypt($pass)]);
         $user->password = bcrypt($pass);
         $user->save();
         $this->updateLastChange($user);
@@ -51,6 +53,6 @@ class Override extends Helper
 
     public function mailUserWithPassword($user, $pass)
     {
-        Mail::to($user->email)->send(new OverrideMail($user->name, $user->email, $pass));
+        // Mail::to($user->email)->send(new OverrideMail($user->name, $user->email, $pass));
     }
 }

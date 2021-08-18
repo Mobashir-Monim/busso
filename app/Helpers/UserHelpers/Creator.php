@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\Role;
 use App\Mail\PassEmailer;
+use App\Helpers\ChangeLogHelpers\User\LogHelper;
 
 class Creator extends Helper
 {
@@ -31,6 +32,7 @@ class Creator extends Helper
         
         if (is_null($user)) {
             $user = User::create(['name' => $this->name, 'email' => str_replace(" ", "", $this->email), 'password' => bcrypt($this->pass)]);
+            new LogHelper($user, 'create');
             $user->roles()->attach($this->role);
             Mail::to($this->email)->send(new PassEmailer($this->name, $this->email, $this->pass));
             $this->setStatusToTrue("Account for $user->name with email $user->email created");

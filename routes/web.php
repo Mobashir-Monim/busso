@@ -101,6 +101,11 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
             });
         });
 
+        Route::middleware(['hasSystemRole:super-admin,reviewer,auditor'])->group(function () {
+            Route::get('/change-logs', [App\Http\Controllers\ChangeLogController::class, 'index'])->name('change-log');
+            Route::get('/change-logs/{group}', [App\Http\Controllers\ChangeLogController::class, 'show'])->name('change-log.view');
+        });
+
         Route::name('users.')->prefix('/user')->group(function () {
             Route::get('/logs/services', [App\Http\Controllers\UserController::class, 'accessLog'])->name('access-log');
         });

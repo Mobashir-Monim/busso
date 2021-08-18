@@ -17,8 +17,8 @@ return [
     |
     */
 
-    // 'default' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_CHANNEL'] : env('LOG_CHANNEL', 'stack'),
-    'default' => 'cloudwatch',
+    'default' => isset($_SERVER['SERVER_CONFIG_EXISTS']) ? $_SERVER['LOG_CHANNEL'] : env('LOG_CHANNEL', 'stack'),
+    // 'default' => 'cloudwatch',
 
     /*
     |--------------------------------------------------------------------------

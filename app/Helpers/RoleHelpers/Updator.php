@@ -4,6 +4,7 @@ namespace App\Helpers\RoleHelpers;
 
 use App\Helpers\Helper;
 use App\Models\Role;
+use App\Helpers\ChangeLogHelpers\Role\LogHelper;
 
 class Updator extends Helper
 {
@@ -32,6 +33,7 @@ class Updator extends Helper
                 'message' => 'Role creation failed. Duplicate role system name.'
             ];
         } else {
+            new LogHelper($role, 'update', $this->role_details);
             $this->updateRole();
         }
     }

@@ -16,12 +16,13 @@ class CreateChangeLogsTable extends Migration
         Schema::create('change_logs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type');
-            $table->string('log_type');
+            $table->string('mode');
             $table->string('url');
             $table->string('route_name');
             $table->mediumText('change_data');
             $table->boolean('reverted')->default(false);
             $table->uuid('user_id');
+            $table->uuid('group_id');
             $table->timestamps();
         });
     }
