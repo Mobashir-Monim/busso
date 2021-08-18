@@ -267,6 +267,14 @@ input:-moz-placeholder {
     border-radius: 25px !important;
 }
 
+.card-hoverable {
+    transition: all 0.25s ease-in-out;
+}
+
+.card-hoverable:hover {
+    box-shadow: 5px 5px 5px #3490dc;
+}
+
 .rg-image {
     height: 130px;
     background-color: rgb(204, 204, 204);
