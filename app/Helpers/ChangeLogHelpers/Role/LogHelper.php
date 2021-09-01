@@ -17,17 +17,18 @@ class LogHelper extends Logger
 
     public function logUpdate()
     {
-        $this->log['change_data']['previous'] = [];
-        $this->log['change_data']['updated'] = [];
+        $this->log['change_data']['role'] = ["id" => $this->target->id];
+        $this->log['change_data']['role']['previous'] = [];
+        $this->log['change_data']['role']['updated'] = [];
         
         foreach (['display_name', 'name', 'description', 'is_system_role'] as $attribute) {
             if ($this->target->$attribute != $this->updated[$attribute])
-                $this->log['change_data']['previous'][$attribute] = $this->target->$attribute;
+                $this->log['change_data']['role']['previous'][$attribute] = $this->target->$attribute;
 
-            $this->log['change_data']['updated'][$attribute] = $this->updated[$attribute];
+            $this->log['change_data']['role']['updated'][$attribute] = $this->updated[$attribute];
         }
 
-        return sizeof($this->log['change_data']['previous']) != 0;
+        return sizeof($this->log['change_data']['role']['previous']) != 0;
     }
 
     public function logCreate()
