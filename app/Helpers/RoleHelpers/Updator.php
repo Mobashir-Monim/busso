@@ -33,7 +33,7 @@ class Updator extends Helper
                 'message' => 'Role creation failed. Duplicate role system name.'
             ];
         } else {
-            new LogHelper($role, 'update', $this->role_details);
+            new LogHelper($this->role, 'update', $this->role_details);
             $this->updateRole();
         }
     }

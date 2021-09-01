@@ -51,7 +51,7 @@ class Deletor extends Helper
     public function execute()
     {
         if ($this->status['success']) {
-            new LogHelper($role, 'delete');
+            new LogHelper($this->role, 'delete');
             $this->detachUsers();
             $this->detachResourceGroups();
             $this->role->delete();
