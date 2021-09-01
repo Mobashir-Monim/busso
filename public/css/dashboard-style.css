@@ -127,6 +127,20 @@ body {
     margin-left: calc(1rem - 5px) !important;
 }
 
+.btn-rounded {
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    text-align: center;
+    padding: 5px !important;
+    vertical-align: middle !important;
+    /* background-image: url('../img/plus.svg'); */
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-origin: content-box !important;
+}
+
 .add-btn {
     position: fixed;
     bottom: 25px;
@@ -426,3 +440,27 @@ input[type=file] {
     cursor: pointer;
 }
 
+.change-log-data {
+    font-family: monospace !important;
+    border-left: 15px solid #3490dc !important;
+    background-color: #343a40;
+
+}
+
+.change-log-data > .line {
+    color: #9A9DA0;
+    border-bottom: 1px solid #9A9DA0;
+}
+
+.line-pre {
+    color: white;
+    font-size: 0.8em;
+}
+
+.change-log-data > .line:hover {
+    border-bottom: 1px solid white;
+}
+
+.mw-45 {
+    min-width: 45%;
+}
