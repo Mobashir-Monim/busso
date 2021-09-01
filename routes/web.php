@@ -104,6 +104,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
         Route::middleware(['hasSystemRole:super-admin,reviewer,auditor'])->group(function () {
             Route::get('/change-logs', [App\Http\Controllers\ChangeLogController::class, 'index'])->name('change-log');
             Route::get('/change-logs/{group}', [App\Http\Controllers\ChangeLogController::class, 'show'])->name('change-log.view');
+            Route::patch('/change-logs/{log}/revert', [App\Http\Controllers\ChangeLogController::class, 'revert'])->name('change-log.revert');
         });
 
         Route::name('users.')->prefix('/user')->group(function () {

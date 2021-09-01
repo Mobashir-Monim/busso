@@ -19,10 +19,16 @@ class ChangeLogController extends Controller
     public function show(Request $request, $group)
     {
         $logs = ChangeLog::where('group_id', $group)->get();
-        $view = strtolower("change-log.parts.{$logs[0]->type}.{$logs[0]->mode}");
+        // $view = strtolower("change-log.parts.{$logs[0]->type}.{$logs[0]->mode}");
 
-        return view($view, [
-            'logs' => $logs
+        return view('change-log.show', [
+            'logs' => $logs,
+            'part_view'
         ]);
+    }
+
+    public function revert(ChangeLog $log, Request $request)
+    {
+        dd('processing reversion');
     }
 }
