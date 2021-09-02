@@ -18,24 +18,27 @@ class LogHelper extends Logger
 
     public function logUpdate()
     {
-        $this->log['change_data']['previous'] = [];
-        $this->log['change_data']['updated'] = [];
+        $this->log['change_data']['user'] = [];
+        $this->log['change_data']['user']['previous'] = [];
+        $this->log['change_data']['user']['updated'] = [];
 
-        foreach (['name', 'password', 'is_active'] as $attribute) {
+        foreach (['name', 'password', 'is_active', 'email'] as $attribute) {
             if (array_key_exists($attribute, $this->updated)) {
                 if ($this->target->$attribute != $this->updated[$attribute])
-                    $this->log['change_data']['previous'][$attribute] = $this->target->$attribute;
+                    $this->log['change_data']['user']['previous'][$attribute] = $this->target->$attribute;
                 
-                $this->log['change_data']['updated'][$attribute] = $this->updated[$attribute];
+                $this->log['change_data']['user']['updated'][$attribute] = $this->updated[$attribute];
+            } else {
+                $this->log['change_data']['user']['updated'][$attribute] = $this->target->$attribute;
             }
         }
         
-        return sizeof($this->log['change_data']['previous']) != 0;
+        return sizeof($this->log['change_data']['user']['previous']) != 0;
     }
 
     public function logCreate()
     {
-        $this->log['change_data']['role'] = [
+        $this->log['change_data']['user'] = [
             'id' => $this->target->id,
             'name' => $this->target->name,
             'email' => $this->target->email,
@@ -57,7 +60,7 @@ class LogHelper extends Logger
         $this->log['change_data']['access_logs'] = [];
 
         foreach ($this->target->roles as $role)
-            $this->log['change_data']['users'][] = $role->id;
+            $this->log['change_data']['roles'][] = $role->id;
 
         foreach ($this->target->accessLogs->where('created_at', Carbon::now()->subDays(7)) as $accessLog)
             $this->log['change_data']['access_logs'][] = $accessLog->toArray();
