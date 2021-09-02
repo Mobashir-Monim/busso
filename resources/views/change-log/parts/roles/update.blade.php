@@ -7,13 +7,13 @@
         <div class="border border-primary rounded bg-light p-2 mw-45 my-2">
             <h5 class="border-bottom border-primary text-primary">Previous</h5>
             @foreach ($log->change_data['role']['previous'] as $key => $value)
-                <p class="my-2">{{ ucfirst(str_replace('_', ' ', $key)) }}: {{ $value }}</p>
+                <p class="my-2 text-truncate">{{ ucfirst(str_replace('_', ' ', $key)) }}: {{ $value }}</p>
             @endforeach
         </div>
         <div class="border border-primary rounded bg-light p-2 mw-45 my-2">
             <h5 class="border-bottom border-primary text-primary">Updated</h5>
             @foreach ($log->change_data['role']['updated'] as $key => $value)
-                <p class="my-2">{{ ucfirst(str_replace('_', ' ', $key)) }}: {{ $value }}</p>
+                <p class="my-2 text-truncate">{{ ucfirst(str_replace('_', ' ', $key)) }}: {{ $value }}</p>
             @endforeach
         </div>
     </div>

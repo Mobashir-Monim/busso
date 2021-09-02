@@ -3,7 +3,7 @@
 
 
 <div class="border border-primary rounded bg-light p-2">
-    <p class="my-2">Name: {{ $log->change_data['role']['name'] }}</p>
-    <p class="my-2">Display Name: {{ $log->change_data['role']['display_name'] }}</p>
-    <p class="my-2">Description: {{ $log->change_data['role']['description'] }}</p>
+    <p class="my-2 text-truncate">Name: {{ $log->change_data['role']['name'] }}</p>
+    <p class="my-2 text-truncate">Display Name: {{ $log->change_data['role']['display_name'] }}</p>
+    <p class="my-2 text-truncate">Description: {{ $log->change_data['role']['description'] }}</p>
 </div>
