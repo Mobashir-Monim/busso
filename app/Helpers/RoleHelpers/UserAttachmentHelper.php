@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Models\Role;
 use App\Models\User;
 use \DB;
+use App\Helpers\ChangeLogHelpers\Role\User\LogHelper;
 
 class UserAttachmentHelper extends Helper
 {
@@ -77,6 +78,7 @@ class UserAttachmentHelper extends Helper
     {
         if (!$user->hasRole($role->name)) {
             $role->users()->attach($user->id);
+            new LogHelper(['role' => $role, 'user' => $user], 'create');
             
             return true;
         }
@@ -90,6 +92,7 @@ class UserAttachmentHelper extends Helper
     {
         if ($user->hasRole($role->name)) {
             $role->users()->detach($user->id);
+            new LogHelper(['role' => $role, 'user' => $user], 'delete');
 
             return true;
         }

@@ -1,4 +1,4 @@
-<h4 class="border-bottom text-primary mb-0">{{ $log->change_data['role']['display_name'] }} (<b>{{ $log->change_data['role']['name'] }}</b>)</h4>
+<h5 class="border-bottom text-primary mb-0">{{ $log->change_data['role']['display_name'] }} (<b>{{ $log->change_data['role']['name'] }}</b>)</h5>
 <p class="text-right text-muted">{{ $log->change_data['role']['id'] }}</p>
 
 

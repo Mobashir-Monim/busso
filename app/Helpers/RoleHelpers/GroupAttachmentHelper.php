@@ -4,6 +4,7 @@ namespace App\Helpers\RoleHelpers;
 
 use App\Helpers\Helper;
 use App\Models\ResourceGroup;
+use App\Helpers\ChangeLogHelpers\Role\ResourceGroup\LogHelper;
 
 class GroupAttachmentHelper extends Helper
 {
@@ -35,6 +36,7 @@ class GroupAttachmentHelper extends Helper
     {
         if (!$role->groupIsAttached($group)) {
             $role->resourceGroups()->attach($group);
+            new LogHelper(['role' => $role, 'resource_group' => ResourceGroup::find($group)], 'create');
             $this->logSuccess('Successfully attached group to role!');
         } else {
             $this->logError('Group is already attached to role ( \' ~ \' )');
@@ -45,6 +47,7 @@ class GroupAttachmentHelper extends Helper
     {
         if ($role->groupIsAttached($group)) {
             $role->resourceGroups()->detach($group);
+            new LogHelper(['role' => $role, 'resource_group' => ResourceGroup::find($group)], 'delete');
             $this->logSuccess('Successfully detached group from role!');
         } else {
             $this->logError('Group is already detached from role');
