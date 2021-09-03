@@ -1,1 +1,1 @@
-@include('change-log.scripts.update')
+@include('change-log.scripts.users.update')
