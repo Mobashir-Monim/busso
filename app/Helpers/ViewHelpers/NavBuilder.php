@@ -15,7 +15,8 @@ class NavBuilder extends Helper
             'user-attribute-value',
             'user',
             'claim',
-            'change-log'
+            'change-log',
+            'debugger'
         ],
         'user-admin' => [
             'user',

@@ -110,6 +110,15 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
         Route::name('users.')->prefix('/user')->group(function () {
             Route::get('/logs/services', [App\Http\Controllers\UserController::class, 'accessLog'])->name('access-log');
         });
+
+        Route::middleware(['hasSystemRole:super-admin'])->group(function () {
+            Route::get('/debugger', [App\Http\Controllers\DebuggerController::class, 'index'])->name('debugger');
+            Route::get('/debugger/create', [App\Http\Controllers\DebuggerController::class, 'create'])->name('debugger.create');
+            Route::post('/debugger/create', [App\Http\Controllers\DebuggerController::class, 'store'])->name('debugger.store');
+            Route::get('debugger/{item}/settings', [App\Http\Controllers\DebuggerController::class, 'show'])->name('debugger.settings');
+            Route::patch('debugger/{item}/updtae', [App\Http\Controllers\DebuggerController::class, 'update'])->name('debugger.update');
+            Route::delete('debugger/{item}/delete', [App\Http\Controllers\DebuggerController::class, 'delete'])->name('debugger.delete');
+        });
     });
 });
 

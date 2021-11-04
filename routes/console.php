@@ -59,3 +59,28 @@ Artisan::command('create:helper {path}', function($path) {
 
     $this->comment("File created: $x/$filename");
 });
+
+Artisan::command('create:debugger {path}', function($path) {
+    $x = explode('/', $path);
+    $filename = array_pop($x);
+
+    if (sizeof($x) > 0) {
+        $x = 'app/Debuggers/' . implode('/', $x);
+        shell_exec("bash -c 'mkdir -m 755 -p $x'");
+    } else {
+        $x = 'app/Debuggers';
+    }
+
+    shell_exec("touch $x/$filename.php");
+    shell_exec("chmod 644 $x/$filename.php");
+
+    $file = fopen("$x/$filename.php", 'w');    
+    $namespace = str_replace('/', "\\", ucfirst($x));
+    $content = "<?php\n\nnamespace $namespace;\n\n";
+    $content .= $x != 'app/Debugger' ? "use App\\Debuggers\\Debugger;\n\n" : "";
+    $content .= "class $filename extends Debugger\n{\n\n}";
+    fwrite($file, $content);
+    fclose($file);
+
+    $this->comment("File created: $x/$filename");
+});
