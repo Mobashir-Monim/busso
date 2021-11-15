@@ -118,6 +118,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
             Route::get('debugger/{item}/settings', [App\Http\Controllers\DebuggerController::class, 'show'])->name('debugger.settings');
             Route::patch('debugger/{item}/updtae', [App\Http\Controllers\DebuggerController::class, 'update'])->name('debugger.update');
             Route::delete('debugger/{item}/delete', [App\Http\Controllers\DebuggerController::class, 'delete'])->name('debugger.delete');
+            Route::get('debug-data', [App\Http\Controllers\DebuggerController::class, 'debug'])->name('debugger.debug');
         });
     });
 });

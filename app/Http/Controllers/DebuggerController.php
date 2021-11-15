@@ -53,4 +53,11 @@ class DebuggerController extends Controller
         return redirect()->route('debugger');
 
     }
+
+    public function debug(Request $request)
+    {
+        return view('debugger.debug', [
+            'debug_data' => $request->debug_data
+        ]);
+    }
 }

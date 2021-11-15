@@ -63,7 +63,7 @@ class LogoutVerifier
     {
         return [
             [!is_null($this->entity), 404],
-            [request()->url() == $this->destination, 400],
+            // [request()->url() == $this->destination, 400],
             [$this->entity->issuer == $this->issuer, 404],
             [Carbon::now() >= Carbon::parse($this->issueInstant), 425],
             [Carbon::now()->diffInSeconds(Carbon::parse($this->issueInstant)) <= 300, 406],

@@ -99,6 +99,7 @@ class Login extends Base
     public function addAttributes(&$statement)
     {
         $statement->addAttribute(new Attribute(ClaimTypes::EMAIL_ADDRESS, Auth::user()->email));
+        $statement->addAttribute(new Attribute(ClaimTypes::NAME_ID, Auth::user()->email));
         $statement->addAttribute(new Attribute(ClaimTypes::COMMON_NAME, Auth::user()->name));
 
         foreach ($this->entity->userAttributes as $uAt) {

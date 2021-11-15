@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    {{-- <div id="editor" style="min-height: 65vh">{{ json_encode($config->configs, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT) }}</div> --}}
     <form action="{{ route('debugger.create') }}" method="POST" id="debugger-create">
         @csrf
         <input type="hidden" name="config" id="config">
