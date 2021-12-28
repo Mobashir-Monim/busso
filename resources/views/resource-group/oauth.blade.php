@@ -87,6 +87,26 @@
                             </div>
                         </div>
                     </form>
+                    
+                    <form action="{{ route('resource-groups.oauth.client-attach', ['group' => $group->id, 'oauth' => $group->oauth->id]) }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12 mt-3">
+                                <h4 class="border-bottom border-3 border-primary">Client User</h4>
+                            </div>
+                            <div class="col-md-8 my-2">
+                                <div class="row">
+                                    <div class="col-md-12 mb-2">
+                                        @if ($group->oauth->user_attached)
+                                            Client Users exists for API consumption
+                                        @else
+                                            <button class="btn btn-dark w-100">Attach Client User for API consumption</button>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -76,6 +76,7 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
                     Route::delete('/{group}/delete', [App\Http\Controllers\ResourceGroupController::class, 'delete'])->name('delete');
                     Route::post('/{group}/{oauth}/oauth', [App\Http\Controllers\ResourceGroupController::class, 'oauthReset'])->name('oauth.reset');
                     Route::post('/{group}/{oauth}/oauth/redirect', [App\Http\Controllers\ResourceGroupController::class, 'redirectSet'])->name('oauth.redirect-set');
+                    Route::post('/{group}/{oauth}/client/attach', [App\Http\Controllers\SSOControllers\OauthController::class, 'attachClientUser'])->name('oauth.client-attach');
                     Route::post('/{group}/{saml}/saml', [App\Http\Controllers\ResourceGroupController::class, 'samlConfig'])->name('saml.config');
                 });
     
