@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
+
 use App\Helpers\UserHelpers\AccessHelper;
 use App\Helpers\SSOHelpers\OAuth\Login as OauthLogin;
 use App\Helpers\SSOHelpers\OAuth\JwksHelper;
+use App\Helpers\APIHelpers\APIClients\UserCreator;
+
 use Laravel\Passport\Passport;
 use App\Models\Passport\Token;
 use App\Models\Passport\Client;
@@ -108,5 +111,12 @@ class OauthController extends Controller
             ],
             JSON_UNESCAPED_SLASHES
         );
+    }
+
+    public function attachClientUser(ResourceGroup $group, Client $oauth, Request $request)
+    {
+        $helper = new UserCreator($group, $oauth);
+
+        return redirect()->route('resource-groups.show', ['group' => $group->id]);
     }
 }
