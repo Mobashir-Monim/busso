@@ -18,7 +18,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command('create:view {path}', function($path) {
+Artisan::command('make:view {path}', function($path) {
     $x = explode('/', $path);
     $filename = array_pop($x);
 
@@ -35,7 +35,7 @@ Artisan::command('create:view {path}', function($path) {
     $this->comment("File created: $x/$filename");
 });
 
-Artisan::command('create:helper {path}', function($path) {
+Artisan::command('make:helper {path}', function($path) {
     $x = explode('/', $path);
     $filename = array_pop($x);
 
@@ -60,7 +60,7 @@ Artisan::command('create:helper {path}', function($path) {
     $this->comment("File created: $x/$filename");
 });
 
-Artisan::command('create:debugger {path}', function($path) {
+Artisan::command('make:debugger {path}', function($path) {
     $x = explode('/', $path);
     $filename = array_pop($x);
 
