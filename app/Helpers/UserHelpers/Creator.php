@@ -16,6 +16,7 @@ class Creator extends Helper
     protected $pass;
     protected $role;
     protected $mode;
+    protected $code;
     public $status;
 
     public function __construct($request)
@@ -37,28 +38,37 @@ class Creator extends Helper
             Mail::to($this->email)->send(new PassEmailer($this->name, $this->email, $this->pass));
             $this->setStatusToTrue("Account for $user->name with email $user->email created");
         } else {
-            $this->setStatusToFalse("User with email $user->email already exists");
+            $this->setStatusToFalse("User with email $user->email already exists", 409);
         }
     }
 
-    public function setStatusToFalse($message)
+    public function setStatusToFalse($message, $code = 400)
     {
         $this->status = [
             'success' => false,
             'message' => $message
         ];
+
+        $this->code = $code;
     }
 
-    public function setStatusToTrue($message)
+    public function setStatusToTrue($message, $code = 200)
     {
         $this->status = [
             'success' => true,
             'message' => $message
         ];
+
+        $this->code = $code;
     }
 
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function getCode()
+    {
+        return $this->code;
     }
 }

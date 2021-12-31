@@ -31,7 +31,7 @@ class UserController extends Controller
         $helper = new Creator($request);
         $helper->create();
         
-        return response()->json($helper->getStatus());
+        return response()->json($helper->getStatus(), $helper->getCode());
     }
 
     public function showUser(User $user)
