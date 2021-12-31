@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
-    dd(request()->bearerToken(), base64url_decode("eyJhdWQiOiJmMWFmYmViZi1hMWIwLTQ3N2QtOTAwMi05ODQwZWVhYTQyYTkiLCJqdGkiOiIyYjc0ZDVlNzc1Yzk4MzNlZGJhYTI0YWE4M2ZmNjE0NWVjMjlhYjM5ZGU0NTg0OWYyYmJiMWM3MDQ1YzdjYjFhYjljYjU0OTcyZGE2MjI5YSIsImlhdCI6MTY0MDk2MTcwMS4zOTUxNjUsIm5iZiI6MTY0MDk2MTcwMS4zOTUxNjgsImV4cCI6MTY3MjQ5NzcwMS4zOTEzNjEsInN1YiI6IiIsInNjb3BlcyI6WyIqIl19"));
     dd('nothing in test');
 })->name('tester');
 
