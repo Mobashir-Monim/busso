@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnIsClientToUsersTable extends Migration
+class AddColumnScopesToOauthClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnIsClientToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_client')->nullable()->default(false);
+        Schema::table('oauth_clients', function (Blueprint $table) {
+            $table->json('scopes')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddColumnIsClientToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('oauth_clients', function (Blueprint $table) {
             //
         });
     }

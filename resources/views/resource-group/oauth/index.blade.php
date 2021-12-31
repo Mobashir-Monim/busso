@@ -88,25 +88,29 @@
                         </div>
                     </form>
                     
-                    <form action="{{ route('resource-groups.oauth.client-attach', ['group' => $group->id, 'oauth' => $group->oauth->id]) }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-12 mt-3">
-                                <h4 class="border-bottom border-3 border-primary">Client User</h4>
-                            </div>
-                            <div class="col-md-8 my-2">
-                                <div class="row">
-                                    <div class="col-md-12 mb-2">
-                                        @if ($group->oauth->user_attached)
-                                            Client Users exists for API consumption
-                                        @else
-                                            <button class="btn btn-dark w-100">Attach Client User for API consumption</button>
-                                        @endif
-                                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mt-3">
+                            <h4 class="border-bottom border-3 border-primary">API Authorizations</h4>
+                        </div>
+                        <div class="col-md-8 my-2">
+                            <div class="row">
+                                <div class="col-md-12 mb-2">
+                                    @if ($group->oauth->api_enabled)
+                                        <form action="{{ route('resource-groups.oauth.toggle-api', ['group' => $group, 'oauth' => $group->oauth]) }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-dark w-100 mb-4">Disable API consumption</button>
+                                        </form>
+                                        @include('resource-group.oauth.scopes')
+                                    @else
+                                        <form action="{{ route('resource-groups.oauth.toggle-api', ['group' => $group, 'oauth' => $group->oauth]) }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-dark w-100">Enable API consumption</button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

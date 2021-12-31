@@ -80,5 +80,9 @@ class Kernel extends HttpKernel
         'password-reset.validity' => \App\Http\Middleware\PasswordReset\CheckLastUpdate::class,
         'roles.has-system-role' => \App\Http\Middleware\RoleMiddlewares\HasSystemRole::class,
         'users.is-active' => \App\Http\Middleware\UserMiddlewares\IsActive::class,
+        'client_credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+        'api.enabled' => \App\Http\Middleware\API\Enabled::class,
+        'scopes' => \App\Http\Middleware\API\HasScopes::class,
+        'scope' => \App\Http\Middleware\API\HasAnyScope::class,
     ];
 }

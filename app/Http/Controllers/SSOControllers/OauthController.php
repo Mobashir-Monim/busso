@@ -113,10 +113,30 @@ class OauthController extends Controller
         );
     }
 
-    public function attachClientUser(ResourceGroup $group, Client $oauth, Request $request)
+    public function toggleAPI(ResourceGroup $group, Client $oauth, Request $request)
     {
-        $helper = new UserCreator($group, $oauth);
+        $oauth->api_enabled = !$oauth->api_enabled;
+        $oauth->save();
 
         return redirect()->route('resource-groups.show', ['group' => $group->id]);
+    }
+
+    public function toggleScope(ResourceGroup $group, Client $oauth, Request $request)
+    {
+        if (is_null($oauth->scopes))
+            $oauth->scopes = [];
+
+        if (in_array($request->scope, $oauth->scopes)) {
+            $oauth->scopes = array_filter($oauth->scopes, fn ($scope) => $scope != $request->scope);
+        } else {
+            $oauth->scopes = array_merge($oauth->scopes, [$request->scope]);
+        }
+
+        $oauth->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => "$request->scope toggled"
+        ]);
     }
 }

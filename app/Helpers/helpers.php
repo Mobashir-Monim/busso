@@ -50,3 +50,10 @@ function includes($string, $subString)
 {
     return strpos($string, $subString) === false ? false : true;
 }
+
+function oauth2ScopeParser(string $scope)
+{
+    return implode(" ", array_map(function($part) {
+        return ucfirst($part);
+    }, explode(".", $scope)));
+}

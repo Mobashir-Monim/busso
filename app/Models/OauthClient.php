@@ -12,6 +12,10 @@ class OauthClient extends Model
     use HasFactory;
     use Concerns\UsesUuid;
 
+    protected $casts = [
+        'scopes' => 'array'
+    ];
+
     public function entity()
     {
         Relation::morphMap([

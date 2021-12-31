@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    @include('resource-group.oauth')
+    @include('resource-group.oauth.index')
     @include('resource-group.saml')
     @include('resource-group.delete')
 @endsection

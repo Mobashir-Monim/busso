@@ -11,6 +11,10 @@ class Client extends PassportClient
 {
     use \App\Models\Concerns\UsesUuid;
 
+    protected $casts = [
+        'scopes' => 'array'
+    ];
+
     public function getPemPassAttribute()
     {
         $helper = new Helper;

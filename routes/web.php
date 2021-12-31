@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/test', function () {
+    dd(request()->bearerToken(), base64url_decode("eyJhdWQiOiJmMWFmYmViZi1hMWIwLTQ3N2QtOTAwMi05ODQwZWVhYTQyYTkiLCJqdGkiOiIyYjc0ZDVlNzc1Yzk4MzNlZGJhYTI0YWE4M2ZmNjE0NWVjMjlhYjM5ZGU0NTg0OWYyYmJiMWM3MDQ1YzdjYjFhYjljYjU0OTcyZGE2MjI5YSIsImlhdCI6MTY0MDk2MTcwMS4zOTUxNjUsIm5iZiI6MTY0MDk2MTcwMS4zOTUxNjgsImV4cCI6MTY3MjQ5NzcwMS4zOTEzNjEsInN1YiI6IiIsInNjb3BlcyI6WyIqIl19"));
     dd('nothing in test');
 })->name('tester');
 
@@ -76,7 +77,8 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->group
                     Route::delete('/{group}/delete', [App\Http\Controllers\ResourceGroupController::class, 'delete'])->name('delete');
                     Route::post('/{group}/{oauth}/oauth', [App\Http\Controllers\ResourceGroupController::class, 'oauthReset'])->name('oauth.reset');
                     Route::post('/{group}/{oauth}/oauth/redirect', [App\Http\Controllers\ResourceGroupController::class, 'redirectSet'])->name('oauth.redirect-set');
-                    Route::post('/{group}/{oauth}/client/attach', [App\Http\Controllers\SSOControllers\OauthController::class, 'attachClientUser'])->name('oauth.client-attach');
+                    Route::post('/{group}/{oauth}/client/toggle-api', [App\Http\Controllers\SSOControllers\OauthController::class, 'toggleAPI'])->name('oauth.toggle-api');
+                    Route::post('/{group}/{oauth}/client/toggle-scope', [App\Http\Controllers\SSOControllers\OauthController::class, 'toggleScope'])->name('oauth.toggle-scope');
                     Route::post('/{group}/{saml}/saml', [App\Http\Controllers\ResourceGroupController::class, 'samlConfig'])->name('saml.config');
                 });
     

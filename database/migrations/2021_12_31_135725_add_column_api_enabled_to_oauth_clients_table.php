@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnUserAttachedToOauthClientsTable extends Migration
+class AddColumnApiEnabledToOauthClientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddColumnUserAttachedToOauthClientsTable extends Migration
     public function up()
     {
         Schema::table('oauth_clients', function (Blueprint $table) {
-            $table->boolean('user_attached')->default(false)->nullable();
+            $table->boolean('api_enabled')->default(false)->nullable();
         });
     }
 

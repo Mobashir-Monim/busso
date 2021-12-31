@@ -63,4 +63,11 @@ return [
         ],
     ],
 
+    'scopes' => [
+        "user.create" => "Create users",
+        "user.read" => "Read data of a user",
+        "role.read" => "Read data of a role",
+        "user.role.attach" => "Attach a role to a user",
+    ]
+
 ];
