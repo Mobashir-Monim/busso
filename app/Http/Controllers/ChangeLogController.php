@@ -9,7 +9,7 @@ class ChangeLogController extends Controller
 {
     public function index()
     {
-        $logs = ChangeLog::select('type', 'mode', 'group_id', 'user_id')->orderBy('created_at', 'DESC')->groupBy('type', 'mode', 'group_id', 'user_id', 'created_at')->paginate(20);
+        $logs = ChangeLog::select('type', 'mode', 'group_id', 'user_id', 'user_type')->orderBy('created_at', 'DESC')->groupBy('type', 'mode', 'group_id', 'user_id', 'user_type', 'created_at')->paginate(20);
         
         return view('change-log.index', [
             'logs' => $logs

@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             'resource_group' => 'App\Models\ResourceGroup',
             'user' => 'App\Models\User',
+            'api_client' => 'App\Models\OauthClient',
         ]);
     }
 }

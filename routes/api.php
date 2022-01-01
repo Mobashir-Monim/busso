@@ -45,5 +45,5 @@ Route::middleware(['password-reset.enforced', 'password-reset.validity'])->name(
 Route::middleware(['client_credentials', 'api.enabled'])->name('api.')->group(function() {
     Route::post('/oauth2/access_token', [App\Http\Controllers\APIControllers\AuthController::class, 'simpleOAuthClientCredentials'])->name('auth');
 
-    Route::post('/v1/user/create', [App\Http\Controllers\UserController::class, 'create'])->middleware(['scopes:user.create'])->name('user.create');
+    Route::post('/v1/user/create', [App\Http\Controllers\UserController::class, 'create'])->middleware(['scopes:user.create'])->name('users.create');
 });

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ResourceGroup;
 use App\Helpers\Helper;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class OauthClient extends Model
 {

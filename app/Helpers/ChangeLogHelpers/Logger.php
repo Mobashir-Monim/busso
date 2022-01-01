@@ -28,10 +28,11 @@ abstract class Logger extends Helper
             'type' => $type,
             'mode' => $this->mode,
             'url' => request()->url(),
-            'route_name' => request()->route()->getName(),
+            'route_name' => str_replace('api.', '', request()->route()->getName()),
             'change_data' => [],
-            'user_id' => auth()->user()->id,
         ];
+
+        $this->setLogUser();
 
         $this->log['group_id'] = $this->generateGroupID($type);
     }
@@ -53,6 +54,17 @@ abstract class Logger extends Helper
             return $group_id;
         } else {
             return $log->group_id;
+        }
+    }
+
+    public function setLogUser()
+    {
+        if (!is_null(request()->api_client)) {
+            $this->log['user_id'] = request()->api_client->id;
+            $this->log['user_type'] = 'api_client';
+        } else {
+            $this->log['user_id'] = auth()->user()->id;
+            $this->log['user_type'] = 'user';
         }
     }
     

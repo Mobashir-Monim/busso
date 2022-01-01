@@ -20,10 +20,17 @@
                                         <p class="text-muted mb-0 text-right">
                                             {{ $log->group_id }}
                                         </p>
-                                        <p class="text-primary mb-0 d-flex justify-content-end bg-light" onclick="window.open('{{ route('users.show', ['user' => $log->user_id]) }}')">
-                                            <span class="material-icons-outlined mr-2" style="font-size: 19px">account_circle</span>
-                                            {{ $log->user->name }}
-                                        </p>
+                                        @if ($log->user_type == 'user')
+                                            <p class="text-primary mb-0 d-flex justify-content-end bg-light" onclick="window.open('{{ route('users.show', ['user' => $log->user_id]) }}')">
+                                                <span class="material-icons-outlined mr-2" style="font-size: 19px">account_circle</span>
+                                                {{ $log->user->name }}
+                                            </p>
+                                        @else
+                                            <p class="text-primary mb-0 d-flex justify-content-end bg-light" onclick="window.open('{{ route('resource-groups.show', ['group' => $log->user->group->id]) }}')">
+                                                <span class="material-icons-outlined mr-2" style="font-size: 19px">account_circle</span>
+                                                {{ $log->user->name }} (API Client)
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
